@@ -1,0 +1,141 @@
+Windows操作系统平台：
+动态链接库：dll类型，
+静态链接库：lib类型；
+
+3、动态库与静态库的区别：
+a、静态库中的代码会直接塞到EXE中，而动态库则可以被EXE动态的加载或卸载；
+b、静态库中不能再包含其他的动态或静态库，而动态库则可以。
+
+4、实现方式：
+动态库可以被多种语言来实现，只要遵循动态库的接口规范和调用方式即可，用各种语言编写的动态库也都可以互相调用。比如Windows系统提供的动态库，在任何开发语言的编译器上都可以调用，VB，VC，Delphi，C# 等等。
+
+5、Vc++编译器中动态库的分类：
+① 非MFC的DLL -- 即使用 SDK API 进行编程，能被其他所有语言调用；
+② MFC规则DLL --- 可以使用 MFC 进行编程，能被其他所有语言调用，包括动态(共享)链接和静态链接；
+③ MFC扩展DLL --- 可以使用 MFC进行编程，但只能被用MFC编写的程序调用。
+
+6、静态库演练：
+静态库的调用：
+①、包含静态库中函数的声明的头文件；
+#include "../xxx/xxx.h"
+②、把静态库链接进EXE工程中。
+#pragma comment(lib,"../xxx/xxxt.lib")
+
+
+4、DLL导出函数：
+DLL只有将函数进行导出，这样其他的程序才可以进行调用。
+DLL里面可以有2种函数：一种是导出函数，供被DLL调用的程序使用，比如说是EXE等；另外一种是供DLL内部调用使用，不提供导出。
+
+5、DLL导出函数的方式：*.def 文件或 __declspec(dllexport) 关键字：
+①*.def 文件必须至少包含下列模块定义语句：
+■文件中的第一个语句必须是 LIBRARY 语句。此语句将 .def 文件标识为属于 DLL。LIBRARY 语句的后面是 DLL 的名称。链接器将此名称放到 DLL 的导入库中。
+■EXPORTS 语句列出名称，可能的话还会列出 DLL 导出函数的序号值。通过在函数名的后面加上 @ 符和一个数字，给函数分配序号值。当指定序号值时，序号值的范围必须是从 1 到 N，其中 N 是 DLL 导出函数的个数。
+■注释语句，在语句前面加分号 “;” 。
+
+例如：
+;DLLTest.def : Declares the module parameters for the DLL.
+LIBRARY   "DLLTest"
+EXPORTS
+   add   @1
+   fun   @2
+
+②_declspec(dllexport) 导出方式：
+为了防止名字改编，将 extern "C" _declspec(dllexport) 语句放在想要导出函数的声明前面；
+例如：
+extern "C" _declspec(dllexport) int add(int a, int b);
+
+注：如果要进行函数的导入则把dllexport换成dllimport即可，如：extern "C" _declspec(dllimport) 关于函数的导入方面，之后会为大家进行纤细介绍。
+
+借助Vs自带的dumpbin 查看导出函数是否成功
+加入环境变量：
+D:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\Hostx64\arm 
+D:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64
+D:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build
+切换到dll目录 dumpbin /exports xx.dll(列出导出函数) 、dumpbin -imports xxx.exe(查看输入信息)
+
+1、隐式链接：
+隐式链接的特点是由编译器完成对DLL的加载和程序结束时对DLL的卸载工作，如果程序结束时如果还有其他应用程序使用该DLL，那么系统会使DLL的使用计数减1，当DLL的使用计数降为0时，会将DLL从内存中删除。
+★优缺点：隐式链接DLL的方法简单实用，但缺少灵活性。
+■使用方法：使用隐式链接DLL开发时，首先，需要将DLL的引入库文件(*.lib--编译生成DLL时，会一起生成的)与应用程序进行静态链接，因为引入库文件包含DLL的各种输出资源，如导出函数，导出类等信息，这些信息指向DLL的函数指针等等，EXE执行时，DLL被 “自动” 加载，EXE退出时DLL被 “自动” 卸载。
+
+2、显示链接：
+显示链接方式是完全由编程者用API 加载和卸载DLL，编程者可以决定何时加载DLL，加载哪个DLL，何时卸载DLL，卸载哪个DLL等。
+★优缺点：显示链接方式充分体现了DLL的灵活性，是比较常用的调用DLL方式。但是与静态链接相比稍微复杂了些。
+■使用方法：
+LoadLibrary(...)：该 API 用于加载指定的DLL；
+GetProcAddress(...)：该 API 用于获取DLL中导出函数的指针， 即导出函数的入口点；
+FreeLibrary(...)：该 API 用于卸载指定的DLL。
+
+〓注：如果程序中多次调用LoadLibrary(...)加载同一DLL时，在卸载的时候也要调用相应次数的FreeLibrary(...)进行卸载。
+
+3、举例说明……
+▲使用LoadLibrary显式链接，在这个函数的参数中可以指定DLL文件的完整路径。如果不指定路径，Windows将遵循如下的搜索顺序来定位DLL：
+①EXE文件所在的目录：
+②进程的当前工作目录：
+③Windows系统目录：例如：C:\WINDOWS\system32
+④Windows目录：例如：C:\WINDOWS
+⑤环境变量的目录：我的电脑-->属性-->高级-->环境变量
+
+说明：
+●进程的当前工作目录：使用函数SetCurrentDirectory(...)设置的路径，或者从父进程继承而来的路径，使用GetCurrentDirectory(...)得到。 
+●EXE文件所在的目录：本EXE文件所在的绝对路径， 使用GetModuleFileName得到。 
+两者可能不同。 
+
+▲GetProcAddress函数可以有两种方式取得DLL导出函数的入口点：
+例如：
+GetProcAddress(hMod, "add"); //按照函数名称方式；
+GetProcAddress(hMod, MAKEINTRESOURCEA(1)); //按照导出函数序号方式；
+
+1、MFC规则DLL特点：
+●DLL内部可以使用MFC类库；
+●可以被其他所有支持DLL技术的语言所调用。
+
+2、MFC规则DLL的入口点函数：
+默认情况下DLL的入口点函数都是DllMain，MFC规则DLL也不例外，但是因为是支持MFC的，所以在MFC规则DLL中，DllMain函数已经被MFC所封装，所以在你的工程中是看不到DllMain函数的，就好像在MFC对话框工程中你找不到WinMain函数一样的，不过也有一些补救的技巧，就是InitInstance()与ExitInstance()函数，当进程初始化调用DLL时，DLL中会默认调用那个InitInstance()函数，当EXE退出时DLL会调用ExitInstance()函数，但是当有新线程时，处于程序安全性考虑则没有什么好的办法进行处理。
+
+3、MFC规则DLL分为两类：
+●静态链接到MFC的规则DLL：与MFC库静态链接，会将MFC类库的代码直接编译生成到DLL文件中，在调用这种DLL的接口时，MFC使用DLL的资源，因此，不需要模块状态的切换，但是缺点就是使用这种方式生成的DLL文件大小比较大。
+●动态（共享）链接到MFC的规则DLL：可以和调用DLL的EXE同时动态链接到MFC库，在这种情况下，MFC使用主应用程序(即：EXE程序)的资源句柄来加载资源模版，这样，当DLL和应用程序中存在相同ID的资源时，就要进行模块的切换，以便MFC能够找到正确的资源模版。
+
+4、MFC规则DLL的模块状态切换：
+三种方法：
+①AFX_MANAGE_STATE(AfxGetStaticModuleState()); 
+②HINSTANCE hSaveInst = AfxGetResourceHandle();
+   AfxSetResourceHandle(theApp.m_hInstance);
+   ... ... //执行语句；
+   AfxSetResourceHandle(hSaveInst);
+③HINSTANCE hExeInst = GetModuleHandle(NULL);
+   HINSTANCE hDLLInst = GetModuleHandle(_T("MFCDLL.dll"));
+   ASSERT(hExeInst && hDLLInst);
+   AfxSetResourceHandle(hDLLInst);
+   ... ... //执行语句；
+   AfxSetResourceHandle(hExeInst);
+
+★最方便的还是第一种方法，前两种是在DLL导出函数中进行添加，第三种是在EXE程序中进行添加。
+
+1、为什么要进行进程注入：到了WinNT以后的系列操作系统中，每个进程都有自己的4GB私有进程地址空间，彼此互不相关。进程A中的一个地址，比如：0x12345678，到了进程B中的相同地方，存的东西完全不一样，或者说不可预料。所以说如果进程A想要看看或者修改进程B地址空间中的内容，就必须深入到其地址空间中，因为DLL是可以被加载到任何进程当中的，所以在进程注入中，DLL应该是主角，也就是说一些核心的代码都应该放在DLL中编写。
+对于我们小黑来说：优点就是进程隐藏，能穿透防火墙。
+
+2、注入的缺点：
+如果DLL程序的算法不是很好，或者DLL文件有Bug，那么将影响目标进程的执行效率，或者说干脆目标进程崩溃。
+
+3、注入的具体方法：
+目前Windows操作系统上面注入的方法也很多，《Windows核心编程》上面介绍了不少，大家也可以到网上搜索一下，比如钩子，远程线程技术等等……
+
+4、具体编程方法：
+本课程教大家用远程线程技术来实现进程的注入。
+用到的API函数：
+OpenProcess(...) //获取已知进程的句柄；
+VirtualAllocEx(...) //在进程中申请空间；
+WriteProcessMemory(...) //向进程中写入东西；
+GetProcAddress(...) //取得函数在DLL中的地址；
+CreateRemoteThread(...) //在其他进程中创建新线程；
+CloseHandle(...) //关闭句柄；
+
+■补充：并不是所有的远程注入都能成功，有时候调用OpenProcess(...)或者WriteProcessMemory(...)函数的时候，会调用失败，调用GetLastError()返回错误码是5，拒绝访问，意思是说你的权限不够，那么网上也有现成的提权的函数，这里面也给大家写了一个，但是随着Windows操作系统的升级，Xp->Vista->7，其安全性也越来越高，所以以前在XpSp2上编写的程序，到Sp3或者Vista上面权限又不够了，所以说提权代码也不是万能的，技术没有止境！
+
+
+
+
+
+

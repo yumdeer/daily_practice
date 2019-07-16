@@ -1,0 +1,8 @@
+<<<<<<< HEAD
+VassistX ·¬ÇÑÖúÊÖ
+devcolor
+=======
+VassistX ·¬ÇÑÖúÊÖ
+devcolor
+>>>>>>> temp
+Visual Studio color theme Editor

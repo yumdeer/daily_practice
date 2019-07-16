@@ -1,0 +1,65 @@
+<<<<<<< HEAD
+树莓派，arduino，arm
+①②③④⑤⑥⑦⑧⑨⑩
+U：元件或调节器IC
+C：电容器
+CB：电容旁路
+CT：电容器Tantal
+CTB：电容器Tantal旁路
+J：跳线
+JB：CPU到基座连接器
+JP：跳线电源
+R：电阻
+RA：电阻阵列
+RP：电阻功率
+VR：可变电阻
+L：电感
+FB：铁氧体磁珠
+OSC：振荡器
+X：X-tal（水晶）
+问：晶体管或FET
+D：二极管
+ZD：齐纳二极管
+LED：LED二极管
+SW：SWitch Tact / Push
+CON：连接器
+CFG：ConFiGure开关（DIP / Slide）
+TP：测试点（SMD）
+TPH：测试点孔（通孔）
+MTH：安装通孔
+MOD：MODule接口连接器
+
+DDR(SDRAM) SSD(NAND Flash)
+=======
+树莓派，arduino，arm
+①②③④⑤⑥⑦⑧⑨⑩
+U：元件或调节器IC
+C：电容器
+CB：电容旁路
+CT：电容器Tantal
+CTB：电容器Tantal旁路
+J：跳线
+JB：CPU到基座连接器
+JP：跳线电源
+R：电阻
+RA：电阻阵列
+RP：电阻功率
+VR：可变电阻
+L：电感
+FB：铁氧体磁珠
+OSC：振荡器
+X：X-tal（水晶）
+问：晶体管或FET
+D：二极管
+ZD：齐纳二极管
+LED：LED二极管
+SW：SWitch Tact / Push
+CON：连接器
+CFG：ConFiGure开关（DIP / Slide）
+TP：测试点（SMD）
+TPH：测试点孔（通孔）
+MTH：安装通孔
+MOD：MODule接口连接器
+
+DDR(SDRAM) SSD(NAND Flash)
+>>>>>>> temp

@@ -1,0 +1,195 @@
+<<<<<<< HEAD
+1.建立GPIO文件夹，建立user子文件夹，复制所需工程文件，在user在子文件夹建立存放h头文件的inc
+和建立存放c头文件的src文件夹。
+2.打开keil5，project新建。
+3.打开Manage project items，更改目标名字为GPIO，更改组名字CMSIS并添加新组User。
+4.在左侧project的CMSIS文件夹添加.C头文件，在User文件夹添加.C头文件。
+5.在option for  Target 打开C/C++，在...添加h头文件。
+6.在option for  Target 打开Debug。
+
+inc是include的简称，src是source的简称。
+include文件夹下面一般放置头文件(头函数定义)，一般是h文件  h文件不用添加工程但要写入#include"xx.h"
+source文件夹下面一般放置头文件的定义(.h原型函数的实现)，一般是C文件   c文件需要添加工程，可以直接被调用。
+
+
+新建一个文件.c，保存在src文件夹， 在USER添加工程。//.h文件不用添加到工程
+把需要的函数，相关的函数搬过去，并把头文件搬过去，主函数调用函数名。
+
+主函数只能有一个，新建的C文件也不能有主函数。
+在新建一个文件.h，保存在inc文件夹，不用添加工程，将之前.c的函数的函数定义（例：u8 Key_Scan(void) ;
+一个语句，非整体）复制过去。
+
+加入静态关键字static使函数可以在多个.C文件使用
+
+按住ALT键可以选中局部。
+
+中文取模-在取模软件设置C51，去掉行前，后缀，在lcd.c建立一个带const的数组，粘贴字模。在下面建立一个
+函数 例子
+void Lcd_chinese(u16 x,u16 y,u16 c1,u16 c2,u16 number)
+{
+	 u8 i,j;
+	 u16 temp;
+	 const u16 *pFont=(const u16 *)&chinese[number*32];
+	
+	 for(i=0;i<16;i++)
+	 {
+		 temp=pFont[i];
+		 for(j=0;j<16;j++)	 
+		 {
+			if(temp&0x8000)
+			{
+				lcd_draw_point(x+j,y+i,c1);
+			}
+			else
+			{
+			 lcd_draw_point(x+j,y+i,c2);
+			}
+			temp<<=1;
+		 }  
+	 }
+}
+在lcd定义void Lcd_chinese(u16 x,u16 y,u16 c1,u16 c2,u16 number)；
+并在主函数调用Lcd_chinese(X位置，Y位置，字颜色，底颜色，第几个字）；
+
+图片取模-在取模软件设置 C语言，水平，16位，320*480，下面都不打勾。
+图片剪切为240*320
+输出函数.c的文件，存放在src文件夹，添加这个C文件到工程，
+打开这个c文件，复制头定义，在lcd.c里 定义一个外部进入头函数， 并且定义一个新的函数
+加入清屏在函数  例：
+extern const unsigned char gImage_bobo[153600];   //与图片输出的C文件头文件一致加上外部输入extern
+
+void Lcd_bobo()
+{
+	u32 i;                                         //清屏函数
+	u16 *p=(u16 *)gImage_bobo;                     //强制转换
+	
+	LCD_ILI9341_CMD(0x2a);
+	LCD_ILI9341_Parameter(0>>8);
+	LCD_ILI9341_Parameter(0&0xff);
+	LCD_ILI9341_Parameter((239&0xff00)>>8);
+	LCD_ILI9341_Parameter(239&0xff);
+	
+	LCD_ILI9341_CMD(0x2b);
+	LCD_ILI9341_Parameter((0&0xff00)>>8);
+	LCD_ILI9341_Parameter(0&0xff);
+	LCD_ILI9341_Parameter((319&0xff00)>>8);
+	LCD_ILI9341_Parameter(319&0xff);
+	
+	LCD_ILI9341_CMD(0x2c);
+	for(i=0;i<240*320;i++)                        	//
+	{
+		LCD_ILI9341_Parameter(*p);
+                p++;		
+	}
+}	
+在lcd.h里添加空定义void Lcd_bobo(void);，在main函数直接调用。
+
+
+
+
+
+
+
+
+
+
+
+
+=======
+1.建立GPIO文件夹，建立user子文件夹，复制所需工程文件，在user在子文件夹建立存放h头文件的inc
+和建立存放c头文件的src文件夹。
+2.打开keil5，project新建。
+3.打开Manage project items，更改目标名字为GPIO，更改组名字CMSIS并添加新组User。
+4.在左侧project的CMSIS文件夹添加.C头文件，在User文件夹添加.C头文件。
+5.在option for  Target 打开C/C++，在...添加h头文件。
+6.在option for  Target 打开Debug。
+
+inc是include的简称，src是source的简称。
+include文件夹下面一般放置头文件(头函数定义)，一般是h文件  h文件不用添加工程但要写入#include"xx.h"
+source文件夹下面一般放置头文件的定义(.h原型函数的实现)，一般是C文件   c文件需要添加工程，可以直接被调用。
+
+
+新建一个文件.c，保存在src文件夹， 在USER添加工程。//.h文件不用添加到工程
+把需要的函数，相关的函数搬过去，并把头文件搬过去，主函数调用函数名。
+
+主函数只能有一个，新建的C文件也不能有主函数。
+在新建一个文件.h，保存在inc文件夹，不用添加工程，将之前.c的函数的函数定义（例：u8 Key_Scan(void) ;
+一个语句，非整体）复制过去。
+
+加入静态关键字static使函数可以在多个.C文件使用
+
+按住ALT键可以选中局部。
+
+中文取模-在取模软件设置C51，去掉行前，后缀，在lcd.c建立一个带const的数组，粘贴字模。在下面建立一个
+函数 例子
+void Lcd_chinese(u16 x,u16 y,u16 c1,u16 c2,u16 number)
+{
+	 u8 i,j;
+	 u16 temp;
+	 const u16 *pFont=(const u16 *)&chinese[number*32];
+	
+	 for(i=0;i<16;i++)
+	 {
+		 temp=pFont[i];
+		 for(j=0;j<16;j++)	 
+		 {
+			if(temp&0x8000)
+			{
+				lcd_draw_point(x+j,y+i,c1);
+			}
+			else
+			{
+			 lcd_draw_point(x+j,y+i,c2);
+			}
+			temp<<=1;
+		 }  
+	 }
+}
+在lcd定义void Lcd_chinese(u16 x,u16 y,u16 c1,u16 c2,u16 number)；
+并在主函数调用Lcd_chinese(X位置，Y位置，字颜色，底颜色，第几个字）；
+
+图片取模-在取模软件设置 C语言，水平，16位，320*480，下面都不打勾。
+图片剪切为240*320
+输出函数.c的文件，存放在src文件夹，添加这个C文件到工程，
+打开这个c文件，复制头定义，在lcd.c里 定义一个外部进入头函数， 并且定义一个新的函数
+加入清屏在函数  例：
+extern const unsigned char gImage_bobo[153600];   //与图片输出的C文件头文件一致加上外部输入extern
+
+void Lcd_bobo()
+{
+	u32 i;                                         //清屏函数
+	u16 *p=(u16 *)gImage_bobo;                     //强制转换
+	
+	LCD_ILI9341_CMD(0x2a);
+	LCD_ILI9341_Parameter(0>>8);
+	LCD_ILI9341_Parameter(0&0xff);
+	LCD_ILI9341_Parameter((239&0xff00)>>8);
+	LCD_ILI9341_Parameter(239&0xff);
+	
+	LCD_ILI9341_CMD(0x2b);
+	LCD_ILI9341_Parameter((0&0xff00)>>8);
+	LCD_ILI9341_Parameter(0&0xff);
+	LCD_ILI9341_Parameter((319&0xff00)>>8);
+	LCD_ILI9341_Parameter(319&0xff);
+	
+	LCD_ILI9341_CMD(0x2c);
+	for(i=0;i<240*320;i++)                        	//
+	{
+		LCD_ILI9341_Parameter(*p);
+                p++;		
+	}
+}	
+在lcd.h里添加空定义void Lcd_bobo(void);，在main函数直接调用。
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> temp
