@@ -1,0 +1,7 @@
+﻿  chessboard.cpp
+  chessboard.h
+  snake.cpp
+  贪吃蛇.cpp
+  正在生成代码...
+Debug\chessboard.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+  贪吃蛇.vcxproj -> E:\Desktop file\C++ Daily-practice\vs project\贪吃蛇\Debug\贪吃蛇.exe

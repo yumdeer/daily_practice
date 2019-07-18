@@ -1,0 +1,7 @@
+﻿  依赖.cpp
+e:\desktop file\c++ daily-practice\vs_project\template_\依赖\依赖.cpp(23): warning C4346: “iterator”: 依赖名称不是类型
+  e:\desktop file\c++ daily-practice\vs_project\template_\依赖\依赖.cpp(23): note: 用“typename”为前缀来表示类型
+  e:\desktop file\c++ daily-practice\vs_project\template_\依赖\依赖.cpp(25): note: 参见对正在编译的 类 模板 实例化 "CCustomerList<T>" 的引用
+e:\desktop file\c++ daily-practice\vs_project\template_\依赖\依赖.cpp(23): error C2061: 语法错误: 标识符“iterator”
+e:\desktop file\c++ daily-practice\vs_project\template_\依赖\依赖.cpp(23): error C2238: 意外的标记位于“;”之前
+e:\desktop file\c++ daily-practice\vs_project\template_\依赖\依赖.cpp(13): error C2760: 语法错误: 意外的令牌“标识符”，预期的令牌为“;”

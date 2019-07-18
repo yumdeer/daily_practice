@@ -1,0 +1,17 @@
+﻿生成启动时间为 2018/10/30 22:20:08。
+     1>项目“F:\vs project\函数对象\函数对象\函数对象.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在对“Debug\函数对象.unsuccessfulbuild”执行 Touch 任务。
+       ClCompile:
+         所有输出均为最新。
+       ManifestResourceCompile:
+         所有输出均为最新。
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\vs project\函数对象\Debug\函数对象.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\函数对象.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\vs project\函数对象\Debug\函数对象.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\vs project\函数对象\Debug\函数对象.lib" /MACHINE:X86 "Debug\函数对象.exe.embed.manifest.res"
+         Debug\main.obj
+     1>LINK : fatal error LNK1104: 无法打开文件“libboost_thread-vc100-mt-gd-x32-1_68.lib”
+     1>已完成生成项目“F:\vs project\函数对象\函数对象\函数对象.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.14

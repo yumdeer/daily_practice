@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "array", "C++11标准库的扩充_新增容器\C++11标准库的扩充_新增容器.vcxproj", "{517A2013-1C24-4A70-84CD-566056860186}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "array兼容 C 风格的接口", "array兼容 C 风格的接口\array兼容 C 风格的接口.vcxproj", "{6942A83F-BF0D-4F52-AE24-7EB2963D47AD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "map和multimap", "forward_list\forward_list.vcxproj", "{357FCD34-4E61-403E-840B-FBD8843E91CA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vector", "vector\vector.vcxproj", "{20EDCAD4-F85A-49E0-A9E1-FA19E1C510C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{517A2013-1C24-4A70-84CD-566056860186}.Debug|x64.ActiveCfg = Debug|x64
+		{517A2013-1C24-4A70-84CD-566056860186}.Debug|x64.Build.0 = Debug|x64
+		{517A2013-1C24-4A70-84CD-566056860186}.Debug|x86.ActiveCfg = Debug|Win32
+		{517A2013-1C24-4A70-84CD-566056860186}.Debug|x86.Build.0 = Debug|Win32
+		{517A2013-1C24-4A70-84CD-566056860186}.Release|x64.ActiveCfg = Release|x64
+		{517A2013-1C24-4A70-84CD-566056860186}.Release|x64.Build.0 = Release|x64
+		{517A2013-1C24-4A70-84CD-566056860186}.Release|x86.ActiveCfg = Release|Win32
+		{517A2013-1C24-4A70-84CD-566056860186}.Release|x86.Build.0 = Release|Win32
+		{6942A83F-BF0D-4F52-AE24-7EB2963D47AD}.Debug|x64.ActiveCfg = Debug|x64
+		{6942A83F-BF0D-4F52-AE24-7EB2963D47AD}.Debug|x64.Build.0 = Debug|x64
+		{6942A83F-BF0D-4F52-AE24-7EB2963D47AD}.Debug|x86.ActiveCfg = Debug|Win32
+		{6942A83F-BF0D-4F52-AE24-7EB2963D47AD}.Debug|x86.Build.0 = Debug|Win32
+		{6942A83F-BF0D-4F52-AE24-7EB2963D47AD}.Release|x64.ActiveCfg = Release|x64
+		{6942A83F-BF0D-4F52-AE24-7EB2963D47AD}.Release|x64.Build.0 = Release|x64
+		{6942A83F-BF0D-4F52-AE24-7EB2963D47AD}.Release|x86.ActiveCfg = Release|Win32
+		{6942A83F-BF0D-4F52-AE24-7EB2963D47AD}.Release|x86.Build.0 = Release|Win32
+		{357FCD34-4E61-403E-840B-FBD8843E91CA}.Debug|x64.ActiveCfg = Debug|x64
+		{357FCD34-4E61-403E-840B-FBD8843E91CA}.Debug|x64.Build.0 = Debug|x64
+		{357FCD34-4E61-403E-840B-FBD8843E91CA}.Debug|x86.ActiveCfg = Debug|Win32
+		{357FCD34-4E61-403E-840B-FBD8843E91CA}.Debug|x86.Build.0 = Debug|Win32
+		{357FCD34-4E61-403E-840B-FBD8843E91CA}.Release|x64.ActiveCfg = Release|x64
+		{357FCD34-4E61-403E-840B-FBD8843E91CA}.Release|x64.Build.0 = Release|x64
+		{357FCD34-4E61-403E-840B-FBD8843E91CA}.Release|x86.ActiveCfg = Release|Win32
+		{357FCD34-4E61-403E-840B-FBD8843E91CA}.Release|x86.Build.0 = Release|Win32
+		{20EDCAD4-F85A-49E0-A9E1-FA19E1C510C0}.Debug|x64.ActiveCfg = Debug|x64
+		{20EDCAD4-F85A-49E0-A9E1-FA19E1C510C0}.Debug|x64.Build.0 = Debug|x64
+		{20EDCAD4-F85A-49E0-A9E1-FA19E1C510C0}.Debug|x86.ActiveCfg = Debug|Win32
+		{20EDCAD4-F85A-49E0-A9E1-FA19E1C510C0}.Debug|x86.Build.0 = Debug|Win32
+		{20EDCAD4-F85A-49E0-A9E1-FA19E1C510C0}.Release|x64.ActiveCfg = Release|x64
+		{20EDCAD4-F85A-49E0-A9E1-FA19E1C510C0}.Release|x64.Build.0 = Release|x64
+		{20EDCAD4-F85A-49E0-A9E1-FA19E1C510C0}.Release|x86.ActiveCfg = Release|Win32
+		{20EDCAD4-F85A-49E0-A9E1-FA19E1C510C0}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4DBEBC81-9748-440D-B6D0-86B38FBDDF80}
+	EndGlobalSection
+EndGlobal

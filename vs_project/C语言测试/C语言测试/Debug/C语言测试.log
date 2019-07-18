@@ -1,0 +1,7 @@
+﻿  main.cpp
+f:\vs project\c语言测试\c语言测试\main.cpp(28): error C2075: "A::o": 数组初始化需要带括号的初始值设定项列表
+f:\vs project\c语言测试\c语言测试\main.cpp(29): error C2664: “A::A(A &&)”: 无法将参数 1 从“initializer list”转换为“const int *”
+  f:\vs project\c语言测试\c语言测试\main.cpp(29): note: 初始值设定项包含过多元素
+f:\vs project\c语言测试\c语言测试\main.cpp(30): error C2075: "X::o": 数组初始化需要带括号的初始值设定项列表
+f:\vs project\c语言测试\c语言测试\main.cpp(34): error C2664: “A::A(A &&)”: 无法将参数 1 从“initializer list”转换为“const int *”
+  f:\vs project\c语言测试\c语言测试\main.cpp(34): note: 初始值设定项包含过多元素

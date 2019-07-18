@@ -1,0 +1,24 @@
+﻿生成启动时间为 2018/11/7 21:47:30。
+     1>项目“c:\Users\tk\documents\visual studio 2010\Projects\14.7.3 QueueTp\14.7.3 QueueTp\14.7.3 QueueTp.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Debug\14.7.3 QueueTp.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\tk\documents\visual studio 2010\projects\14.7.3 queuetp\14.7.3 queuetp\main.cpp(35): error C2664: “QueueTp<T>::enqueue”: 不能将参数 1 从“Worker *”转换为“const int &”
+                 with
+                 [
+                     T=int
+                 ]
+                 原因如下: 无法从“Worker *”转换为“const int”
+                 没有使该转换得以执行的上下文
+     1>c:\users\tk\documents\visual studio 2010\projects\14.7.3 queuetp\14.7.3 queuetp\main.cpp(41): error C2664: “QueueTp<T>::dequeue”: 不能将参数 1 从“Worker *”转换为“int &”
+                 with
+                 [
+                     T=int
+                 ]
+     1>已完成生成项目“c:\Users\tk\documents\visual studio 2010\Projects\14.7.3 QueueTp\14.7.3 QueueTp\14.7.3 QueueTp.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.80

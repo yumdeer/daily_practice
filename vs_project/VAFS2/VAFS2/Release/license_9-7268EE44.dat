@@ -1,0 +1,9 @@
+#############################################
+# Foxconn, Shenzhen (ID: FLEXID=9-7268EE44) #
+# Runtime Bundle                            #
+#############################################
+FEATURE MVTec_HALCON mvtecd 10.0 01-jan-0000 uncounted VENDOR_STRING=511 \
+	HOSTID=FLEXID=9-7268EE44 TS_OK SIGN="0D63 0DAC 6B88 2908 6B83 AAAF \
+	0A4E 19B0 BE37 7898 3A6A 1A37 7352 8055 F538 1238 2861 21FD 7C64 \
+	9DCC 071D A150 729B A7B0 E102 E0C4 DB12 605D A5A7 B0BF"
+

@@ -1,0 +1,18 @@
+﻿生成启动时间为 2018/11/19 10:25:08。
+     1>项目“F:\vs project\useless\useless\useless.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在对“Debug\useless.unsuccessfulbuild”执行 Touch 任务。
+       ClCompile:
+         所有输出均为最新。
+       ManifestResourceCompile:
+         所有输出均为最新。
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\vs project\useless\Debug\useless.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\useless.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\vs project\useless\Debug\useless.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\vs project\useless\Debug\useless.lib" /MACHINE:X86 Debug\useless.exe.embed.manifest.res
+         Debug\useless.obj
+     1>useless.obj : error LNK2019: 无法解析的外部符号 "public: __thiscall Useless::Useless(class Useless &&)" (??0Useless@@QAE@$$QAV0@@Z)，该符号在函数 "public: class Useless __thiscall Useless::operator+(class Useless const &)const " (??HUseless@@QBE?AV0@ABV0@@Z) 中被引用
+     1>F:\vs project\useless\Debug\useless.exe : fatal error LNK1120: 1 个无法解析的外部命令
+     1>已完成生成项目“F:\vs project\useless\useless\useless.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.16

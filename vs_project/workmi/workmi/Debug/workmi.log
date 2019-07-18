@@ -1,0 +1,14 @@
+﻿生成启动时间为 2018/11/3 21:54:23。
+     1>项目“F:\vs project\workmi\workmi\workmi.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Debug\workmi.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt workmi.cpp
+         workmi.cpp
+     1>f:\vs project\workmi\workmi\workmi.cpp(34): error C2275: “Waiter”: 将此类型用作表达式非法
+                 f:\vs project\workmi\workmi\workermi.h(24) : 参见“Waiter”的声明
+     1>已完成生成项目“F:\vs project\workmi\workmi\workmi.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.39

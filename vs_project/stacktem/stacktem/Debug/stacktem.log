@@ -1,0 +1,24 @@
+﻿生成启动时间为 2018/9/30 16:42:46。
+     1>项目“F:\vs project\stacktem\stacktem\stacktem.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Debug\stacktem.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stacktem.cpp
+         stacktem.cpp
+     1>f:\vs project\stacktem\stacktem\stacktem.cpp(33): error C2664: “Stack<Type>::push”: 不能将参数 1 从“std::string”转换为“char *const &”
+                 with
+                 [
+                     Type=char *
+                 ]
+                 原因如下: 无法从“std::string”转换为“char *const ”
+                 没有可用于执行该转换的用户定义的转换运算符，或者无法调用该运算符
+     1>f:\vs project\stacktem\stacktem\stacktem.cpp(39): error C2664: “Stack<Type>::pop”: 不能将参数 1 从“std::string”转换为“char *&”
+                 with
+                 [
+                     Type=char *
+                 ]
+     1>已完成生成项目“F:\vs project\stacktem\stacktem\stacktem.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.85

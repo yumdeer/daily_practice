@@ -1,0 +1,31 @@
+﻿生成启动时间为 2018/11/25 21:46:55。
+     1>项目“F:\vs project\vector\vector\vector.vcxproj”在节点 2 上(rebuild 个目标)。
+     1>_PrepareForClean:
+         正在删除文件“Debug\vector.lastbuildstate”。
+       InitializeBuildStatus:
+         正在创建“Debug\vector.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt 01.cpp
+         01.cpp
+     1>f:\vs project\vector\vector\01.cpp(20): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\vector.exe.embed.manifest.res" Debug\vector_manifest.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\vs project\vector\Debug\vector.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\vector.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\vs project\vector\Debug\vector.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\vs project\vector\Debug\vector.lib" /MACHINE:X86 Debug\vector.exe.embed.manifest.res
+         Debug\01.obj
+       Manifest:
+         正在删除文件“Debug\vector.exe.embed.manifest”。
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\vector.exe.embed.manifest" /manifest Debug\vector.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\vector.exe.embed.manifest.res" Debug\vector_manifest.rc 
+       LinkEmbedManifest:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\vs project\vector\Debug\vector.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\vector.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\vs project\vector\Debug\vector.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\vs project\vector\Debug\vector.lib" /MACHINE:X86 Debug\vector.exe.embed.manifest.res
+         Debug\01.obj
+         vector.vcxproj -> F:\vs project\vector\Debug\vector.exe
+       FinalizeBuildStatus:
+         正在删除文件“Debug\vector.unsuccessfulbuild”。
+         正在对“Debug\vector.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“F:\vs project\vector\vector\vector.vcxproj”(rebuild 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:01.19

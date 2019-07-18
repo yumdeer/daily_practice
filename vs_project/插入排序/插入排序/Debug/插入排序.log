@@ -1,0 +1,27 @@
+﻿生成启动时间为 2018/10/22 16:27:45。
+     1>项目“F:\vs project\插入排序\插入排序\插入排序.vcxproj”在节点 2 上(rebuild 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Debug\选择排序.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt insertionSort.cpp
+         insertionSort.cpp
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(6): error C2143: 语法错误 : 缺少“;”(在“<”的前面)
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(6): error C2182: “List”: 非法使用“void”类型
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(6): error C2988: 不可识别的模板声明/定义
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(6): error C2059: 语法错误:“<”
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(6): error C2039: “insertionSort”: 不是“`global namespace'”的成员
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(16): error C2039: “selectMax”: 不是“`global namespace'”的成员
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(17): error C2143: 语法错误 : 缺少“;”(在“{”的前面)
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(17): error C2447: “{”: 缺少函数标题(是否是老式的形式表?)
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(26): error C2143: 语法错误 : 缺少“;”(在“<”的前面)
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(26): error C2182: “List”: 非法使用“void”类型
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(26): error C2086: “int List”: 重定义
+                 f:\vs project\插入排序\插入排序\insertionsort.cpp(6) : 参见“List”的声明
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(26): error C2988: 不可识别的模板声明/定义
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(26): error C2059: 语法错误:“<”
+     1>f:\vs project\插入排序\插入排序\insertionsort.cpp(26): error C2039: “insertionSort”: 不是“`global namespace'”的成员
+     1>已完成生成项目“F:\vs project\插入排序\插入排序\插入排序.vcxproj”(rebuild 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.91

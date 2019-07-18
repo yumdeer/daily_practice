@@ -1,0 +1,35 @@
+﻿生成启动时间为 2018/9/10 23:10:41。
+     1>项目“F:\vs project\MFC\MFC\MFC.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在对“Debug\MFC.unsuccessfulbuild”执行 Touch 任务。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt mian.c
+         mian.c
+     1>f:\vs project\mfc\mfc\mian.c(145): warning C4133: “函数”: 从“char [1024]”到“LPWSTR”的类型不兼容
+     1>f:\vs project\mfc\mfc\mian.c(147): warning C4133: “函数”: 从“char [1024]”到“LPCWSTR”的类型不兼容
+     1>f:\vs project\mfc\mfc\mian.c(223): error C2275: “HWND”: 将此类型用作表达式非法
+                 c:\program files (x86)\microsoft sdks\windows\v7.0a\include\windef.h(208) : 参见“HWND”的声明
+     1>f:\vs project\mfc\mfc\mian.c(223): error C2146: 语法错误: 缺少“;”(在标识符“hwnd”的前面)
+     1>f:\vs project\mfc\mfc\mian.c(223): error C2065: “hwnd”: 未声明的标识符
+     1>f:\vs project\mfc\mfc\mian.c(223): warning C4047: “=”:“int”与“HWND”的间接级别不同
+     1>f:\vs project\mfc\mfc\mian.c(226): error C2065: “hwnd”: 未声明的标识符
+     1>f:\vs project\mfc\mfc\mian.c(226): warning C4047: “函数”:“HWND”与“int”的间接级别不同
+     1>f:\vs project\mfc\mfc\mian.c(226): warning C4024: “ShowWindow”: 形参和实参 1 的类型不同
+     1>f:\vs project\mfc\mfc\mian.c(227): error C2065: “hwnd”: 未声明的标识符
+     1>f:\vs project\mfc\mfc\mian.c(227): warning C4047: “函数”:“HWND”与“int”的间接级别不同
+     1>f:\vs project\mfc\mfc\mian.c(227): warning C4024: “UpdateWindow”: 形参和实参 1 的类型不同
+     1>f:\vs project\mfc\mfc\mian.c(238): error C2275: “MSG”: 将此类型用作表达式非法
+                 c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(1634) : 参见“MSG”的声明
+     1>f:\vs project\mfc\mfc\mian.c(238): error C2146: 语法错误: 缺少“;”(在标识符“msg”的前面)
+     1>f:\vs project\mfc\mfc\mian.c(238): error C2065: “msg”: 未声明的标识符
+     1>f:\vs project\mfc\mfc\mian.c(240): error C2065: “msg”: 未声明的标识符
+     1>f:\vs project\mfc\mfc\mian.c(240): warning C4133: “函数”: 从“int *”到“LPMSG”的类型不兼容
+     1>f:\vs project\mfc\mfc\mian.c(254): error C2065: “msg”: 未声明的标识符
+     1>f:\vs project\mfc\mfc\mian.c(254): warning C4133: “函数”: 从“int *”到“const MSG *”的类型不兼容
+     1>f:\vs project\mfc\mfc\mian.c(258): error C2065: “msg”: 未声明的标识符
+     1>f:\vs project\mfc\mfc\mian.c(258): warning C4133: “函数”: 从“int *”到“const MSG *”的类型不兼容
+     1>已完成生成项目“F:\vs project\MFC\MFC\MFC.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.45

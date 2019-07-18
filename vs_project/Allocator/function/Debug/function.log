@@ -1,0 +1,12 @@
+﻿  源.cpp
+f:\vs project\allocator\function\源.cpp(44): error C2664: “void std::list<int,std::allocator<_Ty>>::_Remove_if<TooBig<int>>(_Pr1 &)”: 无法将参数 1 从“TooBig<int>”转换为“_Pr1 &”
+          with
+          [
+              _Ty=int,
+              _Pr1=TooBig<int>
+          ]
+          and
+          [
+              _Pr1=TooBig<int>
+          ]
+  f:\vs project\allocator\function\源.cpp(44): note: 非常量引用只能绑定到左值

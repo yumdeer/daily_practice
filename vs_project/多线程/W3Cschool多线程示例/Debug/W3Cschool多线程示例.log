@@ -1,0 +1,2 @@
+﻿  W3Cschool多线程.cpp
+e:\desktop file\c++ daily-practice\vs project\多线程\w3cschool多线程示例\w3cschool多线程.cpp(3): fatal error C1083: 无法打开包括文件: “pthread.h”: No such file or directory

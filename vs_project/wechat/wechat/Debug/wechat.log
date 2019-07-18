@@ -1,0 +1,27 @@
+﻿生成启动时间为 2018/8/23 1:27:03。
+     1>项目“F:\vs project\wechat\wechat\wechat.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Debug\wechat.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt wechat.c
+         wechat.c
+     1>f:\vs project\wechat\wechat\wechat.c(5): warning C4101: “m”: 未引用的局部变量
+       ManifestResourceCompile:
+         所有输出均为最新。
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\vs project\wechat\Debug\wechat.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\wechat.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\vs project\wechat\Debug\wechat.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\vs project\wechat\Debug\wechat.lib" /MACHINE:X86 Debug\wechat.exe.embed.manifest.res
+         Debug\wechat.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\wechat.exe.embed.manifest" /manifest Debug\wechat.exe.intermediate.manifest
+         所有输出均为最新。
+       LinkEmbedManifest:
+         所有输出均为最新。
+         wechat.vcxproj -> F:\vs project\wechat\Debug\wechat.exe
+       FinalizeBuildStatus:
+         正在删除文件“Debug\wechat.unsuccessfulbuild”。
+         正在对“Debug\wechat.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“F:\vs project\wechat\wechat\wechat.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.46

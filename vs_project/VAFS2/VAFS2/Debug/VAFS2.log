@@ -1,0 +1,78 @@
+﻿生成启动时间为 2018-11-13 13:57:00。
+项目“V:\VAFS2\VAFS2.vcxproj”在节点 2 上(build 个目标)。
+InitializeBuildStatus:
+  正在创建“.\Debug\VAFS2.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+CustomBuild:
+  Making help file...
+  已复制         1 个文件。
+  Copying contents file...
+  已复制         1 个文件。
+Midl:
+  所有输出均为最新。
+ClCompile:
+  所有输出均为最新。
+  C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files\MVTec\HALCON-10.0\include\cpp" /I"C:\Program Files\MVTec\HALCON-10.0\include\\" /IC:\DXSDK\Include /I"C:\Documents and Settings\Administrator\My Documents\IC Imaging Control 3.4\classlib\include" /Zi /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _DEVELOP /D STRSAFE_NO_DEPRECATE /D _AFXDLL /D _VC80_UPGRADE=0x0600 /D _AFXDLL /Gm- /EHsc /MDd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp".\Debug\VAFS2.pch" /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /FR".\Debug\\" /Gd /TP /analyze- /errorReport:prompt VAFS2Dlg.cpp
+  VAFS2Dlg.cpp
+v:\vafs2\glbs.h(71): warning C4305: “初始化”: 从“double”到“float”截断
+v:\vafs2\glbs.h(72): warning C4305: “初始化”: 从“double”到“float”截断
+v:\vafs2\glbs.h(73): warning C4305: “初始化”: 从“double”到“float”截断
+VAFS2Dlg.cpp(860): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+VAFS2Dlg.cpp(963): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+VAFS2Dlg.cpp(984): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+VAFS2Dlg.cpp(718): warning C4101: “My_CardTypeList”: 未引用的局部变量
+VAFS2Dlg.cpp(716): warning C4101: “My_CardNum”: 未引用的局部变量
+VAFS2Dlg.cpp(717): warning C4101: “My_CardList”: 未引用的局部变量
+VAFS2Dlg.cpp(1092): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(1098): warning C4244: “参数”: 从“float”转换到“BYTE”，可能丢失数据
+VAFS2Dlg.cpp(1361): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+VAFS2Dlg.cpp(1404): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+VAFS2Dlg.cpp(1501): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(1502): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(1504): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(1505): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(1509): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(1510): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(1656): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+VAFS2Dlg.cpp(1658): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+VAFS2Dlg.cpp(1660): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+VAFS2Dlg.cpp(1663): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+VAFS2Dlg.cpp(1665): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+VAFS2Dlg.cpp(2061): error C3861: “OnSearchObject2”: 找不到标识符
+VAFS2Dlg.cpp(2358): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(2359): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(2360): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(2361): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(2362): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(2363): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(2615): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(2616): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(2617): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(2618): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(2619): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(2620): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(4051): warning C4244: “参数”: 从“DWORD”转换到“short”，可能丢失数据
+VAFS2Dlg.cpp(4685): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
+VAFS2Dlg.cpp(4686): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
+VAFS2Dlg.cpp(4687): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
+VAFS2Dlg.cpp(4688): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
+VAFS2Dlg.cpp(4689): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
+VAFS2Dlg.cpp(4690): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
+VAFS2Dlg.cpp(4699): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(4700): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(4701): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+VAFS2Dlg.cpp(4702): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+已完成生成项目“V:\VAFS2\VAFS2.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:26.60

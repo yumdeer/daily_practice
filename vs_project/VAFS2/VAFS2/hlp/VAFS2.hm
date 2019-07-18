@@ -1,0 +1,24 @@
+  
+// Commands (ID_* and IDM_*)  
+HIDM_ABOUTBOX                           0x10010
+  
+// Prompts (IDP_*)  
+HIDP_SOCKETS_INIT_FAILED                0x30066
+  
+// Resources (IDR_*)  
+HIDR_VAFS2                              0x20068
+HIDR_MAINFRAME                          0x20080
+  
+// Dialogs (IDD_*)  
+HIDD_ABOUTBOX                           0x20064
+HIDD_VAFS2_DIALOG                       0x20066
+HIDD_DEBUG                              0x20081
+HIDD_VISION                             0x20083
+HIDD_MODEL_EDIT_DLG                     0x20086
+HIDD_PARAMETERSET                       0x2008D
+HIDD_INPUTRCP                           0x2008E
+HIDD_DELETERCP                          0x2008F
+HIDD_LOGIN                              0x2009E
+HIDD_paraproduce                        0x2009F
+  
+// Frame Controls (IDW_*)  

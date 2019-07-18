@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "数组指针调用函数", "数组指针调用函数\数组指针调用函数.vcxproj", "{CA2613FD-619A-4A2E-9B4D-FEB236014DAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA2613FD-619A-4A2E-9B4D-FEB236014DAC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CA2613FD-619A-4A2E-9B4D-FEB236014DAC}.Debug|Win32.Build.0 = Debug|Win32
+		{CA2613FD-619A-4A2E-9B4D-FEB236014DAC}.Release|Win32.ActiveCfg = Release|Win32
+		{CA2613FD-619A-4A2E-9B4D-FEB236014DAC}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

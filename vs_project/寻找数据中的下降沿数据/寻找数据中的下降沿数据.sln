@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "寻找数据中的下降沿数据", "寻找数据中的下降沿数据\寻找数据中的下降沿数据.vcxproj", "{906D0547-7B6D-48FC-A675-6D4461DD5930}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{906D0547-7B6D-48FC-A675-6D4461DD5930}.Debug|Win32.ActiveCfg = Debug|Win32
+		{906D0547-7B6D-48FC-A675-6D4461DD5930}.Debug|Win32.Build.0 = Debug|Win32
+		{906D0547-7B6D-48FC-A675-6D4461DD5930}.Release|Win32.ActiveCfg = Release|Win32
+		{906D0547-7B6D-48FC-A675-6D4461DD5930}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

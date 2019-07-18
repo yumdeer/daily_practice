@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLL", "DLL\DLL.vcxproj", "{9DC68707-E42A-4CCA-9111-BD9716C15495}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "injecter", "injecter\injecter.vcxproj", "{56EF1737-91B8-484D-A65A-CDF2E21A870B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DC68707-E42A-4CCA-9111-BD9716C15495}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9DC68707-E42A-4CCA-9111-BD9716C15495}.Debug|Win32.Build.0 = Debug|Win32
+		{9DC68707-E42A-4CCA-9111-BD9716C15495}.Debug|x64.ActiveCfg = Debug|x64
+		{9DC68707-E42A-4CCA-9111-BD9716C15495}.Debug|x64.Build.0 = Debug|x64
+		{9DC68707-E42A-4CCA-9111-BD9716C15495}.Release|Win32.ActiveCfg = Release|Win32
+		{9DC68707-E42A-4CCA-9111-BD9716C15495}.Release|Win32.Build.0 = Release|Win32
+		{9DC68707-E42A-4CCA-9111-BD9716C15495}.Release|x64.ActiveCfg = Release|x64
+		{9DC68707-E42A-4CCA-9111-BD9716C15495}.Release|x64.Build.0 = Release|x64
+		{56EF1737-91B8-484D-A65A-CDF2E21A870B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{56EF1737-91B8-484D-A65A-CDF2E21A870B}.Debug|Win32.Build.0 = Debug|Win32
+		{56EF1737-91B8-484D-A65A-CDF2E21A870B}.Debug|x64.ActiveCfg = Debug|x64
+		{56EF1737-91B8-484D-A65A-CDF2E21A870B}.Debug|x64.Build.0 = Debug|x64
+		{56EF1737-91B8-484D-A65A-CDF2E21A870B}.Release|Win32.ActiveCfg = Release|Win32
+		{56EF1737-91B8-484D-A65A-CDF2E21A870B}.Release|Win32.Build.0 = Release|Win32
+		{56EF1737-91B8-484D-A65A-CDF2E21A870B}.Release|x64.ActiveCfg = Release|x64
+		{56EF1737-91B8-484D-A65A-CDF2E21A870B}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

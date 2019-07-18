@@ -1,0 +1,3 @@
+﻿  vector.cpp
+e:\desktop file\c++ daily-practice\vs project\c++11标准库的扩充_新增容器\vector\vector.cpp(9): error C4700: 使用了未初始化的局部变量“N”
+e:\desktop file\c++ daily-practice\vs project\c++11标准库的扩充_新增容器\vector\vector.cpp(9): error C4700: 使用了未初始化的局部变量“M”

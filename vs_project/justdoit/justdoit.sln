@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "justdoit", "justdoit\justdoit.vcxproj", "{9A687839-ED20-4594-9322-822DACB3DFA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A687839-ED20-4594-9322-822DACB3DFA4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9A687839-ED20-4594-9322-822DACB3DFA4}.Debug|Win32.Build.0 = Debug|Win32
+		{9A687839-ED20-4594-9322-822DACB3DFA4}.Release|Win32.ActiveCfg = Release|Win32
+		{9A687839-ED20-4594-9322-822DACB3DFA4}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

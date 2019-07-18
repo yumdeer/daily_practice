@@ -1,0 +1,30 @@
+﻿生成启动时间为 2019/1/29 9:48:52。
+     1>项目“F:\vs project\XJOI\外星人密语\外星人密语.vcxproj”在节点 3 上(rebuild 个目标)。
+     1>_PrepareForClean:
+         正在删除文件“Debug\外星人密语.lastbuildstate”。
+       InitializeBuildStatus:
+         正在创建“Debug\外星人密语.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt "外星人密语.cpp"
+         外星人密语.cpp
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\外星人密语.exe.embed.manifest.res" "Debug\外星人密语_manifest.rc" 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\vs project\XJOI\Debug\外星人密语.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\外星人密语.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\vs project\XJOI\Debug\外星人密语.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\vs project\XJOI\Debug\外星人密语.lib" /MACHINE:X86 "Debug\外星人密语.exe.embed.manifest.res"
+         "Debug\外星人密语.obj"
+       Manifest:
+         正在删除文件“Debug\外星人密语.exe.embed.manifest”。
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\外星人密语.exe.embed.manifest" /manifest "Debug\外星人密语.exe.intermediate.manifest"
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\外星人密语.exe.embed.manifest.res" "Debug\外星人密语_manifest.rc" 
+       LinkEmbedManifest:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\vs project\XJOI\Debug\外星人密语.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\外星人密语.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\vs project\XJOI\Debug\外星人密语.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\vs project\XJOI\Debug\外星人密语.lib" /MACHINE:X86 "Debug\外星人密语.exe.embed.manifest.res"
+         "Debug\外星人密语.obj"
+         外星人密语.vcxproj -> F:\vs project\XJOI\Debug\外星人密语.exe
+       FinalizeBuildStatus:
+         正在删除文件“Debug\外星人密语.unsuccessfulbuild”。
+         正在对“Debug\外星人密语.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“F:\vs project\XJOI\外星人密语\外星人密语.vcxproj”(rebuild 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:02.01

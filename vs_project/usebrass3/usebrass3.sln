@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "usebrass3", "usebrass3\usebrass3.vcxproj", "{82C3A321-6A83-4E40-A794-1B937F7A7A98}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82C3A321-6A83-4E40-A794-1B937F7A7A98}.Debug|Win32.ActiveCfg = Debug|Win32
+		{82C3A321-6A83-4E40-A794-1B937F7A7A98}.Debug|Win32.Build.0 = Debug|Win32
+		{82C3A321-6A83-4E40-A794-1B937F7A7A98}.Release|Win32.ActiveCfg = Release|Win32
+		{82C3A321-6A83-4E40-A794-1B937F7A7A98}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

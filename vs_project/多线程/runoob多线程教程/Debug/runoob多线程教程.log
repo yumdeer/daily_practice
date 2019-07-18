@@ -1,0 +1,5 @@
+﻿  向线程传递参数.cpp
+e:\desktop file\c++ daily-practice\vs project\多线程\runoob多线程教程\向线程传递参数.cpp(5): fatal error C1083: 无法打开包括文件: “pthread.h”: No such file or directory
+  连接和分离线程.cpp
+e:\desktop file\c++ daily-practice\vs project\多线程\runoob多线程教程\连接和分离线程.cpp(3): fatal error C1083: 无法打开包括文件: “pthread.h”: No such file or directory
+  正在生成代码...

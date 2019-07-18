@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		{88D1257A-2781-42D2-AA52-9DC4210E1297} = s 'VAFS2'
+		'VAFS2.EXE'
+		{
+			val AppID = s {88D1257A-2781-42D2-AA52-9DC4210E1297}
+		}
+	}
+}

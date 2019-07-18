@@ -1,0 +1,3 @@
+﻿  maze.cpp
+e:\desktop file\c++ daily-practice\vs project\迷宫问题\迷宫问题\maze.cpp(443): warning C4101: “num”: 未引用的局部变量
+  迷宫问题.vcxproj -> E:\Desktop file\C++ Daily-practice\vs project\迷宫问题\Debug\迷宫问题.exe

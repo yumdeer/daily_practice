@@ -1,0 +1,176 @@
+﻿生成启动时间为 2018-1-9 16:55:36。
+     1>项目“C:\Documents and Settings\Administrator\桌面\three new\AF3R\VAFS2\VAFS2\VAFS2.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在对“.\Release\VAFS2.unsuccessfulbuild”执行 Touch 任务。
+       CustomBuild:
+         Making help file...
+         已复制         1 个文件。
+         Copying contents file...
+         已复制         1 个文件。
+       Midl:
+         所有输出均为最新。
+       ClCompile:
+         所有输出均为最新。
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\EpsonRC70\exe /I"C:\Program Files\MVTec\HALCON-10.0\include" /I"C:\Program Files\MVTec\HALCON-10.0\include\cpp" /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /D _AFXDLL /GF /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp".\Release\VAFS2.pch" /Fo".\Release\\" /Fd".\Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt VAFS2Dlg.cpp
+         VAFS2Dlg.cpp
+     1>c:\documents and settings\administrator\桌面\three new\af3r\vafs2\vafs2\glbs.h(4): error C2871: “RCAPINet”: 具有该名称的命名空间不存在
+     1>c:\documents and settings\administrator\桌面\three new\af3r\vafs2\vafs2\glbs.h(67): warning C4305: “初始化”: 从“double”到“float”截断
+     1>c:\documents and settings\administrator\桌面\three new\af3r\vafs2\vafs2\glbs.h(68): warning C4305: “初始化”: 从“double”到“float”截断
+     1>c:\documents and settings\administrator\桌面\three new\af3r\vafs2\vafs2\glbs.h(69): warning C4305: “初始化”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(572): error C2653: “RCAPINet”: 不是类或命名空间名称
+     1>VAFS2Dlg.cpp(572): error C2065: “Spel”: 未声明的标识符
+     1>VAFS2Dlg.cpp(572): error C2065: “m_spel”: 未声明的标识符
+     1>VAFS2Dlg.cpp(573): error C2065: “m_spel”: 未声明的标识符
+     1>VAFS2Dlg.cpp(573): error C2065: “gcnew”: 未声明的标识符
+     1>VAFS2Dlg.cpp(573): error C2146: 语法错误: 缺少“;”(在标识符“Spel”的前面)
+     1>VAFS2Dlg.cpp(573): error C2065: “Spel”: 未声明的标识符
+     1>VAFS2Dlg.cpp(574): error C2065: “m_spel”: 未声明的标识符
+     1>VAFS2Dlg.cpp(574): error C2227: “->Initialize”的左边必须指向类/结构/联合/泛型类型
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(575): error C2065: “m_spel”: 未声明的标识符
+     1>VAFS2Dlg.cpp(575): error C2227: “->AsyncMode”的左边必须指向类/结构/联合/泛型类型
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(576): error C2065: “m_spel”: 未声明的标识符
+     1>VAFS2Dlg.cpp(576): error C2227: “->Speed”的左边必须指向类/结构/联合/泛型类型
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(577): error C2065: “m_spel”: 未声明的标识符
+     1>VAFS2Dlg.cpp(577): error C2227: “->Accel”的左边必须指向类/结构/联合/泛型类型
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(578): error C2065: “m_spel”: 未声明的标识符
+     1>VAFS2Dlg.cpp(578): error C2227: “->MotorsOn”的左边必须指向类/结构/联合/泛型类型
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(581): error C2653: “RCAPINet”: 不是类或命名空间名称
+     1>VAFS2Dlg.cpp(581): error C2065: “SpelPoint”: 未声明的标识符
+     1>VAFS2Dlg.cpp(581): error C2146: 语法错误: 缺少“;”(在标识符“pt”的前面)
+     1>VAFS2Dlg.cpp(581): error C2065: “pt”: 未声明的标识符
+     1>VAFS2Dlg.cpp(582): error C2065: “pt”: 未声明的标识符
+     1>VAFS2Dlg.cpp(582): error C2228: “.X”的左边必须有类/结构/联合
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(583): error C2065: “pt”: 未声明的标识符
+     1>VAFS2Dlg.cpp(583): error C2228: “.Y”的左边必须有类/结构/联合
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(584): error C2065: “pt”: 未声明的标识符
+     1>VAFS2Dlg.cpp(584): error C2228: “.Z”的左边必须有类/结构/联合
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(585): error C2065: “pt”: 未声明的标识符
+     1>VAFS2Dlg.cpp(585): error C2228: “.U”的左边必须有类/结构/联合
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(586): error C2065: “pt”: 未声明的标识符
+     1>VAFS2Dlg.cpp(586): error C2228: “.V”的左边必须有类/结构/联合
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(587): error C2065: “pt”: 未声明的标识符
+     1>VAFS2Dlg.cpp(587): error C2228: “.W”的左边必须有类/结构/联合
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(590): error C2065: “pt”: 未声明的标识符
+     1>VAFS2Dlg.cpp(590): error C2228: “.X”的左边必须有类/结构/联合
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(591): error C2065: “pt”: 未声明的标识符
+     1>VAFS2Dlg.cpp(591): error C2228: “.Z”的左边必须有类/结构/联合
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(592): error C2065: “m_spel”: 未声明的标识符
+     1>VAFS2Dlg.cpp(592): error C2227: “->Go”的左边必须指向类/结构/联合/泛型类型
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(592): error C2065: “pt”: 未声明的标识符
+     1>VAFS2Dlg.cpp(593): error C2065: “m_spel”: 未声明的标识符
+     1>VAFS2Dlg.cpp(593): error C2227: “->WaitCommandComplete”的左边必须指向类/结构/联合/泛型类型
+                 类型是“'unknown-type'”
+     1>VAFS2Dlg.cpp(1163): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1164): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1169): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1170): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1228): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1229): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1246): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1247): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1292): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1293): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1326): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1327): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1350): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(1358): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(1364): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1372): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1391): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(1399): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(1405): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1413): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1482): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1484): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1486): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1488): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1493): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1495): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1497): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1499): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1531): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1532): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1533): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1534): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1543): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1545): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1546): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1548): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1841): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1842): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1844): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1845): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1850): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1851): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1852): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1853): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1881): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1882): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1883): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1884): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1891): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1892): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1893): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1894): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1904): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1905): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1906): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1907): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1908): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(1909): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(2593): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(2594): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(2636): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(2637): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(2640): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(2764): warning C4244: “初始化”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(2765): warning C4244: “初始化”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(2841): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(2842): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3721): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(3725): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(3731): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3736): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3754): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(3756): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(3764): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3772): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3775): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3778): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3805): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>VAFS2Dlg.cpp(3830): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(3834): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(3840): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3845): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3861): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(3863): warning C4305: “=”: 从“double”到“float”截断
+     1>VAFS2Dlg.cpp(3871): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3879): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3881): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3884): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3904): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>VAFS2Dlg.cpp(3922): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3923): warning C4244: “=”: 从“long”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(3959): warning C4244: “参数”: 从“float”转换到“long”，可能丢失数据
+     1>VAFS2Dlg.cpp(3973): warning C4244: “参数”: 从“float”转换到“long”，可能丢失数据
+     1>VAFS2Dlg.cpp(4118): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>VAFS2Dlg.cpp(4120): warning C4244: “=”: 从“float”转换到“long”，可能丢失数据
+     1>已完成生成项目“C:\Documents and Settings\Administrator\桌面\three new\AF3R\VAFS2\VAFS2\VAFS2.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.43
