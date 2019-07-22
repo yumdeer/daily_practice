@@ -1,0 +1,3 @@
+﻿  编译期数值计算.cpp
+e:\desktop file\c++ daily-practice\vs_project\模板元编程\编译期数值计算\编译期数值计算.cpp(21): error C2440: “初始化”: 无法从“int”转换为“D<2>”
+  e:\desktop file\c++ daily-practice\vs_project\模板元编程\编译期数值计算\编译期数值计算.cpp(21): note: 无构造函数可以接受源类型，或构造函数重载决策不明确

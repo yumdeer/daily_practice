@@ -1,0 +1,2 @@
+﻿  元容器.cpp
+LINK : fatal error LNK1561: 必须定义入口点
