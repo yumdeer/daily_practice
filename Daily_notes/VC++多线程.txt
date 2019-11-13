@@ -1,0 +1,189 @@
+使用 Spy++ 工具查看系统中当前的进程与线程！
+创建新线程的三种方式：
+方式一：CreateThread（记得关闭线程句柄）
+方式二：AfxBeginThread（会自动释放的，不用你去释放）
+方式三：_beginthreadex（记得关闭线程句柄）
+
+①、工作线程与界面线程的区别：消息循环
+1、模态对话框有自己的消息循环；
+但是也不建议在工作线程中执行界面方面的相关操作，会发生意想不到的错误！
+
+2、非模态对话框需要其所在线程中有消息循环：
+不信加个 Sleep 试试就知道了！
+
+MSG msg = {0};
+while(GetMessage(&msg, NULL, 0, 0)) {
+	TranslateMessage(&msg);
+	DispatchMessage(&msg);
+}
+===================================================
+②、所以，在界面的操作时最好还是在界面线程中进行处理，
+但是如果处理的是非本线程的窗口时建议用发消息的方式！
+默认MFC类型的对话框工程、文档视图类工程等都是使用的MFC界面线程。
+===================================================
+③、界面线程的创建：
+1、从 CWinThread 类派生自己的子类：CUIThreadApp；
+2、重载 InitInstance（必须重载） 与 ExitInstance（可选重载） 函数；
+3、在 InitInstance 函数中进行界面的创建；
+4、调用 AfxBeginThread 函数开启界面线程： AfxBeginThread(RUNTIME_CLASS(CUIThreadApp));
+
+①、线程的挂起与恢复：SuspendThread、ResumeThread
+在线程创建并运行后，用户可以对线程执行挂起和恢复操作，
+挂起就是指暂停线程的执行，当然有暂停就有恢复，之后，用户可以通过指定的操作来恢复线程的正常执行！
+
+※※※ 注意：线程的挂起与恢复是有次数的，即：可以多次挂起，但是之后想进行线程的正常执行必须进行多次恢复操作！
+具体见演示！
+===================================================
+②、线程的优先级：
+
+线程的相对优先级有以下取值：
+
+THREAD_PRIORITY_TIME_CRITICAL：Time-critical，关键时间（最高）
+THREAD_PRIORITY_HIGHEST：Highest，最高（其实是“次高”）
+THREAD_PRIORITY_ABOVE_NORMAL：Above normal，高于标准
+THREAD_PRIORITY_NORMAL：Normal，标准
+THREAD_PRIORITY_BELOW_NORMAL：Below normal，低于标准
+THREAD_PRIORITY_LOWEST：Lowest，最低（其实是“次低”）
+THREAD_PRIORITY_IDLE：Idle，空闲（最低）
+
+AfxBeginThread 创建的线程可以直接在创建的时候指定，而 CreateThread 需要创建之后指定！
+获取：GetThreadPriority
+设置：SetThreadPriority
+
+UINT __cdecl ThreadProc1(LPVOID lpParameter)
+{
+	CStdioFile mFile;
+	mFile.Open(_T("C:\\123.txt"), CFile::modeCreate | CFile::modeReadWrite);
+	int tipMsg = (int)lpParameter;
+	CString strTipMsg;
+	while(TRUE) {
+		strTipMsg.Format(_T("%d\r"), tipMsg);
+		mFile.WriteString(strTipMsg);
+	}
+
+	mFile.Close();
+
+	return 0;
+}
+
+UINT __cdecl ThreadProc2(LPVOID lpParameter)
+{
+	CStdioFile mFile;
+	mFile.Open(_T("C:\\456.txt"), CFile::modeCreate | CFile::modeReadWrite);
+	int tipMsg = (int)lpParameter;
+	CString strTipMsg;
+	while(TRUE) {
+		strTipMsg.Format(_T("%d\r"), tipMsg);
+		mFile.WriteString(strTipMsg);
+	}
+
+	mFile.Close();
+
+	return 0;
+}
+
+void CThreadTestDlg::OnBnClickedBtn()
+{
+	CWinThread *pThread = AfxBeginThread(ThreadProc1, (LPVOID)111, THREAD_PRIORITY_LOWEST);
+	//SetThreadPriority(pThread->m_hThread, THREAD_PRIORITY_LOWEST);
+
+	pThread = AfxBeginThread(ThreadProc2, (LPVOID)789, THREAD_PRIORITY_HIGHEST);
+	//SetThreadPriority(pThread->m_hThread, THREAD_PRIORITY_HIGHEST);
+}
+===================================================
+③、线程的退出与终结：
+1、最好的方式：让线程函数主动退出，或者 return；
+可以保证线程函数里面对象的析构函数被调用，以及线程申请的相关空间被释放；
+
+2、线程自己主动退出，可以调用 ExitThread（MFC中使用 AfxEndThread）；
+线程函数里面对象的析构函数不会被调用，线程申请的相关空间被释放；
+所以，在C语言里面可以使用该函数退出线程，但在C++里面不建议，因为C++里面有类！
+
+3、其他程序强行结束目标线程：可以调用 TerminateThread
+此函数非常危险，被结束的线程不会得到任何通知，线程申请的相关空间也不会被释放！
+所以，离他远点！
+
+4、线程退出码的获取：GetExitCodeThread
+前提：句柄有效，不被关闭！
+
+========================================================
+①、最常用的方式：全局变量或者多个线程都能看到的一个东东
+1、全局变量方式；
+int g_Num = 100;
+UINT __cdecl ThreadWriteProc(LPVOID lpParameter)
+{
+	while(TRUE) {
+		++g_Num;
+		Sleep(50);
+	}
+	return 100;
+}
+
+UINT __cdecl ThreadReadProc(LPVOID lpParameter)
+{
+	CString strTipMsg;
+	while(TRUE) {
+		strTipMsg.Format(_T("%d"), g_Num);
+		OutputDebugString(strTipMsg);
+		Sleep(50);
+	}
+
+	return 100;
+}
+
+void CThreadTestDlg::OnBnClickedBtn()
+{
+	CWinThread *pThread = AfxBeginThread(ThreadWriteProc, NULL);
+	AfxBeginThread(ThreadReadProc, NULL);
+}
+
+2、大家都能访问到的一个东东；
+3、全局变量的声明方式；
+===================================================
+②、发消息方式：PostThreadMessage
+
+#define MY_THREAD_MSG (WM_USER+100)
+UINT __cdecl ThreadWriteProc(LPVOID lpParameter)
+{
+	int nCount = 0;
+	DWORD dwThreadReadID = (DWORD)lpParameter;
+	while(TRUE) {
+		PostThreadMessage(dwThreadReadID, MY_THREAD_MSG, nCount++, NULL);
+		Sleep(50);
+	}
+	return 0;
+}
+
+UINT __cdecl ThreadPrintProc(LPVOID lpParameter)
+{
+	MSG msg = {0};
+	while(GetMessage(&msg, 0, 0, 0))
+	{
+		switch(msg.message) {
+			case MY_THREAD_MSG:
+				{
+					int nCount = (int)msg.wParam;
+					CString strText;
+					strText.Format(_T("%d"), nCount);
+					OutputDebugString(strText);
+				}
+				break;
+		}
+	}
+
+	return 0;
+}
+
+void CThreadTestDlg::OnBnClickedBtn()
+{
+	CWinThread *pThreadPrint = AfxBeginThread(ThreadPrintProc, NULL);
+	CWinThread *pThreadWrite = AfxBeginThread(ThreadWriteProc, (LPVOID)pThreadPrint->m_nThreadID);
+}
+===================================================
+③、与界面线程方面的联系！
+1、创建界面线程的返回值 CWinThread 类型指针，就是新线程的指针；
+2、在新界面线程中调用 AfxGetApp(); 获取到的是程序主线程的指针；
+
+通过以上两种方法中的任意一种，将指针进行强制类型转换之后，可以轻松的实现线程间的通信！
+
+3、对于 PostThreadMessage 方式的通信，界面线程同样适用，重载界面线程类的 PreTranslateMessage 即可！
