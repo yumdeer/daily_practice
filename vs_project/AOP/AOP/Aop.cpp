@@ -1,7 +1,7 @@
 #include <iostream>
 #include <functional>
 
-using namespace std;
+//using namespace std;
 
 template <typename ...Args>
 std::function<void(Args...)> wrapLog(std::function<void(Args...)> f) {
@@ -34,11 +34,13 @@ to_function(Function& lambda)					//函数名to_function，传入参数lambda
 	return typename function_traits<Function>::function(lambda);	//将lambda传入function_traits<Function>::function 
 }
 
-//auto plus = [](int a, int b) { cout << a + b << endl; };			//error，Plus不明确
+//functional里面有定义了个std::plus。如果把plus定义为global的，访问时在global查找定义就会和std::plus冲突，产生二义。
+//auto plus = [](int a, int b) { std::cout << a + b << std::endl; };			//error，Plus不明确
+std::function<void(int, int)> plus = [](int a, int b) { std::cout << a + b << std::endl; };
 
 int main(int argc, char *argv[]) {
 	//这是简单的lambda，其中包含琐碎的计算：
-	auto plus = [](int a, int b) { cout << a + b << endl; };
+	//auto plus = [](int a, int b) { cout << a + b << endl; };
 
 	//lambda和 std :: function 无法完成转换
 	//auto loggedPlus = wrapLog(plus);												//test1
@@ -93,4 +95,23 @@ int main(int argc, char *argv[]) {
 //	auto loggedPlus = wrapLog(static_cast<std::function<void(int, int)>>(plus));
 //
 //	return 0;
+//}
+
+
+//#include <stdio.h>
+//#include <iostream>
+//
+//void main() {
+//	char arr1[] = "abc";
+//	char arr2[] = { 'a','b','c','\0' };
+//	std::cout << strlen(arr1) << std::endl;
+//	printf("%d\n", strlen(arr1));
+//	std::cout << strlen(arr2) << std::endl;
+//	printf("%d\n", strlen(arr2));
+//
+//	int a = 4, b = 0, c = 0;
+//	b = a << 2;
+//	c = a >> 2;
+//	std::cout << "a= " << a << " b= " << b << " c= " << c << std::endl;
+//
 //}
