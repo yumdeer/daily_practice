@@ -1,0 +1,15 @@
+﻿  enum repalce if else .cpp
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(48): error C2143: 语法错误: 缺少“}”(在“{”的前面)
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(49): error C2059: 语法错误:“public”
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(49): error C2628: “Status”后面接“void”是非法的(是否忘记了“;”?)
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(49): error C2059: 语法错误:“{”
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(49): error C2143: 语法错误: 缺少“;”(在“{”的前面)
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(49): error C2447: “{”: 缺少函数标题(是否是老式的形式表?)
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(52): error C2059: 语法错误:“,”
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(53): error C2143: 语法错误: 缺少“;”(在“{”的前面)
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(53): error C2447: “{”: 缺少函数标题(是否是老式的形式表?)
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(57): error C2059: 语法错误:“,”
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(58): error C2143: 语法错误: 缺少“;”(在“{”的前面)
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(58): error C2447: “{”: 缺少函数标题(是否是老式的形式表?)
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(65): error C2059: 语法错误:“}”
+e:\desktop file\c++ daily-practice\vs_project\enum replace if else\enum replace if else\enum repalce if else .cpp(65): error C2143: 语法错误: 缺少“;”(在“}”的前面)
