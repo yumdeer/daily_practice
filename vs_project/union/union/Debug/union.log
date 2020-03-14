@@ -1,0 +1,7 @@
+﻿  union.cpp
+e:\desktop file\c++ daily-practice\vs_project\union\union\union.cpp(61): warning C4305: “=”: 从“int”到“char”截断
+e:\desktop file\c++ daily-practice\vs_project\union\union\union.cpp(61): warning C4309: “=”: 截断常量值
+e:\desktop file\c++ daily-practice\vs_project\union\union\union.cpp(62): warning C4309: “=”: 截断常量值
+e:\desktop file\c++ daily-practice\vs_project\union\union\union.cpp(63): warning C4309: “=”: 截断常量值
+e:\desktop file\c++ daily-practice\vs_project\union\union\union.cpp(64): warning C4309: “=”: 截断常量值
+  union.vcxproj -> E:\Desktop file\C++ Daily-practice\vs_project\union\Debug\union.exe
