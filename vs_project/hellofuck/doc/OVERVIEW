@@ -1,0 +1,29 @@
+HELLOFUCK
+
+version 1.0 -- november 2005
+
+CONTENT
+hello
+fuck
+hellofuck.sh
+
+
+ABOUT
+Hellofuck is hello and fuck. No one of them is somewhat useful, but they are
+both well documented.
+Run
+$ hello
+if you are happy. Run
+$ fuck
+if you don't. Run
+$ hellofuck.sh
+if you're not set about this.
+
+
+KNOWN BUGS
+None yet. Report to mij@bitchx.it .
+
+
+REFERENCES
+See http://mij.oltrelinux.com/devel/autoconf-automake/ .
+
