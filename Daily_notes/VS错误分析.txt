@@ -1,0 +1,12 @@
+1.缺少halconapp.lib ：安装halcon软件
+2.缺少msvcr100.dll等动态链接库 : visual C++ 2010运行库
+3.项目文件包含 ToolsVersion="12.0"。此工具集可能未知或缺失:项目-属性-常规-平台工具集-V100
+4.error LNK2019: 无法解析的外部符号 _WinMain@16:项目-属性-连接器-系统-子系统-控制台5.dll不是有效的Win32应用程序：项目-属性-配置属性-常规-平台工具集-改为对应的操作系统。
+6.VS2010创建WIN32程序：在VS2017中在Window桌面向导内。
+7.1>LINK fatal error LNK1168 无法打开 :控住台未关闭。
+8.VS2017控制台一闪而过：项目-配置属性-链接器-系统-子系统-控制台。
+9.error C2275: 结果是变量的定义位置不对，应该在函数块的最前面。
+10.error LNK2001: 无法解析的外部符号 检查函数原型和定义的参数格式是否相同。
+11.Queue不提供遍历功能，也不提供迭代器。vector, deque, string支持遍历。
+12.heap corruption detected：更改为：int *a=new int[n+1]；//空间不足报错
+

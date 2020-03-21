@@ -1,0 +1,3 @@
+/home/shiyanlou/cmake/CMakeFiles/rebuild_cache.dir
+/home/shiyanlou/cmake/CMakeFiles/hello.dir
+/home/shiyanlou/cmake/CMakeFiles/edit_cache.dir

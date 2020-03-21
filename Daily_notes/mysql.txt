@@ -1,0 +1,143 @@
+登录： mysql -u用户名 -p密码
+查看一下所有的库 ： Show databases;
+选库语句: Use 库名；
+创建一个数据库: create database 数据库名 [charset 字符集]；
+删除一个数据库: drop database 数据库名;
+创建一个表：create table 表名 ( 类型名 类型， 类型名 类型）engine  表引擎 charset 字符集;
+删除一个表: drop table 表名;
+修改一个表名： rename oldname to new name;
+
+清空表数据: truncate 表名;
+查看表结构: desc tableName; 
+
+表中插入列：Alter table 表名 add 列名称 列类型 列参数; （注意：default 默认参数很多都需要 ' ' 用字符型表示 ）
+表中删除列：Alter table 表名  drop 列名；
+表中修改列类型：Alter table 表名 modify 列名 新类型  新参数；
+表中修改列名及列类型：Alter table 表名 change 旧列名 新列名 新类型 新参数；
+
+插入表值：Insert into TableName(列1,列2.... 列n ) Values (值1,值2,....值n)；
+                Insert into 数据库名.表名 select 列1,列2.... 列n from 数据库名1.表名1 ；
+修改表值：Update 表名 Set 列1 = 新值 1,列2 = 新值2,列n = 新值n..... Where  expr
+删除表值：Delete from 表名 where  expr
+查询表值：select 列1, 列2, 列3,...列n,(新增列:结果集) as 新增列别名 From 表名 Where expr; (where针对表做操作，操作结果可以生成结果集数据)
+	select 列1, 列2, 列3,...列n,(新增列:结果集) From 表名 group by 列1, 列2, 列3,...列n having  expr; (having针对结果集做操作)
+	# group by 列 与 select 列 必须对应，只能多不能少，否则数据将被压缩显示
+	select 列1, 列2, 列3,...列n,(新增列:结果集) From 表名 group by 列1, 列2, 列3,...列n having  expr order by 结果集中的列名1 desc/asc ，结果集中的列名2 desc/asc; (降序/升序) limit number;
+注意 count是计算行数的，而不是计算count(表达式)中表达式成立的次数。
+
+
+### 经典例题一：
+insert into result
+values
+{'张三','数学',90},	
+{'张三','语文',50},
+{'张三','地理',40},
+{'李四','语文',55},
+{'历史','政治',45},
+{'王五','政治',30}
+查询出挂科两门及两门以上的学员的平均分。
+
+错误写法1：
+select name,avg(score) from result where score<60 group by name having count(*)>=2；
+#只查询了挂科两门及两门以上的学员的低于60分的分数平均分。
+
+错误写法2：
+select name,avg(score) from result group by name having count(score<60) >=2;
+#count(score<60) 错误的理解为了统计score<60的次数，但是count(0) / count(1) 结果相同，
+#都是统计该行出现的次数。
+
+正确写法1（逆向思维）：
+#第一步：我们查询所有的平均分
+select name,avg(score) from result group by name;
+#下一步，再想办法计算出每个人挂科的情况，将挂科的情况标记为1
+select name,subject,score,score<60 as guake from result;
+#如上，挂科数目就是guake的sum结果
+select name,avg(score),sum(score<60) as guakeshu from result group by name;
+#最后每个人的平均分和挂科数已经算出，再having筛选即可。
+select name,avg(score),sum(score<60) as guakeshu from result group by name having guakeshu>=2;
+
+子查询：
+           1. from型子查询：把内层的查询结果当成临时表(as 别名),供外层sql再次查询. 	(典型题:查询每个栏目下的最新/最贵商品)
+           2. Exists子查询 : 把外层的查询结果,拿到内层,看内层的查询是否成立. 		(典型题: 查询有商品的栏目)
+           3. where型子查询：指把内层查询的结果作为外层查询的比较条件.   		(典型题:查询最大商品,最贵商品)
+	如果 where 列 = （内层sql）,则内层sql返回的必是单行单列，单个值
+	如果 where 列 in （内层sql）,则内层sql只返回单列（可以多行）
+
+
+正确写法2（正常逻辑）：
+#先找出挂科的同学，并显示挂科的门数
+select name,count(1),score from result where score <60 group by name；
+#筛选挂科>=2的同学
+select name,count(1) as guakeshu from result where score<60 group by name having guakeshu>=2;
+#将上面结果集当成临时表使用，取出符合条件同学的姓名
+select name from (
+      select name,count(1) as guakeshu from result where score<60 group by name having guakeshu>=2;
+)as temp;
+#计算符合条件同学的平均分
+select name,avg(score) from result where name in (
+      '张三','李四'
+) group by name;
+#替换表达式，三层嵌套得到最终结果
+select name,avg(score) from result where name in (
+      select name from (
+            select name,count(1) as guakeshu from result where score<60 group by name having guakeshu>=2;
+      )as temp;
+) group by name;
+
+### 经典例题二：
+
+1.查询本网站最新的(goods_id最大的)一条商品，要求：不用排序
+
+正确写法：
+select goods_id,goods_name from goods where goods_id = (select max(goods_id) from goods);
+#先用max()查询出最大的goods_id,然后再根据goods_id查询对应商品。
+
+2.查询出每个栏目下id号最大的一条商品
+
+错误写法1：
+select goods_id,cat_id,goods_name from goods group by cat_id;
+# group by cat_id ，从语义上来分析，select的列，只能是 cat_id（因为group by cat_id）以及 max/min/avg/sum/count( )函数。
+
+错误写法2：
+select  goods_id,cat_id,goods_name from goods order by cat_id asc , good_id desc group by cat_id;
+#在错误1的基础上修改，先order by再group by 。 order by针对结果集排序，而group by 优先级更高。
+
+正确写法1：
+select goods_id,goods_name from goods where goods_id in (select  max(goods_is) from goods group by cat_id) ;
+#先查询每个栏目下最大的goods_id,然后取出刚刚的goods_id对应的商品
+
+正确写法2：
+select * from ( select goods_id,cat_id,goods_name from goods order by cat_id asc,goods_id desc) as tmp group by cat_id;
+#利用group by取出‘第一次出现的商品名称’的特性
+
+
+NULL是一种类型，碰到运算符，一律但会null，比较时不能直接用'='符号比较，需要用 ' is NULL '， ' is not NULL '。
+
+左/右/内连接：
+	表1 left/right/inner join 表2 (as) 别名 on 条件表达式 ； 
+	#结果也是一个结果集，可以看成一张临时表，可以对其查询等操作。
+	#先显示符合条件表达式的列，再显示剩余（左/右/并）的列。
+#例
+select t1.teamName,t2.teamName,matchResult,matchTime from 
+                game left join team as t1 on game.hostTeamID=t1.teamID left join team as t2 on game.hostTeamID=t2.teamID  ;
+
+Union:
+	合并2条或多条语句的结果。语法:Sql1 union sql2
+	内层的order by 语句单独使用,不会影响结果集,仅排序,在执行期间,就被Mysql的代码分析器给优化掉了.
+	内层的order by 必须能够影响结果集时(例如加了limit),才有意义.
+ 	union all : 两表重复项不按默认隐藏，其显示。
+
+case 集合 when 集合中的值1 then 返回值1 when 集合中的值2 then 返回值2 ... else 返回值3 end 
+#例： select sname，case gender when 0 then '女' when 1 then '男' else '春' end as xingbie from test;
+
+IF(expr1,expr2,expr3) ： 如果expr1为真，则IF()的返回值为expr2，否则为expr3。
+
+#优先再建表时合理优化表结构减少函数使用，若确实需要，优先放在业务逻辑层（PHP层），而不是使用mysql内置函数。
+在查询时使用了函数,最大的一个坏处,以 date_format(A)为例，则A列的索引将无法使用.
+如果你针对某列作操作,而此次查询,又使用的此列的索引.此时,速度将显著变慢.
+#例: 
+Select name,email from table where right(email,6)='qq.com'; 将会导致此次查询中, email的索引并不会产生效果.
+
+创建视图：create （algorithm=merge/temptable/undefined）view 视图名 as select语句
+
+
