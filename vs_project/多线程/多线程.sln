@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VC_horse", "VC_horse\VC_hor
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "thispointer 创建多线程得三种方法", "thispointer 创建多线程得三种方法\thispointer 创建多线程得三种方法.vcxproj", "{6340D861-E8F2-476E-9F40-70756E688CD7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "小心地将参数传递给线程", "小心地将参数传递给线程\小心地将参数传递给线程.vcxproj", "{EC918F98-2E92-4DB4-814B-EED478014CEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -171,6 +173,14 @@ Global
 		{6340D861-E8F2-476E-9F40-70756E688CD7}.Release|x64.Build.0 = Release|x64
 		{6340D861-E8F2-476E-9F40-70756E688CD7}.Release|x86.ActiveCfg = Release|Win32
 		{6340D861-E8F2-476E-9F40-70756E688CD7}.Release|x86.Build.0 = Release|Win32
+		{EC918F98-2E92-4DB4-814B-EED478014CEF}.Debug|x64.ActiveCfg = Debug|x64
+		{EC918F98-2E92-4DB4-814B-EED478014CEF}.Debug|x64.Build.0 = Debug|x64
+		{EC918F98-2E92-4DB4-814B-EED478014CEF}.Debug|x86.ActiveCfg = Debug|Win32
+		{EC918F98-2E92-4DB4-814B-EED478014CEF}.Debug|x86.Build.0 = Debug|Win32
+		{EC918F98-2E92-4DB4-814B-EED478014CEF}.Release|x64.ActiveCfg = Release|x64
+		{EC918F98-2E92-4DB4-814B-EED478014CEF}.Release|x64.Build.0 = Release|x64
+		{EC918F98-2E92-4DB4-814B-EED478014CEF}.Release|x86.ActiveCfg = Release|Win32
+		{EC918F98-2E92-4DB4-814B-EED478014CEF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
