@@ -1,0 +1,4 @@
+﻿  object slicing.cpp
+e:\desktop file\c++ daily-practice\vs_project\object slicing\object slicing\object slicing.cpp(65): warning C4018: “<”: 有符号/无符号不匹配
+e:\desktop file\c++ daily-practice\vs_project\object slicing\object slicing\object slicing.cpp(68): warning C4018: “<”: 有符号/无符号不匹配
+  Object slicing.vcxproj -> E:\Desktop file\C++ Daily-practice\vs_project\Object slicing\Debug\Object slicing.exe

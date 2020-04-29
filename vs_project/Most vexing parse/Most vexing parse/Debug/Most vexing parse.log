@@ -1,0 +1,5 @@
+﻿  most vexing parse.cpp
+most vexing parse.obj : error LNK2019: 无法解析的外部符号 "public: __thiscall Timer::Timer(void)" (??0Timer@@QAE@XZ)，该符号在函数 _main 中被引用
+most vexing parse.obj : error LNK2019: 无法解析的外部符号 "public: __thiscall TimeKeeper::TimeKeeper(class Timer const &)" (??0TimeKeeper@@QAE@ABVTimer@@@Z)，该符号在函数 _main 中被引用
+most vexing parse.obj : error LNK2019: 无法解析的外部符号 "public: int __thiscall TimeKeeper::get_time(void)" (?get_time@TimeKeeper@@QAEHXZ)，该符号在函数 _main 中被引用
+E:\Desktop file\C++ Daily-practice\vs_project\Most vexing parse\Debug\Most vexing parse.exe : fatal error LNK1120: 3 个无法解析的外部命令
