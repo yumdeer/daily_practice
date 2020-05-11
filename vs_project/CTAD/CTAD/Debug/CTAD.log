@@ -1,0 +1,9 @@
+﻿  CTAD.cpp
+e:\desktop file\c++ daily-practice\vs_project\ctad\ctad\ctad.cpp(25): error C2672: “point”: 未找到匹配的重载函数
+e:\desktop file\c++ daily-practice\vs_project\ctad\ctad\ctad.cpp(25): error C2780: “point<T> point(point<T>)”: 应输入 1 个参数，却提供了 2 个
+  e:\desktop file\c++ daily-practice\vs_project\ctad\ctad\ctad.cpp(8): note: 参见“point”的声明
+e:\desktop file\c++ daily-practice\vs_project\ctad\ctad\ctad.cpp(25): error C2780: “point<T> point(void)”: 应输入 0 个参数，却提供了 2 个
+  e:\desktop file\c++ daily-practice\vs_project\ctad\ctad\ctad.cpp(8): note: 参见“point”的声明
+e:\desktop file\c++ daily-practice\vs_project\ctad\ctad\ctad.cpp(25): error C2641: 无法推导“point”的模板参数
+e:\desktop file\c++ daily-practice\vs_project\ctad\ctad\ctad.cpp(25): error C2514: “point”: 类没有构造函数
+  e:\desktop file\c++ daily-practice\vs_project\ctad\ctad\ctad.cpp(8): note: 参见“point”的声明
