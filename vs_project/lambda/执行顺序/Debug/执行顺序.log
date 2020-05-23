@@ -1,0 +1,3 @@
+﻿  执行顺序.cpp
+e:\desktop file\c++ daily-practice\vs_project\lambda\执行顺序\执行顺序.cpp(32): error C2440: “初始化”: 无法从“int”转换为“int &&”
+  e:\desktop file\c++ daily-practice\vs_project\lambda\执行顺序\执行顺序.cpp(32): note: 无法将左值绑定到右值引用

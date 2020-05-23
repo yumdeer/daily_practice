@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "表达式捕获", "表达�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "捕获与参数区别", "捕获与参数区别\捕获与参数区别.vcxproj", "{441A678A-76A4-41C8-A6E2-2B01CBE121A9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "执行顺序", "执行顺序\执行顺序.vcxproj", "{36821A2E-3B71-437D-9DDE-62966A5E6A8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{441A678A-76A4-41C8-A6E2-2B01CBE121A9}.Release|x64.Build.0 = Release|x64
 		{441A678A-76A4-41C8-A6E2-2B01CBE121A9}.Release|x86.ActiveCfg = Release|Win32
 		{441A678A-76A4-41C8-A6E2-2B01CBE121A9}.Release|x86.Build.0 = Release|Win32
+		{36821A2E-3B71-437D-9DDE-62966A5E6A8E}.Debug|x64.ActiveCfg = Debug|x64
+		{36821A2E-3B71-437D-9DDE-62966A5E6A8E}.Debug|x64.Build.0 = Debug|x64
+		{36821A2E-3B71-437D-9DDE-62966A5E6A8E}.Debug|x86.ActiveCfg = Debug|Win32
+		{36821A2E-3B71-437D-9DDE-62966A5E6A8E}.Debug|x86.Build.0 = Debug|Win32
+		{36821A2E-3B71-437D-9DDE-62966A5E6A8E}.Release|x64.ActiveCfg = Release|x64
+		{36821A2E-3B71-437D-9DDE-62966A5E6A8E}.Release|x64.Build.0 = Release|x64
+		{36821A2E-3B71-437D-9DDE-62966A5E6A8E}.Release|x86.ActiveCfg = Release|Win32
+		{36821A2E-3B71-437D-9DDE-62966A5E6A8E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
