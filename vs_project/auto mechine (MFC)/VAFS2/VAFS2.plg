@@ -1,0 +1,69 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: VAFS2 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPA.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /I "C:\Program Files\MVTec\HALCON-10.0\include\cpp" /I "C:\Program Files\MVTec\HALCON-10.0\include\\" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_DEVELOP" /D "STRSAFE_NO_DEPRECATE" /D "_AFXDLL" /Fr"Debug/" /Fp"Debug/VAFS2.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"Z:\VAFS2\VAFS2Dlg.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPA.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPB.tmp" with contents
+[
+halconcpp.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/VAFS2.pdb" /debug /machine:I386 /out:"Debug/VAFS2.exe" /pdbtype:sept /libpath:"C:\Program Files\The Imaging Source Europe GmbH\IC Imaging Control 3.0\classlib\debug\  C:\Program Files\MVTec\HALCON-10.0\lib\x86sse2-win32" /libpath:"C:\Program Files\MVTec\HALCON-10.0\lib\x86sse2-win32" 
+.\Debug\DebugDlg.obj
+.\Debug\DELETERCP.obj
+.\Debug\IOMonitor.obj
+.\Debug\login.obj
+.\Debug\ModelEditDlg.obj
+.\Debug\mscomm.obj
+.\Debug\MyButton.obj
+.\Debug\PARAMETERSET.obj
+.\Debug\paraproduce.obj
+.\Debug\RcpSave.obj
+.\Debug\SmallKey.obj
+.\Debug\StdAfx.obj
+.\Debug\VAFS2.obj
+.\Debug\VAFS2Dlg.obj
+.\Debug\VisionSetDlg.obj
+.\Debug\VAFS2.res
+.\FCAM.lib
+.\Dmc1000.lib
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPB.tmp"
+<h3>Output Window</h3>
+Compiling...
+VAFS2Dlg.cpp
+z:\vafs2\glbs.h(52) : warning C4305: 'initializing' : truncation from 'const double' to 'float'
+z:\vafs2\glbs.h(53) : warning C4305: 'initializing' : truncation from 'const double' to 'float'
+z:\vafs2\glbs.h(54) : warning C4305: 'initializing' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(1653) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(1661) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(1694) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(1702) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(4332) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(4336) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(4366) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(4368) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(4434) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(4438) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(4468) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(4470) : warning C4305: '=' : truncation from 'const double' to 'float'
+Z:\VAFS2\VAFS2Dlg.cpp(4380) : warning C4101: 'inewcenterangle2' : unreferenced local variable
+Z:\VAFS2\VAFS2Dlg.cpp(4482) : warning C4101: 'inewcenterangle2' : unreferenced local variable
+Z:\VAFS2\VAFS2Dlg.cpp(8670) : warning C4553: '==' : operator has no effect; did you intend '='?
+Z:\VAFS2\VAFS2Dlg.cpp(1993) : warning C4715: 'CVAFS2Dlg::OnSearchObject2' : not all control paths return a value
+Linking...
+LINK : LNK6004: Debug/VAFS2.exe not found or not built by the last incremental link; performing full link
+
+
+
+<h3>Results</h3>
+VAFS2.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

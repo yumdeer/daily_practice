@@ -1,0 +1,1212 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+// Generated Help ID header file
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "resource.hm"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\VAFS2.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\VAFS2.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 VAFS2"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "VAFS2 1.0 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "版权所有 (C) 2011",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_VAFS2_DIALOG DIALOGEX 0, 0, 1067, 575
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "南昌工控机器人-视觉贴膜"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "调试",IDC_DEBUG,495,492,106,65,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "启动",IDC_START,6,492,106,65,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "停止",IDC_STOP,169,492,106,65,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "复位",IDC_RESET,332,492,106,65,0,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_PORFILE_RECT,"Static",SS_BLACKFRAME,3,102,382,355
+    CONTROL         "List1",IDC_LISTOUT,"SysListView32",LVS_REPORT | 
+                    LVS_NOSCROLL | WS_BORDER | WS_TABSTOP,3,12,293,68
+    LISTBOX         IDC_problem,880,473,150,99,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CTEXT           "贴合计数",IDC_STATICcounter,827,339,41,16,
+                    SS_CENTERIMAGE,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_PASTECOUNTER,893,339,53,18,ES_CENTER | 
+                    ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_hour,351,12,20,15,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_minute,383,12,20,15,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_second,415,12,20,15,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_BORDER
+    LTEXT           ":",IDC_dot1,373,12,8,15
+    LTEXT           ":",IDC_dot2,399,12,8,15
+    EDITTEXT        IDC_pastex,842,65,48,19,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_pastey,936,11,48,19,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "X+→",IDC_XP,893,61,45,28
+    PUSHBUTTON      "X-←",IDC_XM,983,61,45,28
+    PUSHBUTTON      "Y+↓",IDC_YP,938,91,45,28
+    PUSHBUTTON      "Y-↑",IDC_YM,938,32,45,28
+    EDITTEXT        IDC_pasteangle,842,137,48,19,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    PUSHBUTTON      "θ+←",IDC_ANGLEP,893,133,45,28
+    PUSHBUTTON      "θ-→",IDC_ANGLEM,983,133,45,28
+    CTEXT           "cycle time",IDC_time,384,69,66,17,SS_CENTERIMAGE
+    CONTROL         "List1",IDC_LISTOUT2,"SysListView32",LVS_REPORT | 
+                    LVS_NOSCROLL | WS_BORDER | WS_TABSTOP,474,12,293,68
+    CTEXT           "系统提示",IDC_STATICminder,921,446,62,22,SS_CENTERIMAGE,
+                    WS_EX_TRANSPARENT
+    CONTROL         "",IDC_MSCOMM1,"{648A5600-2C6E-101B-82B6-000000000014}",
+                    WS_TABSTOP,67,46,25,25
+    CONTROL         "",IDC_PORFILE_RECT2,"Static",SS_BLACKFRAME,388,102,382,
+                    355
+    LTEXT           "上游启动",IDC_STATICupstart,851,415,44,12
+    LTEXT           "下游完成",IDC_STATICdownover,851,433,44,12
+    PUSHBUTTON      "尾片",IDC_lastone,658,492,106,65,0,WS_EX_DLGMODALFRAME
+    LTEXT           "工作周期",IDC_STATIC,325,74,49,14
+    PUSHBUTTON      "清零",IDC_counterzero1,963,338,45,20
+    EDITTEXT        IDC_repastexm,843,233,48,19,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_repasteym,938,179,48,19,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "X+→",IDC_XPm,983,229,45,28
+    PUSHBUTTON      "X-←",IDC_XMm,893,229,45,28
+    PUSHBUTTON      "Y+↓",IDC_YPm,939,259,45,28
+    PUSHBUTTON      "Y-↑",IDC_YMm,939,200,45,28
+    EDITTEXT        IDC_repasteanglem,843,305,48,19,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    PUSHBUTTON      "θ+←",IDC_ANGLEPm,893,301,45,28
+    PUSHBUTTON      "θ-→",IDC_ANGLEMm,983,301,45,28
+    CTEXT           "抛弃计数",IDC_STATICcounter2,827,363,41,16,
+                    SS_CENTERIMAGE,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_CASTCOUNTER,893,361,53,18,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CTEXT           "膜料计数",IDC_STATICcounter3,827,387,41,16,
+                    SS_CENTERIMAGE,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_TOTALCOUNTER,893,385,53,18,ES_CENTER | 
+                    ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "站号",IDC_STATIC,364,36,17,8
+    EDITTEXT        IDC_slavenum,390,34,19,12,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_READONLY
+    PUSHBUTTON      "清零",IDC_counterzero2,963,362,45,20
+    PUSHBUTTON      "清零",IDC_counterzero3,963,383,45,20,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    GROUPBOX        "左贴合位置微调",IDC_STATIClift,825,3,222,161
+    GROUPBOX        "右贴合位置微调",IDC_STATICright,825,171,222,161
+    CONTROL         183,IDC_upstart,"Static",SS_BITMAP | SS_NOTIFY,832,414,
+                    11,11
+    CONTROL         183,IDC_downfinished,"Static",SS_BITMAP | SS_NOTIFY,832,
+                    431,11,11
+END
+
+IDD_DEBUG DIALOGEX 0, 0, 304, 334
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION " 调试"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "返回",IDOK,231,23,71,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "右模板1",IDC_Vision,261,46,41,17,0,WS_EX_DLGMODALFRAME
+    LTEXT           "Y 点动",IDC_STATIC,56,172,23,10
+    PUSHBUTTON      " STEP-",IDC_XSTEPM,10,212,34,17,0,WS_EX_DLGMODALFRAME
+    LTEXT           "X点动",IDC_STATIC,13,172,22,10
+    PUSHBUTTON      " STEP+",IDC_YSTEPP,52,194,34,17,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " STEP-",IDC_YSTEPM,52,212,34,17,0,WS_EX_DLGMODALFRAME
+    LTEXT           "长度0.01mm 角度0.0005度",IDC_STATIC,78,239,91,11
+    LTEXT           "速度",IDC_STATIC,16,240,16,9
+    LTEXT           "X位置",IDC_POSITIONX,13,184,24,9
+    LTEXT           "Y位置",IDC_POSITIONY,56,184,24,9
+    PUSHBUTTON      "贴合步进",IDC_pastestepp,1,0,63,23,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "夹具单元",IDC_fixturestepp,149,0,63,23,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "参数设置",IDC_parasetup,218,136,41,17,0,
+                    WS_EX_DLGMODALFRAME
+    EDITTEXT        IDC_stateinfo,5,51,207,13,ES_CENTER | ES_AUTOHSCROLL
+    GROUPBOX        "点动",IDC_STATIC,6,162,295,69
+    PUSHBUTTON      "键盘",IDC_softkey2,232,2,70,18,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "吸头连拍",IDC_cyclephoto,218,82,41,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "IO监控",IDC_counterzero,261,136,41,17,0,
+                    WS_EX_DLGMODALFRAME
+    LTEXT           "0.001",IDC_POSITIONTURNPLATE,99,184,24,9
+    LTEXT           "角度",IDC_STATIC,100,172,17,10
+    PUSHBUTTON      " STEP+",IDC_TURNPLATEP,94,194,34,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " STEP-",IDC_TURNPLATEM,94,212,34,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "夹具连拍",IDC_cyclephoto2,218,118,41,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "夹具模板1",IDC_Vision21,218,100,41,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "z+",IDC_zoomp,15,143,32,12
+    PUSHBUTTON      "z-",IDC_zoomm,47,143,32,12
+    PUSHBUTTON      "↑",IDC_zoompup,143,143,32,12
+    PUSHBUTTON      "↓",IDC_zoomdown,79,143,32,12
+    PUSHBUTTON      "←",IDC_zoomleft,175,143,32,12
+    PUSHBUTTON      "→",IDC_zoomright,111,143,32,12
+    PUSHBUTTON      " STEP+",IDC_XSTEPP,10,194,34,17,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "开手动 ",IDC_mstart,259,233,37,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "关手动 ",IDC_mover,211,233,37,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "料带步进",IDC_linestepp,75,0,63,23,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "料带步退",IDC_linestepm,75,24,63,23,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "翻转压合",IDC_reloadstepp,1,24,63,23,0,
+                    WS_EX_DLGMODALFRAME
+    LTEXT           "取片位置X",IDC_STATIC,15,70,39,11
+    EDITTEXT        IDC_photoxd,103,64,6,15,ES_AUTOHSCROLL | NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "拍照位置X",IDC_STATIC,99,66,14,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "左贴合X",IDC_STATIC,15,94,39,11
+    LTEXT           "取片位置Y",IDC_STATIC,131,81,39,11
+    EDITTEXT        IDC_photoyd,92,63,6,15,ES_AUTOHSCROLL | NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "拍照位置Y",IDC_STATIC,91,64,24,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "左贴合Y",IDC_STATIC,132,93,39,11
+    LTEXT           "取片角",IDC_STATIC,15,82,39,11
+    LTEXT           "左贴合角",IDC_STATIC,15,118,39,11
+    PUSHBUTTON      " 左贴合",IDC_vacuump,9,311,40,17,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "右模板2",IDC_Vision2,261,64,41,17,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "夹具模板2",IDC_Vision22,261,100,41,17,0,
+                    WS_EX_DLGMODALFRAME
+    EDITTEXT        IDC_photoxd2,100,65,6,15,ES_AUTOHSCROLL | NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "拍照位置X2",IDC_STATIC,201,79,8,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    EDITTEXT        IDC_photoyd2,203,85,6,15,ES_AUTOHSCROLL | NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "拍照位置Y2",IDC_STATIC,200,93,8,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "舌头",IDC_POSITIONTONGUE,271,184,24,9
+    LTEXT           "舌头",IDC_STATIC,271,172,22,10
+    PUSHBUTTON      " STEP+",IDC_TONGUEJOGP,262,194,34,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " STEP-",IDC_TONGUEJOGM,262,212,34,17,0,
+                    WS_EX_DLGMODALFRAME
+    LTEXT           "舌头出位置",IDC_STATIC,15,130,41,11
+    LTEXT           "舌头回位置",IDC_STATIC,132,129,42,9
+    PUSHBUTTON      "上料搬运",IDC_placestepp,149,24,63,23,0,
+                    WS_EX_DLGMODALFRAME
+    LTEXT           "主轴",IDC_STATIC,138,172,22,10
+    PUSHBUTTON      " STEP+",IDC_LINEJOGP,136,194,34,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " STEP-",IDC_LINEJOGM,136,212,34,17,NOT WS_VISIBLE | 
+                    WS_DISABLED,WS_EX_DLGMODALFRAME
+    LTEXT           "位置",IDC_POSITIONmainroller,142,184,24,9
+    EDITTEXT        IDC_zpick,203,110,6,15,ES_AUTOHSCROLL | NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "Z取片位置",IDC_STATIC,201,106,8,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    PUSHBUTTON      " 左贴合",IDC_pusher1p,55,260,47,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " 右贴合",IDC_pusher2p,103,260,47,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " 左搬运",IDC_load1p,151,260,47,17,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "右搬运",IDC_load2p,199,260,47,17,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "左吹气",IDC_flow1p,55,279,47,17,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " 右吹气",IDC_flow2p,103,279,47,17,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " 右贴合",IDC_vacuum2p,70,311,40,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " 左搬运",IDC_loadvacuum1p,131,311,40,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " 右搬运",IDC_loadvacuum2p,192,311,40,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " 夹具",IDC_fixturevacuump,253,311,40,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "上完完成",IDC_upfinishedp,7,260,47,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "下启启动",IDC_downstartp,7,279,47,17,0,
+                    WS_EX_DLGMODALFRAME
+    GROUPBOX        "真空",IDC_STATIC,5,303,293,28
+    LTEXT           "左搬运",IDC_STATIC,181,172,24,10
+    PUSHBUTTON      " STEP+",IDC_reloadaixlp,178,194,34,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " STEP-",IDC_reloadaixlm,178,212,34,17,0,
+                    WS_EX_DLGMODALFRAME
+    LTEXT           "位置",IDC_POSITIONreload,185,184,24,9
+    LTEXT           "右搬运",IDC_STATIC,226,172,24,10
+    PUSHBUTTON      " STEP+",IDC_loadaxilp,220,194,34,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      " STEP-",IDC_loadaxilm,220,212,34,17,0,
+                    WS_EX_DLGMODALFRAME
+    LTEXT           "位置",IDC_POSITIONload,228,184,24,9
+    LTEXT           "右贴合角",IDC_STATIC,132,117,39,11
+    LTEXT           "右贴合X",IDC_STATIC,15,106,39,11
+    LTEXT           "右贴合Y",IDC_STATIC,132,105,39,11
+    CTEXT           "Static",IDC_pickxd,58,68,24,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_pickangled,58,80,24,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_pastexd,58,92,24,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_repastexd,58,104,24,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_pasteangled,58,116,24,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_tongueoutd,58,128,24,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_pickyd,175,79,24,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_pasteyd,175,91,24,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_repasteyd,175,103,24,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_repasteangled,175,115,24,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_tongueind,175,127,24,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_JOGV,36,238,28,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_JOGS,172,238,28,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    PUSHBUTTON      "压合/夹子",IDC_rightpress,247,260,47,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "压合",IDC_pressvacuum,186,282,40,17,NOT WS_VISIBLE | 
+                    WS_DISABLED,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "刮板/抬起",IDC_rightpress2,247,278,47,17,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "左模板1",IDC_Vision3,218,46,41,17,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "左模板2",IDC_Vision4,218,64,41,17,0,WS_EX_DLGMODALFRAME
+END
+
+IDD_VISION DIALOGEX 0, 0, 459, 405
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "相机设置"
+FONT 10, "System", 0, 0, 0x1
+BEGIN
+    LTEXT           "时间",IDC_TIMER,382,349,34,12
+    CONTROL         "",IDC_PORFILE_RECTvision,"Static",SS_BLACKFRAME,7,7,367,
+                    367
+    PUSHBUTTON      "新模版",IDC_CreateModel,385,85,42,21,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "拍照",IDC_StartCollection,385,60,42,21,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "查找",IDC_SearchObject,385,135,42,21,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "编辑模版",IDC_EditModel,385,160,42,21,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "保存模版",IDC_SaveModel,385,110,42,21,0,
+                    WS_EX_DLGMODALFRAME
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | 
+                    LVS_AUTOARRANGE | WS_BORDER | WS_TABSTOP,94,7,232,36
+    LTEXT           "曝光",IDC_STATIC,378,209,16,10
+    LTEXT           "增益",IDC_STATIC,378,194,19,10
+    PUSHBUTTON      "返回",IDC_OK,389,15,36,42
+    PUSHBUTTON      "键盘",IDC_softkey3,389,303,36,37,0,WS_EX_DLGMODALFRAME
+    LTEXT           "清晰度",IDC_STATIC,378,224,24,10
+    LTEXT           "装配点",IDC_STATIC,395,242,25,12,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    EDITTEXT        IDC_keypastex,383,256,18,12,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE | WS_DISABLED
+    EDITTEXT        IDC_keypastey,407,256,18,12,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE | WS_DISABLED
+    LTEXT           "X",IDC_STATIC,392,275,13,9
+    LTEXT           "Y",IDC_STATIC,417,274,16,9
+    EDITTEXT        IDC_mousex,383,287,18,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_mousey,408,287,18,12,ES_AUTOHSCROLL
+    CTEXT           "Static",IDC_EDIT_GAIN,397,193,32,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_EDIT_SHUTTER,397,207,32,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_EDIT_contrast,408,222,19,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+END
+
+IDD_MODEL_EDIT_DLG DIALOGEX 0, 0, 427, 358
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "新模版"
+FONT 10, "System", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "返回",IDOK,376,7,44,42
+    CONTROL         "恢复",IDC_ADD_EDGE,"Button",BS_AUTORADIOBUTTON,349,297,
+                    25,11
+    CONTROL         "删除",IDC_DEL_EDGE,"Button",BS_AUTORADIOBUTTON,385,297,
+                    25,11
+    EDITTEXT        IDC_EDIT8,386,278,26,12,ES_AUTOHSCROLL
+    LTEXT           "笔宽",IDC_STATIC,353,279,20,9
+    PUSHBUTTON      "键盘",IDC_softkey4,349,7,26,42,0,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_STATIC_img,"Static",SS_BLACKFRAME | SS_NOTIFY,7,7,
+                    335,327,WS_EX_ACCEPTFILES | WS_EX_TRANSPARENT | 
+                    WS_EX_CLIENTEDGE
+    CONTROL         "Slider1",IDC_SLIDERcontrast,"msctls_trackbar32",
+                    TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,390,56,13,
+                    68
+    EDITTEXT        IDC_EDIT1contrast,361,94,26,12,ES_AUTOHSCROLL
+    LTEXT           "对比度",IDC_STATIC,360,81,28,14
+    LTEXT           "特征点X",IDC_STATIC,353,208,30,11
+    LTEXT           "特征点Y",IDC_STATIC,353,221,33,11
+    EDITTEXT        IDC_mousepointx,386,248,26,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_mousepointy,353,248,26,12,ES_AUTOHSCROLL
+    LTEXT           "X",IDC_STATIC,360,239,11,9
+    LTEXT           "Y",IDC_STATIC,392,239,13,8
+    EDITTEXT        IDC_modalxorg,386,208,26,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_modalyorg,386,221,26,12,ES_AUTOHSCROLL
+    CONTROL         "Radio1",IDC_center,"Button",BS_AUTORADIOBUTTON,370,149,
+                    9,10
+    CONTROL         "Radio1",IDC_up1,"Button",BS_AUTORADIOBUTTON,370,132,9,
+                    10
+    CONTROL         "Radio1",IDC_rightup2,"Button",BS_AUTORADIOBUTTON,378,
+                    140,9,10
+    CONTROL         "Radio1",IDC_right3,"Button",BS_AUTORADIOBUTTON,386,149,
+                    9,10
+    CONTROL         "Radio1",IDC_rightdown4,"Button",BS_AUTORADIOBUTTON,379,
+                    158,9,10
+    CONTROL         "Radio1",IDC_down5,"Button",BS_AUTORADIOBUTTON,370,166,9,
+                    10
+    CONTROL         "Radio1",IDC_left7,"Button",BS_AUTORADIOBUTTON,354,149,9,
+                    10
+    CONTROL         "Radio1",IDC_leftdown6,"Button",BS_AUTORADIOBUTTON,363,
+                    158,9,10
+    CONTROL         "Radio1",IDC_leftup8,"Button",BS_AUTORADIOBUTTON,361,139,
+                    9,10
+    LTEXT           "模版特征点",IDC_STATIC,356,185,46,14
+END
+
+IDD_PARAMETERSET DIALOGEX 0, 0, 345, 341
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "参数设置"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "返回",IDOK,277,7,53,27,0,WS_EX_DLGMODALFRAME
+    LTEXT           "currentrcp",IDC_currentrcp,276,45,50,9
+    PUSHBUTTON      "另存为",IDC_saveas,299,82,28,15,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "选择",IDC_selectrcp,299,57,28,15,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "删除",IDC_delrcp,299,109,28,15,0,WS_EX_DLGMODALFRAME
+    LISTBOX         IDC_rcplist,226,58,72,66,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "当前配方",IDC_STATIC,234,47,36,8
+    PUSHBUTTON      "标定",IDC_photoverify,206,202,32,18,0,
+                    WS_EX_DLGMODALFRAME
+    EDITTEXT        IDC_xcale,207,222,27,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_yscale,238,222,27,12,ES_AUTOHSCROLL
+    GROUPBOX        "膜相机标定",IDC_STATIC,203,191,65,59
+    GROUPBOX        "配方",IDC_STATIC,216,37,116,89
+    PUSHBUTTON      "键盘",IDC_softkey,217,7,53,27,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "N/A",IDC_parameterproduce,331,92,7,16,NOT WS_VISIBLE | 
+                    WS_DISABLED,WS_EX_DLGMODALFRAME
+    LTEXT           "长度单位：0.01mm   时间单位：20ms   速度0.01mm/s",
+                    IDC_STATIC,7,317,189,12
+    PUSHBUTTON      "单双",IDC_fixturemove,216,127,38,15
+    LTEXT           "X取片位置",IDC_STATIC,14,17,50,9
+    LTEXT           "拍照位置X",IDC_STATIC,14,125,44,11
+    LTEXT           "X左贴合位置",IDC_STATIC,14,29,50,9
+    LTEXT           "Y滚膜长度",IDC_STATIC,205,84,8,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "Y取片位置",IDC_STATIC,109,16,41,9
+    LTEXT           "拍照位置Y",IDC_STATIC,109,125,40,9
+    LTEXT           "Y左贴合位置",IDC_STATIC,109,28,45,9
+    LTEXT           "取片角度",IDC_STATIC,14,53,43,9
+    LTEXT           "主轴高速",IDC_STATIC,109,187,41,11
+    LTEXT           "高速脉冲数",IDC_STATIC,14,174,41,11
+    LTEXT           "主轴低速",IDC_STATIC,109,175,41,11
+    LTEXT           "夹具拍照延时",IDC_STATIC,14,211,50,11
+    LTEXT           "剥离延时",IDC_STATIC,14,223,41,11
+    LTEXT           "夹具出延时",IDC_STATIC,202,101,8,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "贴合延时",IDC_STATIC,109,210,41,9
+    LTEXT           "X速度",IDC_STATIC,14,276,21,11
+    LTEXT           "Y速度",IDC_STATIC,109,276,41,11
+    GROUPBOX        "速度",IDC_STATIC,7,267,194,47
+    GROUPBOX        "延时",IDC_STATIC,7,201,194,59
+    GROUPBOX        "主轴",IDC_STATIC,7,164,194,36
+    GROUPBOX        "位置",IDC_STATIC,7,7,194,156
+    LTEXT           "角度轴速度",IDC_STATIC,109,288,44,11
+    LTEXT           "左贴合角度",IDC_STATIC,109,52,43,9
+    PUSHBUTTON      "标定",IDC_metalverify,279,202,30,16,0,
+                    WS_EX_DLGMODALFRAME
+    EDITTEXT        IDC_photo2angle,314,207,18,12,ES_AUTOHSCROLL
+    GROUPBOX        "治具机标定",IDC_STATIC,273,190,65,59
+    LTEXT           "角度 ",IDC_STATIC,316,197,16,10,NOT WS_VISIBLE
+    EDITTEXT        IDC_metalscale,277,222,27,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_xdiv,207,237,27,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ydiv,238,236,27,12,ES_AUTOHSCROLL
+    GROUPBOX        "模版相似度限定",IDC_STATIC,216,291,122,41
+    LTEXT           "料片",IDC_STATIC,223,301,16,10
+    LTEXT           "治具",IDC_STATIC,281,301,17,9
+    LTEXT           "抛弃位置X",IDC_STATIC,14,137,50,9
+    LTEXT           "抛弃位置Y",IDC_STATIC,109,138,43,9
+    LTEXT           "舌头回",IDC_STATIC,14,113,41,9
+    LTEXT           "舌头出",IDC_STATIC,109,113,38,9
+    LTEXT           "舌头出速度",IDC_STATIC,109,301,43,11
+    LTEXT           "舌头回速度",IDC_STATIC,14,301,41,11
+    LTEXT           "取料延时",IDC_STATIC,109,222,41,11
+    LTEXT           "放料延时",IDC_STATIC,109,235,41,11
+    EDITTEXT        IDC_metalscaley,306,222,27,12,ES_AUTOHSCROLL
+    LTEXT           "料片拍照延时",IDC_STATIC,14,235,48,11
+    EDITTEXT        IDC_camera2xdiv,277,236,27,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_camera2ydiv,306,236,27,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_photo1angle,247,207,20,12,ES_AUTOHSCROLL
+    LTEXT           "角度 ",IDC_STATIC,248,196,17,10
+    LTEXT           "搬运延时",IDC_STATIC,223,251,8,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "本机站号",IDC_STATIC,261,280,37,9
+    LTEXT           "滚膜速度",IDC_STATIC,206,325,8,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "查找范围",IDC_STATIC,243,301,32,10
+    LTEXT           "Z速度",IDC_STATIC,198,269,18,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "抛弃次数",IDC_STATIC,109,150,35,9
+    LTEXT           "Z取片位置",IDC_STATIC,201,30,8,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    EDITTEXT        IDC_zpicks,208,66,6,13,ES_AUTOHSCROLL | NOT WS_VISIBLE | 
+                    WS_DISABLED
+    LTEXT           "Z拍照位置",IDC_STATIC,205,41,8,11,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    EDITTEXT        IDC_verifypastex,276,251,27,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_verifypastey,304,251,27,12,ES_AUTOHSCROLL
+    LTEXT           "查找范围",IDC_STATIC,300,301,32,10
+    EDITTEXT        IDC_verifyinfo,212,264,126,13,ES_AUTOHSCROLL
+    LTEXT           "贴合位",IDC_STATIC,241,254,31,10
+    LTEXT           "搬运速度",IDC_STATIC,14,288,35,11
+    LTEXT           "X右贴合位置",IDC_STATIC,14,41,47,9
+    LTEXT           "Y右贴合位置",IDC_STATIC,109,40,47,9
+    LTEXT           "拍照角度",IDC_STATIC,14,65,50,9
+    LTEXT           "右贴合角度",IDC_STATIC,109,64,43,9
+    LTEXT           "左取片位",IDC_STATIC,14,88,50,9
+    LTEXT           "右取片位",IDC_STATIC,109,88,43,9
+    LTEXT           "左等待位",IDC_STATIC,14,77,50,9
+    LTEXT           "右等待位",IDC_STATIC,109,76,41,9
+    LTEXT           "左放片位",IDC_STATIC,14,101,50,9
+    LTEXT           "右放片位",IDC_STATIC,109,101,36,9
+    PUSHBUTTON      "屏蔽贴合",IDC_shieldpaste,256,127,38,15
+    PUSHBUTTON      "蜂鸣屏蔽",IDC_withbeep,295,127,38,15
+    LTEXT           "清料提示次数",IDC_STATIC,14,150,50,9
+    CTEXT           "Static",IDC_pickx,66,16,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_pastex,66,28,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_repastex,66,40,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_pickangle,66,52,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_photor,66,64,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_reloadwaiting,66,76,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_reloadpick,66,88,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_reloadpush,66,100,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_tonguein,66,112,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_photox,66,124,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_photox2,66,136,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_fixtureouttime,66,148,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_mainmotorlength,66,173,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_fixturedelaytime,66,209,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_picktime,66,221,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_photodelay,66,233,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_vexx,66,275,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_vload,66,287,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_vextonguein,66,299,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_picky,157,15,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_pastey,157,27,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_repastey,157,39,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_pasteangle,157,51,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_repasteangle,157,63,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_loadwaiting,157,75,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_loadpick,157,87,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_loadpush,157,99,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_tongueout,157,111,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_photoy,157,123,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_photoy2,157,135,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_zpush,157,147,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_vexmainmotorlow,157,173,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_vexmainmotorhigh,157,185,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_pushertime,157,209,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_loadtime,157,221,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_unloadtime,157,233,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_vexy,157,275,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_vturnplate,157,287,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_vextongueout,157,299,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_searchrange,245,315,27,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_searchrange2,302,315,27,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_minscore11,224,315,15,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_minscore21,282,315,15,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_comno,298,278,34,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    PUSHBUTTON      "滚膜",IDC_rollon,216,159,38,15
+    LTEXT           "滚膜速度",IDC_STATIC,203,177,32,10
+    LTEXT           "滚膜距离",IDC_STATIC,269,176,32,10
+    CTEXT           "Static",IDC_zphoto,292,145,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    LTEXT           "压合延时",IDC_PRESSTURN,257,147,32,10
+    PUSHBUTTON      "压合",IDC_presson,216,143,38,15
+    EDITTEXT        IDC_carrytime,203,122,6,13,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE | WS_DISABLED
+    CTEXT           "Static",IDC_vexroller2,236,175,31,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_rollerfinished,303,175,31,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    CTEXT           "Static",IDC_zvex,66,245,38,12,SS_NOTIFY | 
+                    SS_CENTERIMAGE,WS_EX_CLIENTEDGE
+    LTEXT           "抛弃延时",IDC_STATIC,14,247,41,11
+END
+
+IDD_INPUTRCP DIALOG DISCARDABLE  0, 0, 187, 98
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "配方另存"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,130,7,50,14
+    PUSHBUTTON      "取消",IDCANCEL,130,24,50,14
+    LTEXT           "新配方的名字",IDC_STATIC,37,24,69,14
+    EDITTEXT        IDC_EDIT1,36,42,60,19,ES_AUTOHSCROLL
+END
+
+IDD_DELETERCP DIALOG DISCARDABLE  0, 0, 186, 92
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "删除配方"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,129,7,50,14
+    PUSHBUTTON      "取消",IDCANCEL,129,24,50,14
+    LTEXT           "删除选择配方？",IDC_STATIC,36,28,68,14
+    LTEXT           "选择配方",IDC_selectrcp,37,47,43,14
+END
+
+IDD_LOGIN DIALOG DISCARDABLE  0, 0, 187, 98
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "对话"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,130,7,50,27
+    PUSHBUTTON      "取消",IDCANCEL,130,39,50,27
+    LTEXT           "输入密码：",IDC_STATIC,15,18,42,13
+    EDITTEXT        IDC_currentpassword,69,16,48,13,ES_AUTOHSCROLL
+    LTEXT           "新密码：",IDC_STATIC,13,47,42,13
+    EDITTEXT        IDC_newpassword,69,46,48,13,ES_AUTOHSCROLL
+    LTEXT           "密码确认:",IDC_passwordupdatatxt,13,65,42,13
+    EDITTEXT        IDC_passwordupdata,69,65,48,13,ES_AUTOHSCROLL
+END
+
+IDD_paraproduce DIALOGEX 0, 0, 340, 254
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "智能参数"
+FONT 10, "System", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "返回",IDOK,278,7,49,42
+    LTEXT           "a:",IDC_STATIC,230,76,11,11
+    LTEXT           "b:",IDC_STATIC,230,96,11,11,0,0,HIDC_STATIC
+    LTEXT           "c:",IDC_STATIC,230,116,11,11
+    EDITTEXT        IDC_filmwidth,244,75,49,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_filmlength,244,95,49,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_filmgap,244,115,49,16,ES_AUTOHSCROLL
+    CONTROL         162,IDC_film,"Static",SS_BITMAP,16,35,172,212
+    PUSHBUTTON      "生产新参数",IDC_PARAPRODUCE,235,169,59,30
+    LTEXT           "料带位置图",IDC_STATIC,83,15,48,14
+    PUSHBUTTON      "键盘",IDC_softkey6,228,7,49,42,0,WS_EX_DLGMODALFRAME
+END
+
+IDD_SmallKey DIALOGEX 0, 0, 108, 125
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "keyboard"
+FONT 10, "System", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,80,103,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "取消",IDCANCEL,80,82,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "0",IDC_Num0,28,103,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "1",IDC_Num1,2,82,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "2",IDC_Num2,28,82,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "3",IDC_Num3,54,82,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "4",IDC_Num4,2,61,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "5",IDC_Num5,28,61,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "6",IDC_Num6,54,61,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "7",IDC_Num7,2,40,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "8",IDC_Num8,28,40,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "9",IDC_Num9,54,40,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "<-",IDC_Num10,80,40,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "C",IDC_Num11,80,61,26,21,0,WS_EX_DLGMODALFRAME
+    LTEXT           "input",IDC_Input,2,21,104,18,0,WS_EX_DLGMODALFRAME | 
+                    WS_EX_CLIENTEDGE | WS_EX_RIGHT
+    LTEXT           "~",IDC_STATIC,53,3,8,8
+    LTEXT           "100000",IDC_Maximum,74,1,31,8,SS_NOTIFY
+    CTEXT           "100000",IDC_Minimum,11,1,25,8,SS_NOTIFY
+    LTEXT           "请输入",IDC_Prompt,3,11,52,8
+    PUSHBUTTON      ".",IDC_Num12,2,103,26,21,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "-",IDC_Num13,54,103,26,21,0,WS_EX_DLGMODALFRAME
+END
+
+IDD_IOMONITOR DIALOG DISCARDABLE  0, 0, 512, 314
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "I/O监控"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "退出",IDOK,455,7,50,14
+    CONTROL         183,IDC_OUT1_1,"Static",SS_BITMAP | SS_NOTIFY,338,38,8,8
+    GROUPBOX        "前I/O板",IDC_STATIC,10,30,489,115
+    CONTROL         183,IDC_IN1,"Static",SS_BITMAP | SS_NOTIFY,437,38,8,8
+    CONTROL         183,IDC_OUT1_2,"Static",SS_BITMAP | SS_NOTIFY,355,38,8,8
+    CONTROL         183,IDC_OUT1_3,"Static",SS_BITMAP | SS_NOTIFY,372,38,8,8
+    CONTROL         183,IDC_IN2,"Static",SS_BITMAP | SS_NOTIFY,452,38,8,8
+    CONTROL         183,IDC_IN3,"Static",SS_BITMAP | SS_NOTIFY,467,38,8,8
+    CONTROL         183,IDC_IN4,"Static",SS_BITMAP | SS_NOTIFY,482,38,8,8
+    CONTROL         183,IDC_IN5,"Static",SS_BITMAP | SS_NOTIFY,75,132,8,8
+    CONTROL         183,IDC_IN6,"Static",SS_BITMAP | SS_NOTIFY,90,132,8,8
+    CONTROL         183,IDC_IN7,"Static",SS_BITMAP | SS_NOTIFY,105,132,8,8
+    CONTROL         183,IDC_IN8,"Static",SS_BITMAP | SS_NOTIFY,120,132,8,8
+    CONTROL         183,IDC_IN9,"Static",SS_BITMAP | SS_NOTIFY,135,132,8,8
+    CONTROL         183,IDC_IN10,"Static",SS_BITMAP | SS_NOTIFY,150,132,8,8
+    CONTROL         183,IDC_IN11,"Static",SS_BITMAP | SS_NOTIFY,165,132,8,8
+    CONTROL         183,IDC_IN12,"Static",SS_BITMAP | SS_NOTIFY,180,132,8,8
+    CONTROL         183,IDC_IN13,"Static",SS_BITMAP | SS_NOTIFY,195,132,8,8
+    CONTROL         183,IDC_IN14,"Static",SS_BITMAP | SS_NOTIFY,210,132,8,8
+    CONTROL         183,IDC_IN15,"Static",SS_BITMAP | SS_NOTIFY,225,132,8,8
+    CONTROL         183,IDC_IN16,"Static",SS_BITMAP | SS_NOTIFY,240,132,8,8
+    CONTROL         183,IDC_OUT2,"Static",SS_BITMAP | SS_NOTIFY,300,132,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,255,132,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,269,132,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,285,132,8,8
+    CONTROL         183,IDC_OUT3,"Static",SS_BITMAP | SS_NOTIFY,322,131,8,8
+    CONTROL         183,IDC_OUT4,"Static",SS_BITMAP | SS_NOTIFY,337,131,8,8
+    CONTROL         183,IDC_OUT5,"Static",SS_BITMAP | SS_NOTIFY,353,131,8,8
+    CONTROL         183,IDC_OUT6,"Static",SS_BITMAP | SS_NOTIFY,368,131,8,8
+    CONTROL         183,IDC_OUT7,"Static",SS_BITMAP | SS_NOTIFY,383,131,8,8
+    CONTROL         183,IDC_OUT8,"Static",SS_BITMAP | SS_NOTIFY,398,131,8,8
+    CONTROL         183,IDC_OUT9,"Static",SS_BITMAP | SS_NOTIFY,413,131,8,8
+    CONTROL         183,IDC_OUT10,"Static",SS_BITMAP | SS_NOTIFY,428,131,8,8
+    CONTROL         183,IDC_OUT11,"Static",SS_BITMAP | SS_NOTIFY,443,131,8,8
+    CONTROL         183,IDC_OUT12,"Static",SS_BITMAP | SS_NOTIFY,458,131,8,8
+    CONTROL         183,IDC_ORG1,"Static",SS_BITMAP | SS_NOTIFY,15,132,8,8
+    CONTROL         183,IDC_ORG2,"Static",SS_BITMAP | SS_NOTIFY,30,132,8,8
+    CONTROL         183,IDC_ORG3,"Static",SS_BITMAP | SS_NOTIFY,45,132,8,8
+    CONTROL         183,IDC_ORG4,"Static",SS_BITMAP | SS_NOTIFY,60,132,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,473,131,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,488,131,8,8
+    LTEXT           "11",IDC_STATIC,14,122,9,8
+    LTEXT           "12",IDC_STATIC,29,122,9,8
+    LTEXT           "13",IDC_STATIC,44,122,9,8
+    LTEXT           "14",IDC_STATIC,59,122,9,8
+    LTEXT           "15",IDC_STATIC,74,122,9,8
+    LTEXT           "16",IDC_STATIC,89,122,9,8
+    LTEXT           "NN",IDC_STATIC,267,122,11,8
+    LTEXT           "17",IDC_STATIC,104,122,9,8
+    LTEXT           "18",IDC_STATIC,119,122,9,8
+    LTEXT           "19",IDC_STATIC,134,122,9,8
+    LTEXT           "20",IDC_STATIC,149,122,9,8
+    LTEXT           "21",IDC_STATIC,164,122,9,8
+    LTEXT           "22",IDC_STATIC,179,122,9,8
+    LTEXT           "23",IDC_STATIC,194,122,9,8
+    LTEXT           "24",IDC_STATIC,209,122,9,8
+    LTEXT           "25",IDC_STATIC,224,122,9,8
+    LTEXT           "26",IDC_STATIC,239,122,9,8
+    LTEXT           "NN",IDC_STATIC,282,122,11,8
+    LTEXT           "NN",IDC_STATIC,252,122,11,8
+    LTEXT           "CAM",IDC_STATIC,296,122,16,8
+    LTEXT           "51",IDC_STATIC,322,121,9,8
+    LTEXT           "52",IDC_STATIC,338,121,9,8
+    LTEXT           "53",IDC_STATIC,353,121,9,8
+    LTEXT           "54",IDC_STATIC,368,121,9,8
+    LTEXT           "55",IDC_STATIC,383,121,9,8
+    LTEXT           "56",IDC_STATIC,398,121,9,8
+    LTEXT           "57",IDC_STATIC,413,121,9,8
+    LTEXT           "58",IDC_STATIC,428,121,9,8
+    LTEXT           "61",IDC_STATIC,338,49,9,8
+    LTEXT           "59",IDC_STATIC,443,121,9,8
+    LTEXT           "60",IDC_STATIC,458,121,9,8
+    LTEXT           "NN",IDC_STATIC,471,121,11,8
+    LTEXT           "NN",IDC_STATIC,487,121,11,8
+    LTEXT           "NN",IDC_STATIC,354,49,11,8
+    LTEXT           "NN",IDC_STATIC,371,49,11,8
+    LTEXT           "30",IDC_STATIC,437,49,9,8
+    LTEXT           "31",IDC_STATIC,452,49,9,8
+    LTEXT           "32",IDC_STATIC,467,49,9,8
+    LTEXT           "33",IDC_STATIC,482,49,9,8
+    CONTROL         183,IDC_OUT33_1,"Static",SS_BITMAP | SS_NOTIFY,341,188,8,
+                    8
+    GROUPBOX        "后I/O板",IDC_STATIC,10,180,489,115
+    CONTROL         183,IDC_IN33,"Static",SS_BITMAP | SS_NOTIFY,437,188,8,8
+    CONTROL         183,IDC_OUT33_2,"Static",SS_BITMAP | SS_NOTIFY,357,188,8,
+                    8
+    CONTROL         183,IDC_OUT33_3,"Static",SS_BITMAP | SS_NOTIFY,373,188,8,
+                    8
+    CONTROL         183,IDC_IN34,"Static",SS_BITMAP | SS_NOTIFY,452,188,8,8
+    CONTROL         183,IDC_IN35,"Static",SS_BITMAP | SS_NOTIFY,467,188,8,8
+    CONTROL         183,IDC_IN36,"Static",SS_BITMAP | SS_NOTIFY,482,188,8,8
+    CONTROL         183,IDC_IN37,"Static",SS_BITMAP | SS_NOTIFY,75,281,8,8
+    CONTROL         183,IDC_IN38,"Static",SS_BITMAP | SS_NOTIFY,90,281,8,8
+    CONTROL         183,IDC_IN39,"Static",SS_BITMAP | SS_NOTIFY,105,281,8,8
+    CONTROL         183,IDC_IN40,"Static",SS_BITMAP | SS_NOTIFY,120,281,8,8
+    CONTROL         183,IDC_IN41,"Static",SS_BITMAP | SS_NOTIFY,135,281,8,8
+    CONTROL         183,IDC_IN42,"Static",SS_BITMAP | SS_NOTIFY,150,281,8,8
+    CONTROL         183,IDC_IN43,"Static",SS_BITMAP | SS_NOTIFY,165,281,8,8
+    CONTROL         183,IDC_IN44,"Static",SS_BITMAP | SS_NOTIFY,180,281,8,8
+    CONTROL         183,IDC_IN45,"Static",SS_BITMAP | SS_NOTIFY,195,281,8,8
+    CONTROL         183,IDC_IN46,"Static",SS_BITMAP | SS_NOTIFY,210,281,8,8
+    CONTROL         183,IDC_IN47,"Static",SS_BITMAP | SS_NOTIFY,225,281,8,8
+    CONTROL         183,IDC_IN48,"Static",SS_BITMAP | SS_NOTIFY,240,281,8,8
+    CONTROL         183,IDC_OUT34,"Static",SS_BITMAP | SS_NOTIFY,300,281,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,255,281,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,269,281,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,285,281,8,8
+    CONTROL         183,IDC_OUT35,"Static",SS_BITMAP | SS_NOTIFY,322,280,8,8
+    CONTROL         183,IDC_OUT36,"Static",SS_BITMAP | SS_NOTIFY,337,280,8,8
+    CONTROL         183,IDC_OUT37,"Static",SS_BITMAP | SS_NOTIFY,353,280,8,8
+    CONTROL         183,IDC_OUT38,"Static",SS_BITMAP | SS_NOTIFY,368,280,8,8
+    CONTROL         183,IDC_OUT39,"Static",SS_BITMAP | SS_NOTIFY,383,280,8,8
+    CONTROL         183,IDC_OUT40,"Static",SS_BITMAP | SS_NOTIFY,398,280,8,8
+    CONTROL         183,IDC_OUT41,"Static",SS_BITMAP | SS_NOTIFY,413,280,8,8
+    CONTROL         183,IDC_OUT42,"Static",SS_BITMAP | SS_NOTIFY,428,280,8,8
+    CONTROL         183,IDC_OUT43,"Static",SS_BITMAP | SS_NOTIFY,443,280,8,8
+    CONTROL         183,IDC_OUT44,"Static",SS_BITMAP | SS_NOTIFY,458,280,8,8
+    CONTROL         183,IDC_ORG5,"Static",SS_BITMAP | SS_NOTIFY,15,281,8,8
+    CONTROL         183,IDC_ORG6,"Static",SS_BITMAP | SS_NOTIFY,30,281,8,8
+    CONTROL         183,IDC_ORG7,"Static",SS_BITMAP | SS_NOTIFY,45,281,8,8
+    CONTROL         183,IDC_ORG8,"Static",SS_BITMAP | SS_NOTIFY,60,281,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,473,280,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,488,280,8,8
+    LTEXT           "111",IDC_STATIC,12,270,13,8
+    LTEXT           "112",IDC_STATIC,27,270,13,8
+    LTEXT           "113",IDC_STATIC,42,270,13,8
+    LTEXT           "114",IDC_STATIC,57,270,13,8
+    LTEXT           "115",IDC_STATIC,72,270,13,8
+    LTEXT           "116",IDC_STATIC,87,270,13,8
+    LTEXT           "NN",IDC_STATIC,267,270,11,8
+    LTEXT           "117",IDC_STATIC,102,270,13,8
+    LTEXT           "118",IDC_STATIC,117,270,13,8
+    LTEXT           "119",IDC_STATIC,132,270,13,8
+    LTEXT           "120",IDC_STATIC,147,270,13,8
+    LTEXT           "121",IDC_STATIC,162,270,13,8
+    LTEXT           "122",IDC_STATIC,177,270,13,8
+    LTEXT           "123",IDC_STATIC,192,270,13,8
+    LTEXT           "124",IDC_STATIC,207,270,13,8
+    LTEXT           "125",IDC_STATIC,222,270,13,8
+    LTEXT           "126",IDC_STATIC,237,270,13,8
+    LTEXT           "NN",IDC_STATIC,282,270,11,8
+    LTEXT           "NN",IDC_STATIC,252,270,11,8
+    LTEXT           "CAM",IDC_STATIC,296,270,16,8
+    LTEXT           "151",IDC_STATIC,319,269,13,8
+    LTEXT           "152",IDC_STATIC,335,269,13,8
+    LTEXT           "153",IDC_STATIC,350,269,13,8
+    LTEXT           "154",IDC_STATIC,365,269,13,8
+    LTEXT           "155",IDC_STATIC,380,269,13,8
+    LTEXT           "156",IDC_STATIC,395,269,13,8
+    LTEXT           "157",IDC_STATIC,410,269,13,8
+    LTEXT           "158",IDC_STATIC,425,269,13,8
+    LTEXT           "161",IDC_STATIC,339,200,13,8
+    LTEXT           "159",IDC_STATIC,440,269,13,8
+    LTEXT           "160",IDC_STATIC,455,269,13,8
+    LTEXT           "NN",IDC_STATIC,471,269,11,8
+    LTEXT           "NN",IDC_STATIC,487,269,11,8
+    LTEXT           "162",IDC_STATIC,356,200,13,8
+    LTEXT           "NN",IDC_STATIC,372,200,11,8
+    LTEXT           "130",IDC_STATIC,435,200,13,8
+    LTEXT           "131",IDC_STATIC,451,200,13,8
+    LTEXT           "132",IDC_STATIC,465,200,13,8
+    LTEXT           "133",IDC_STATIC,480,200,13,8
+    CTEXT           "X原点",IDC_STATIC,15,91,8,26
+    CTEXT           "Y原点",IDC_STATIC,30,91,8,26
+    CTEXT           "R原点",IDC_STATIC,59,93,8,23
+    CTEXT           "左贴合上",IDC_STATIC,75,84,8,33
+    CTEXT           "启动按钮",IDC_STATIC,89,84,8,32
+    CTEXT           "原料检测",IDC_STATIC,104,84,8,32
+    CTEXT           "左吸头真空",IDC_STATIC,119,77,8,40
+    CTEXT           "右贴合上",IDC_STATIC,134,85,8,32
+    CTEXT           "急停开关",IDC_STATIC,149,85,8,32
+    CTEXT           "左贴合下",IDC_STATIC,164,85,8,32
+    CTEXT           "备用",IDC_STATIC,44,101,8,16
+    CTEXT           "右贴合下",IDC_STATIC,179,85,8,32
+    CTEXT           "右吸头真空",IDC_STATIC,193,85,8,32
+    CTEXT           "左搬运上",IDC_STATIC,208,85,8,32
+    CTEXT           "门锁开关",IDC_STATIC,223,85,8,32
+    CTEXT           "右搬运上",IDC_STATIC,238,85,8,32
+    CTEXT           "空",IDC_STATIC,254,108,8,9
+    CTEXT           "空",IDC_STATIC,268,108,8,9
+    CTEXT           "空",IDC_STATIC,283,108,8,9
+    CTEXT           "报警清除",IDC_STATIC,299,85,8,32
+    CTEXT           "左贴合",IDC_STATIC,322,93,8,24
+    CTEXT           "右贴合",IDC_STATIC,335,93,8,24
+    CTEXT           "左搬运",IDC_STATIC,350,93,8,24
+    CTEXT           "右搬运",IDC_STATIC,365,93,8,24
+    CTEXT           "左吹气",IDC_STATIC,380,93,8,24
+    CTEXT           "右吹气",IDC_STATIC,395,93,8,24
+    CTEXT           "备用",IDC_STATIC,443,101,8,16
+    CTEXT           "右夹具压合",IDC_STATIC,412,77,8,39
+    CTEXT           "备用",IDC_STATIC,427,101,8,16
+    CTEXT           "备用",IDC_STATIC,458,101,8,16
+    CTEXT           "空",IDC_STATIC,472,108,8,9
+    CTEXT           "空",IDC_STATIC,487,108,8,9
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,287,38,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,304,38,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,321,38,8,8
+    LTEXT           "GND",IDC_STATIC,283,49,16,8
+    LTEXT           "07",IDC_STATIC,304,49,9,8
+    LTEXT           "06",IDC_STATIC,320,49,9,8
+    CTEXT           "伺服NO",IDC_STATIC,338,59,9,26
+    CTEXT           "X准备",IDC_STATIC,437,57,8,26
+    CTEXT           "X完成",IDC_STATIC,453,57,8,26
+    CTEXT           "Y准备",IDC_STATIC,468,57,8,26
+    CTEXT           "Y完成",IDC_STATIC,483,57,8,26
+    CTEXT           "舌头原点",IDC_STATIC,15,233,8,33
+    CTEXT           "料带光纤",IDC_STATIC,30,233,8,33
+    CTEXT           "右搬运原点",IDC_STATIC,45,226,8,40
+    CTEXT           "左搬运真空",IDC_STATIC,75,226,8,40
+    CTEXT           "下搬运上",IDC_STATIC,89,233,8,33
+    CTEXT           "下搬运下",IDC_STATIC,104,233,8,32
+    CTEXT           "右搬运真空",IDC_STATIC,119,226,8,40
+    CTEXT           "夹具真空",IDC_STATIC,134,234,8,32
+    CTEXT           "上游启动",IDC_STATIC,149,234,8,32
+    CTEXT           "下游完成",IDC_STATIC,164,234,8,32
+    CTEXT           "左搬运原点",IDC_STATIC,59,226,8,40
+    CTEXT           "主气压",IDC_STATIC,194,242,8,23
+    CTEXT           "备用",IDC_STATIC,180,249,8,16
+    CTEXT           "备用",IDC_STATIC,208,250,8,16
+    CTEXT           "清零按钮",IDC_STATIC,223,234,8,32
+    CTEXT           "停止按钮",IDC_STATIC,238,234,8,32
+    CTEXT           "空",IDC_STATIC,255,258,8,9
+    CTEXT           "空",IDC_STATIC,269,258,8,9
+    CTEXT           "空",IDC_STATIC,283,258,8,9
+    CTEXT           "备用",IDC_STATIC,299,250,8,16
+    CTEXT           "左贴合真空",IDC_STATIC,322,226,8,40
+    CTEXT           "右贴合真空",IDC_STATIC,335,226,8,40
+    CTEXT           "左搬运真空",IDC_STATIC,350,226,8,40
+    CTEXT           "右搬运真空",IDC_STATIC,365,226,8,40
+    CTEXT           "夹具真空",IDC_STATIC,380,234,8,32
+    CTEXT           "上游完成",IDC_STATIC,395,234,8,32
+    CTEXT           "下游启动",IDC_STATIC,410,234,8,32
+    CTEXT           "蜂鸣器",IDC_STATIC,425,242,8,24
+    CTEXT           "报警灯",IDC_STATIC,439,242,8,24
+    CTEXT           "备用",IDC_STATIC,454,250,8,16
+    CTEXT           "空",IDC_STATIC,469,257,8,9
+    CTEXT           "空",IDC_STATIC,484,257,8,9
+    CTEXT           "步进NO",IDC_STATIC,339,210,32,9
+    CTEXT           "R准备",IDC_STATIC,437,207,8,26
+    CTEXT           "R完成",IDC_STATIC,453,207,8,26
+    CTEXT           "压合上",IDC_STATIC,468,209,8,26
+    CTEXT           "压合下",IDC_STATIC,483,209,8,26
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,291,188,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,308,188,8,8
+    CONTROL         183,IDC_STATIC,"Static",SS_BITMAP,325,188,8,8
+    LTEXT           "GND",IDC_STATIC,287,199,16,8
+    LTEXT           "07",IDC_STATIC,308,199,9,8
+    LTEXT           "06",IDC_STATIC,324,199,9,8
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "VAFS2 Microsoft 基础类应用程序\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "VAFS2\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2011\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "VAFS2.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "VAFS2 应用程序\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_VAFS2_DIALOG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 1066
+    END
+
+    IDD_DEBUG, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        BOTTOMMARGIN, 333
+    END
+
+    IDD_VISION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 441
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 381
+    END
+
+    IDD_MODEL_EDIT_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 420
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 351
+    END
+
+    IDD_PARAMETERSET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 338
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 334
+    END
+
+    IDD_INPUTRCP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_DELETERCP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 85
+    END
+
+    IDD_LOGIN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_paraproduce, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 333
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 247
+    END
+
+    IDD_SmallKey, DIALOG
+    BEGIN
+        HORZGUIDE, 102
+    END
+
+    IDD_IOMONITOR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 505
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 307
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// REGISTRY
+//
+
+IDR_VAFS2               REGISTRY DISCARDABLE    "VAFS2.rgs"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_VAFS2_DIALOG DLGINIT
+BEGIN
+    IDC_MSCOMM1, 0x376, 102, 0
+0x0013, 0x0000, 0x0043, 0x006f, 0x0070, 0x0079, 0x0072, 0x0069, 0x0067, 
+0x0068, 0x0074, 0x0020, 0x0028, 0x0063, 0x0029, 0x0020, 0x0031, 0x0039, 
+0x0039, 0x0034, 0x0020, 0x4321, 0x1234, 0x0008, 0x0000, 0x03ed, 0x0000, 
+0x03ed, 0x0000, 0x5601, 0x648a, 0x0000, 0x0006, 0x0000, 0x0001, 0x0400, 
+0x0000, 0x0200, 0x0000, 0x2580, 0x0000, 0x0000, 0x0008, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x003f, 0x0000, 0x0000, 0x0000, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP  DISCARDABLE     "res\\开机画面.bmp"
+IDB_BITMAP2             BITMAP  DISCARDABLE     "res\\开机画面2.bmp"
+IDB_BITMAP3             BITMAP  DISCARDABLE     "res\\film.bmp"
+IDB_BITMAP4             BITMAP  DISCARDABLE     "res\\green.bmp"
+IDB_BITMAP5             BITMAP  DISCARDABLE     "res\\gray.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// 24
+//
+
+1                       24      MOVEABLE PURE   "vafs2.exe.manifest"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 VAFS2(&A)..."
+    IDP_SOCKETS_INIT_FAILED "Windows 通信端口初始化失败。"
+END
+
+#endif    // Chinese (中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\VAFS2.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

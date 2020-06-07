@@ -1,0 +1,19 @@
+
+	// VAFS2.idl : IDL source for VAFS2.exe
+//
+// This file will be processed by the MIDL tool to
+// produce the type library (VAFS2.tlb) and marshalling code.
+import "oaidl.idl";
+import "ocidl.idl";
+[
+	uuid(833CF565-B57F-4560-A929-5FE1D05D9053),
+	version(1.0),
+	helpstring("VAFS2 1.0 Type Library")
+]
+library VAFS2Lib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+};
+
+	

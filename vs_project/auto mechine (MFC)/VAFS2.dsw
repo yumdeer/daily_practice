@@ -1,0 +1,34 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# 警告: 不能编辑或删除该工作区文件！
+
+###############################################################################
+
+Project: "VAFS2"=".\VAFS2\VAFS2.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    "$/VAFS2/VAFS2/VAFS2/VAFS2", ABAAAAAA
+    .
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+    {648A5600-2C6E-101B-82B6-000000000014}
+}}}
+
+###############################################################################
+
