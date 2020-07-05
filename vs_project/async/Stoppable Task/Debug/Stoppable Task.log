@@ -1,0 +1,3 @@
+﻿  Stoppable Task.cpp
+e:\desktop file\c++ daily-practice\vs_project\async\stoppable task\stoppable task.cpp(28): error C2660: “std::promise<void>::set_value”: 函数不接受 1 个参数
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\future(1601): note: 参见“std::promise<void>::set_value”的声明
