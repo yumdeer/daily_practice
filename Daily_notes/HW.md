@@ -64,10 +64,14 @@ Cache Memory（CPU缓存）位于CPU与内存之间的临时存储器。
 ### 内存管理
 内存是现代计算机最重要的组件之一，因此它的内容不能被任何错误的应用篡改，这个功能可以通过MMU（内存管理单元）或者MPU（内存保护单元）来实现。
 
-- MMU被认为是比MPU更先进的设备，其具备MPU不具备的特性，包括缓存控制，总线仲裁，bank切换任务，由独立的MMU全权负责。但是MMU增加了额外硬件以支持虚拟内存，但将导致实时性下降。
+- MMMU负责虚拟地址到物理地址的映射，并提供硬件机制的访问权限检查。其被认为是比MPU更先进的设备，其具备MPU不具备的特性，包括缓存控制，总线仲裁，bank切换任务，由独立的MMU全权负责。但是MMU增加了额外硬件以支持虚拟内存，但将导致实时性下降。
 - MPU开销更小，适合不需要做多任务或相关处理的简单系统。MPU在执行其功能时，是以所谓的`region`为单位的。一个`region`其实就是一段连续的地址，只是它们的位置和范围都要满足一些限制（对齐方式，最小容量等）。
 
 region可以相互交迭，MPU可以根据用户的需气球，设定每个region的访问权限，避免非法的访问。kinetis的MPU使用一个成为region的描述符的寄存器组来定义每个region的访问规则和权限；一个描述符对应一个region，每个region的大小也是可编程的，且多个region是可以叠加的。kinetis最多支持12个region，每个region对应的存储空间最小为32字节，最大为4GB，且必须是32的整数倍。
+
+内存怎么控制访问权限？
+- 内存的访问权限检查决定一块内存是否允许读写。
+- 这由 CP15寄存器C3(域访问控制)，描述符的域（Domain）、CP15寄存器的C1的R/S/A位，描述符的AP位共同决定域决定是否对某块内存进行权检查，“AP”决定如何对某块内存进行权限检查。
 
 **寄存器与内存模型**：CPU本身只负责运算，不负责存储数据，数据一般存储由硬盘外存或IO等介质由总线送入主存中，CPU要用就会走主存读取数据，但CPU处理速度远高于内存的读写速度，为了避免被拖慢，CPU都自带一级/二级缓存。基本上，CPU缓存都可以看作读写速度较快的内存。
 
@@ -124,6 +128,7 @@ Linux原子操作问题来源与中断、进程的抢占以及多核SMP系统中
 - 设计上：框架具有IOC（控制反转）能力，而类库不具备
 - 对类库中的元素，通常都是由我们的应用来调用它，而框架具有这种能力——在适当的时候调用我们应用中的逻辑，这种能力是通过框架扩展点（插槽）来做到的。框架通常建立在众多类库的基础上，而类库一般不会依赖于某框架。（MFC就是一种应用程序框架，其只能在Windows上运行）
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210412220959379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421225836605.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210411153909498.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 ![](https://img-blog.csdnimg.cn/20210411213808442.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
@@ -162,8 +167,19 @@ linux 暂停继续进程
 
 进程不但包括程序的指令和数据，而且包括程序计数器的所有寄存器以及存储临时数据的进程堆栈。因此，正在执行的进程包括处理器当前的一切活动。
 
-内核将所有进程存放在双向循环链表（进程链表）中，其中链表头是`init_task`描述符，链表的每一项都是类型为`task_struct`的进程描述符的结构，该结构包含了一个进程相关的所有信息，定义在<include/;inux/sched.h>头文件中。其中包含了`status`和`pid`等域。
+内核调度的对象是线程，而不是进程。Linux系统中的线程很特别，它对线程和进程并不做区分。进程的另一个名字叫任务（task）。有一种不成文的习惯，把用户空间允许的程序叫进程，把内核中允许的程序叫任务。
 
+内核将所有进程存放在双向循环链表（进程链表/任务队列）中，其中链表头是`init_task`描述符，链表的每一项都是类型为`task_struct`的进程描述符的结构，该结构包含了一个进程相关的所有信息，定义在<include/linux/sched.h>头文件中。其中包含了`status`和`pid`等域。
+
+Linux 通过slab分配器分配task_struct结构，这样能达到对象复用和缓存着色的目的。在2.6以前的内核中，各个进程的task_struct存放在它们内核栈的尾端。由于现在用slab分配器动态生成task_struct，所以只需在栈底或栈顶创建一个新的结构(struct thread_info),他在asm/thread_info.h中定义，需要的请具体参考。每个任务中的thread_info结构在它的内核栈中的尾端分配，结构中task域存放的是指向该任务实际task_struct指针。 [——参考文章](https://blog.csdn.net/yusiguyuan/article/details/12112377)
+
+      在内核中，访问任务通常需要获得指向其task_struct指针。实际上，内核中大部分处理进程的代码都是通过task_struct进行的。通过current宏查找到当前正在执行的进程的进程描述符就显得尤为重要。在x86系统上，current把栈指针的后13个有效位屏蔽掉，用来计算thread_info的偏移，该操作通过current_thread_info函数完成，汇编代码如下：
+
+```cpp
+movl $-8192, %eax
+andl  %esp, %eax
+```
+最后，`current`再从`thread_info`的task域中提取并返回`task_struct`的值：`current_thread_info()->task`
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210420233225160.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
 每个进程都拥有自己的数据段、代码段、堆栈，这就造成了进程在切换等动作是需要较复杂的上下文切换动作。为了减少处理机的空闲时间，支持多处理器及减少上下文切换的开销，进程在演化中出现了另一种概念，也就是线程。
@@ -173,6 +189,10 @@ linux 暂停继续进程
 由于线程共享了进程的资源和地址空间，因此任何线程对系统资源的操作都会给其他进程带来影响，因此多线程的同步是一个非常重要的问题。
 
 ### 用户态
+Linux采取虚拟内存管理技术，使得每个进程都有各自不干涉的进程地址空间。该地址空间是大小为4GB的线性虚拟空间。
+
+4GB的进程空间会被分为两部分：用户空间和内核空间。用户地址空间是从0到3GB（0XC000 0000），内核地址空间占据3GB到4GB。用户进程通常情况下只能访问用户空间的虚拟地址，不能访问内核空间的虚拟地址。
+
 ![图29-1：同时执行4个线程的进程（Linux/x86-32](https://img-blog.csdnimg.cn/20210411173507555.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 图29-1：同时执行4个线程的进程（Linux/x86-32）
 
@@ -216,6 +236,9 @@ linux 暂停继续进程
 如图29-1 所示，所有的线程栈均驻留于同一虚拟地址空间。这也意味着，利用一个合适的指针，各线程可以在对方栈中相互共享数据。这种方法偶尔也能派上用场，但由于局部变量的状态有效与否依赖于其所驻留栈帧的生命周期，故而需要在编程中谨慎处理这一问题。（当函数返回时，该函数栈帧所占用的内存区域有可能为后续的函数调用所重新使用。如果线程终止，那么新线程有可能会对已终止线程的栈所占用的内存空间重新加以利用）。若无法正确处理这一依赖关系，由此而产生的程序bug将难以捕获。
 
 [参考文章](https://www.zhihu.com/question/25532384/answer/1600133694)
+
+由于在Linux系统每一个进程都会有/proc文件系统下与之对应的一个目录，因此通过/proc文件系统可以查看某个进程的地址空间的映射情况。例如运行一个应用程序，如果它的PID为13707，输入 cat /proc/13707/maps命令，可以查看该进程的内存映射情况。
+
 <br>
 
 对于连续（joinable）和 分离（detached）最重要的规则：
@@ -269,18 +292,46 @@ Linux中进程状态：
 - X (TASK_DEAD - EXIT_DEAD)，退出状态，进程即将被销毁
 
 进程的创建和执行：Linux中进程的创建很特别，它分成了两个单独函数去执行，`fork函数` 和 `exec函数族`。
-- 首先，`fork（）`通过拷贝当前进程创建一个子进程。子进程与父进程的区别仅仅在与PID（每个进程唯一）、PPID（父进程的进程号，子进程将其设置为被拷贝进程的PID）和某些资源和统计量（例如，挂起的信号，它没有必要被继承）。<br>
-- `exec（）`负责读取可执行文件并将其载入地址空间开始运行。把这两个函数合起来使用的效果跟其他系统使用的单一函数的效果相似。
+- 首先，`fork（）`通过拷贝当前进程创建一个子进程。使用fork（）函数得到的子进程是父进程的一个复制品，它从父进程继承了整个进程的地址空间，包括进程上下文、代码段、进程堆栈、内存星系、打开的文件描述符、进程优先级、组号、当前工作目录等。子进程与父进程的区别仅仅在与PID（每个进程唯一）、PPID（父进程的进程号，子进程将其设置为被拷贝进程的PID）和某些资源和统计量（例如，挂起的信号，它没有必要被继承）。<br>
+fork返回值：0表示子进程，大于0的整数（子进程PID）代表父进程，-1表示失败。<br>
+实际上是在父进程执行fork()函数时，父进程会复制出一个子进程，并且父子进程的代码从fork()函数的返回开始分别在两个地址空间中运行，从而使两个进程分别获得其所属fork()函数的返回值，其在**父进程中的返回值是子进程的进程号**，**在子进程中返回0**，因此可以通过返回值判断该进程是父进程还是子进程。
+- `exec（）`负责读取可执行文件并将其载入地址空间开始运行。把这两个函数合起来使用的效果跟其他系统使用的单一函数的效果相似。<br>
+exec函数族提供了一个进程中启动另一个程序执行的方法，它可以根据指定的文件名或目录名找到可执行文件，并用它替换原调用进程的数据段、代码段和堆栈段，在执行完之后，原调用进程的内容除了进程号外，其它全部被新的进程替换了。<br>
+在Linux中使用exec函数族主要有两种情况：1. 当进程认为自己不能再为系统和用户作出贡献时，就可以调用exec函数族中任意一个函数让自己重生。 2. 如果一个进程想执行另一个程序，那么它就可以调用fork()函数新建一个进程，然后调用exec函数族中的任意一个函数，这样看起来就像执行应用程序而产生了一个新进程。
 
 现在的Linux操作系统采用了copy-on-write技术（COW），即：如果父进程和子进程中任意一个尝试修改某些区域的值，那么内核会为修改区域的那部分内存制作一个副本，一般都是虚拟内存的一页。否则不进行复制操作，比如在fork的子进程中只是调用exec函数来执行另外一个可执行文件，那么事实上就没有必要复制父进程的资源，这样会造成大量的开销浪费。<br>
 
+`wait（）`函数用于使父进程（也就是调用`wait（）`的进程）阻塞，直到一个子进程结束或者该进程收到了一个指定的信号为止。如果该父进程没有子进程，或者它的子进程已经结束，则`wait（）`函数就会立即返回。
+
+`waitpid（）`的作用和`wait（）`一样，但它并不一定要等待第一个终止的子进程（它可以指定需要哦等待终止的子进程），它还有若干选项，如可提供一个非阻塞版本的wait（）功能，也能支持作业控制。实际上，wait()函数只是 waitpid()函数的一个特例，在Linux 内部实现 wait()函数时直接调用的就是waitpid()函数。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421211936790.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
 进程的终止：linux首先把终止的进程设置为僵尸状态，这是进程无法投入运行，它的存在只为父进程提供信息，申请死亡。父进程得到消息后，开始调用`wait函数族`，最后终止了子进程，子进程占用的资源被全部释放。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421211343726.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
 <br>
 
 **优先级反转：**
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210412220616525.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210414221038576.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+#### 守护进程
+守护进程（Daemon进程），是Linux中的后台服务进程。它是一个生存期较长的进程，通常独立于控制终端并且周期性地执行某种任务或等待处理某些发生的事件。守护进程常常在系统引导装入时启动，在系统关闭时终止。Linux系统有很多守护进程，大多数服务都是通过守护进程实现的，同时，守护进程还能完成许多系统任务，例如，作业规划进程crond、打印进程lqd等（这里的结尾字母d就是Daemon的意思）。
+
+由于在Linux中， 每一个系统与用户进行交流的界面称为终端，每一个从此终端开始运行的进程都会依附于这个终端，这个终端就称为这些进程的控制终端，当控制终端被关闭时，相 应的进程都会自动关闭。但是守护进程却能够突破这种限制，它从被执行开始运转，直到整个系统关闭时才退出。如果想让某个进程不因为用户或终端或其他地变化 而受到影响，那么就必须把这个进程变成一个守护进程。
+
+孤儿进程：父进程在子进程前面结束，子进程将失去父亲成为一个孤儿进程，被托孤给Init进程（PID=1），很多应用利用这点创建守护进程。<br>
+
+**编写守护进程步骤：**
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421224409844.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421224602182.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421224901419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+<br>
+
+
 ### 线程
 **多线程是为了同步完成多项任务，不是为了提高数据处理效率，而是为了提高资源使用率达到提高系统的效率。**
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210417180317989.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
@@ -501,7 +552,73 @@ Linux实现了Posix的无名信号量，主要用于线程间的互斥与同步�
 3. 获取得知哪些系统调用是可重入的，在多任务处理程序中都使用安全的系统调用。
 4. 不调用其他任何不可重入的函数。
 5. 谨慎使用堆栈`malloc/free`。
- 
+<br> 
+
+##  shell 脚本
+```
+# !/bin/sh 指定脚本解释器
+```
+变量：
+- 定义变量：定义时，变量名不加$，如 `your_name="zhang"` , 注意，变量名和等号中间不能有空格。
+- 使用变量：使用一个定义过的变量，只要在变量名前面加美元符号即可。如` echo $yourname `或 `echo ${yourname}`，加花括号是为了帮助解释器识别变量的边界，防止与其它单词连接在一起，调用了其他变量（变量替换$行）
+
+文件包含：
+- 可以使用 `Source` 和 `.`关键字，如 `Source  ./function.sh ` 或  `. ./function.sh `
+- 若 function.sh 是用户传入的参数，如何获得它的绝对路劲呢？方法是：
+--   real_path = \`readlink -f $1\` ，注：\$1是用户输入的参数，如function.sh，\$n是用户输入的第N个参数。
+--  `. $real_path`
+
+`if`语句：
+- ·-e· filename：若filename存在，则为真。
+- `-d` filename：若filename为目录，则为真。
+- `-f` filename：若filename为常规文件，则为真。
+- `-L` filename：若filename符号链接，则为真。
+-  `-r.w.x` filename：若filename可读写执行，则为真。
+- `-s` filename：若filename长度不为0，则为真。
+- `-h` filename：若filename是软连接，则为真。
+- filename `-nt/-ot` filename2：若filename比filename2新/旧，则为真。
+
+整形变量表达式：
+- `-eq` ：等于
+- `-ne` ：不等于
+- `-gt` ：大于
+- `-ge` ：大于等于
+- `-it` ：小于
+- `ie`：小于等于
+
+字符变量表达式：
+-  if [ $a = $b ] ：等于
+-  if [ $a != $b ] ：不等于
+-  if [ -n $string ] ：非空
+-  if [ -z $string ] ：为空
+-  if [ $string ] ：非空
+
+比较表达式：
+ - if [ 表达式1 -a 表达式] ：并列
+-  if [ 表达式1 -o 表达式] ：或
+
+特殊符号：
+- 连续分号`;;`（Terminator）：专用在case的选项，担任Terminator终结者的角色
+- 单引号`'`（single quote）：被单引号括住的内容，被视为单一字符。在引号内的代表变数的`$`符号，没有作用，也就是说，它被视为一般符号处理，防止任何变量替换。
+- 双引号`"`（double quote）：被双引号括住的内容，被视为单一字符。它防止通配符扩展，但允许变量扩展，这点和单引号的处理方式不同。
+- 倒装号 \`command\`（ backticks）： 在前面的单双引号，括住的是字串，但如果该字串是一列命令列，会怎样？答案是不会执行。要处理这种情况，我们得用倒单引号来做。 
+- 倒斜线`\\ ` ：在交互模式下的escape 字元，有几个作用；放在指令前，有取消 aliases的作用；放在特殊符号前，则该特殊符号的作用消失；放在指令的最末端，表示指令连接下一行。 
+- 问号`? ` (wild card) ：在文件名扩展(Filename expansion)上扮演的角色是匹配一个任意的字元，但不包含 null 字元
+- `&`： 后台工作 
+- `$*` ：代表所有引用变量的符号。`@ `与 `$* `具有相同作用的符号，不过她们两者有一个不同点。 符号 `$* `将所有的引用变量视为一个整体。但符号` $@ `则仍旧保留每个引用变量的区段观念
+- `$# `：这也是与引用变量相关的符号，她的作用是告诉你，引用变量的总数量是多少。
+- `$?` 状态值 (status variable) ：一般来说，UNIX(linux) 系统的进程以执行系统调用exit()来结束的。这个回传值就是status值。回传给父进程，用来检查子进程的执行状态。
+
+文本处理三剑客（都可以配合正则表达式使用）：
+- grep：查找
+- sed：编辑，利用脚本的指令来处理，编辑文本文件。
+- awk：文本分析，以空格为默认分隔符，将每行切片，切开部分再进行分析处理。
+
+`make -j8` : 开启多线程的编译，同时允许8个任务。
+
+命令替换：$() 和 ``(反引号) 都可以用作命令替换。例： version = $(uname -r) 或 version = \`uname -r\`
+
+正则表达式匹配的三种模式：贪婪模式Greedy、懒惰模式Reluctant、独占模式Possessive
 
 <br><br>
 
@@ -654,7 +771,13 @@ int b() {
 
 事件和信号量都可以实现线程和进程间的互斥和同步。就使用效率来说，临界区的效率是最高的，因为它不是内核对象，而其它的三个都是内核对象，调用要进入内核态，效率相对来说就比较低。但如果要跨进程使用还是要用到互斥器、事件对象和信号量。
 
-<br><br>
+<br>
+
+### 管道
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421225227841.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421225555479.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421225637219.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421225933712.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
 ## I/O 模型
 五种 I / O 模型 ： 
@@ -663,60 +786,6 @@ int b() {
 - I/O多路转接模型（I/O multiplexing ）：select and poll
 - 信号驱动I/O模型（signal driven I/O）： SIGIO
 - 异步I/O模型（asynchronous  I/O） ： the Posix aio_function
-
-###  shell 脚本
-```
-# !/bin/sh 指定脚本解释器
-```
-变量：
-- 定义变量：定义时，变量名不加$，如 `your_name="zhang"` , 注意，变量名和等号中间不能有空格。
-- 使用变量：使用一个定义过的变量，只要在变量名前面加美元符号即可。如` echo $yourname `或 `echo ${yourname}`，加花括号是为了帮助解释器识别变量的边界，防止与其它单词连接在一起，调用了其他变量（变量替换$行）
-
-文件包含：
-- 可以使用 `Source` 和 `.`关键字，如 `Source  ./function.sh ` 或  `. ./function.sh `
-- 若 function.sh 是用户传入的参数，如何获得它的绝对路劲呢？方法是：
---   real_path = \`readlink -f $1\` ，注：\$1是用户输入的参数，如function.sh，\$n是用户输入的第N个参数。
---  `. $real_path`
-
-`if`语句：
-- ·-e· filename：若filename存在，则为真。
-- `-d` filename：若filename为目录，则为真。
-- `-f` filename：若filename为常规文件，则为真。
-- `-L` filename：若filename符号链接，则为真。
--  `-r.w.x` filename：若filename可读写执行，则为真。
-- `-s` filename：若filename长度不为0，则为真。
-- `-h` filename：若filename是软连接，则为真。
-- filename `-nt/-ot` filename2：若filename比filename2新/旧，则为真。
-
-整形变量表达式：
-- `-eq` ：等于
-- `-ne` ：不等于
-- `-gt` ：大于
-- `-ge` ：大于等于
-- `-it` ：小于
-- `ie`：小于等于
-
-字符变量表达式：
--  if [ $a = $b ] ：等于
--  if [ $a != $b ] ：不等于
--  if [ -n $string ] ：非空
--  if [ -z $string ] ：为空
--  if [ $string ] ：非空
-
-比较表达式：
- - if [ 表达式1 -a 表达式] ：并列
--  if [ 表达式1 -o 表达式] ：或
-
-文本处理三剑客（都可以配合正则表达式使用）：
-- grep：查找
-- sed：编辑，利用脚本的指令来处理，编辑文本文件。
-- awk：文本分析，以空格为默认分隔符，将每行切片，切开部分再进行分析处理。
-
-`make -j8` : 开启多线程的编译，同时允许8个任务。
-
-命令替换：$() 和 ``(反引号) 都可以用作命令替换。例： version = $(uname -r) 或 version = \`uname -r\`
-
-正则表达式匹配的三种模式：贪婪模式Greedy、懒惰模式Reluctant、独占模式Possessive
 
 <br><br>
 
