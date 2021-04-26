@@ -964,13 +964,215 @@ struct 位域结构名 {
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210425215807959.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210425215818687.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
+## C++
+**类**
+构造、拷贝、移动和析构函数提供了对象的生命周期的方法。
+- 构造函数（constructor）：x()
+- 拷贝构造函数（copy constructor）：x(const x&)
+- 拷贝赋值操作符（copy assignment）：operator=(const x&)
+- 移动构造函数（move constructor）：x(x&&)
+- 移动赋值操作符（move assignment）：operator=(x&&)
+- 析构函数（destructor）：~x()
+
+为避免隐式切换（生成临时匿名对象），将单参数构造函数声明为explict。
+
+如果不需要拷贝函数/移动函数，请明确禁止！
+1. 将拷贝构造或复制构造设置为private，并且不实现。
+2. 使用c++提供的delete.
+3. 拷贝构造和拷贝赋值操作符应该是成对出现或禁止。（移动构造与赋值操作符同理）
+4. 禁止在构造函数和析构函数中调用虚函数，会导致未定义的行为。
+
+继承：基类的析构函数应该声明为virtual（当derived class对象经由一个base class指针被删除，而该base class带有一个non-virtual析构函数，其结果未有定义——实际执行时通常是对象的derived成员没有被销毁）（eg.effective c++条款07）
+
+只有基类析构函数是virtual，通过多态调用的时候才能保证派生类的析构函数被调用。
+1. 禁止虚函数使用缺省参数值（将造成调用子类函数却使用基类的缺省参数值）
+2. 禁止重新定义继承而来的非虚函数（非虚函数无法动态绑定）
+
+重写虚函数时请使用`override`关键字：`override`保证函数是虚函数且重写了基类的虚函数，如果子类函数与基类函数原型不一致，则产生编译告警。
+
+局部范围使用的Lambdas优先使用引用捕获，非局部范围使用Lambdas，避免使用引用捕获。
+
+如果捕获this，则显示捕获所有变量（Lambdas表达式）：
+- 在成员函数中的`[=]`看起来是按值捕获，但因为是隐式的按值获取了`this`指针，并且能够操作所有成员变量，数据成员实际是按引用捕获的，一般情况下建议避免。若的确需要这么做，明确写出对this的捕获。
+
+<br>
+
+**多重继承**
+
+问题：
+1. 菱形继承所带来的数据重复，以及名字二义性。因此，C++引入virtual继承来解决这类问题；
+2. 即使不是菱形继承，多个父类之间的名字也可能存在冲突，从而导致二义性；
+3. 如果子类需要扩展或改写多个父类的方法时，造成子类的职责不明，语义混乱。
+4. 相对于委托，继承是一种白盒复用，即子类可以访问父类的protect成员，这会导致更强的耦合。而多重继承，由于耦合了多个父类，相对于单继承，这会产生更强的耦合性。
+
+优点：多重继承提供了一种简单的组合来实现多种接口和类的组装与复用。
+
+对于多重继承只有下面几种情况才允许使用多重继承：
+1. 使用多重继承来实现接口分离和多角色组合。
+2. 如果某个类需要实现多重接口，可以通过多重继承把多个分离的组合起来，类似scala语言的traits混入。
+
+赋值操作符的重载引入的隐式转换会隐藏很深的BUG，可以定义类似Equals()、CopyFrom()等函数来替代=、==操作符。
+
+函数参数（建议）
+1. 函数参数使用引用替代指针（引用比指针更安全，因为它一定非空，且一定不会再指向其他目标，也不需要检查非法NULL指针）。
+2. 函数的入参不能当作工作变量。
+3. 使用强类型参数，避免使用void*。
+4. 定义函数时，参数顺序为：输入参数在前，输出参数在后。
+
+禁止用`Memcpy_s`，`memset_s` 初始化非POD(plain old data)对象，由于非POD类型比如非聚合类型的Class对象可能存在虚函数，内存布局不明确，和编译器有关，滥用内存拷贝可能导致严重问题。
+
+避免构造函数做复杂的初始化可以使用init函数（建议），以下情况可以使用init函数进行初始化
+1. 需要提供初始化返回信息
+2. 数据成员初始化可能抛弃异常
+3. 数据成员初始化会造成该类对象初始化失败，引起不明确行为
+4. 数据成员初始化依赖this指针：构造函数没结束，对象就没有构造出来，构造函数内不能使用this成员
+5. 数据成员初始化需要调用虚函数，在构造/析构内调虚函数会导致未定义行为
+
+**强制类型转换**
+- dynamic_cast：主要用于继承体系下转换，具有类型检查功能。请做好基类和派生类设计，避免使用dynamic_cast来进行转换。
+- static_cast：和C风格转换相似，可做值的强制转换和向上转换。（把派生类的指针或引用转换成基类的指针或引用）该转换经常用于消除多重继承带来的类型歧义，是相对安全的。如果是纯粹的算数转换，那么，请使用后面的大括号转换方式。
+- reinterprete_cast：用于转换不相关的类型，其强制编译器将某个类型对象的内存重新解释成另一种类型，这是一种不安全的转换，尽可能少用。
+- const_cast：用于移除对象的const属性，使对象变得可修改，这样会破坏数据的不变性，建议尽可能少用。
+
+算数转换（c++11支持）：对于那些算数转换，并且类型信息并没有丢失，比如。float到double，int32到int64转换，推荐使用大括号的初始化方式。
+
+```c
+double d {some float};
+int64_t i{some int32};
+```
+
+避免使用dynamic_cast：
+1. dynamic_cast依赖于C++的RAII，让程序员在允许时，识别C++类对象的类型。
+2. dynamic_cast的出现一般说明我们的基类和派生类设计出了问题，派生类破坏了基类的契约，不得不通过dynamic_cast转换到子类进行特殊的处理。这个时候更希望来改善类的设计，而不是通过dynamic_cast 来解决问题。
+
+避免使用reinterprete_cast：
+- reinterprete_cast用于转换不相关类型。尝试用reinterprete_cast将一种类型强制转换另一种类型，这破坏了类型的安全性和可靠性，是一种不安全的转换，不同类型之间尽量避免转换。
+
+避免使用const_cast：
+- const_cast用于移除对象的const和volatile性质。使用const_cast转换后的指针或引用来修改const对象，行为是未定义的。
+```c
+// 不好的例子
+const int i = 1024;
+int *p = const_cast<int*>(&i);
+*p = 2048;					//未定义行为
+
+// 不好的例子2
+class foo {
+public:
+	foo : i(3) {}
+	void func(int v) 
+	{
+		i = v;
+	}
+private:
+	int i;
+}
+
+int main(void)
+{
+	const foo f;
+	foo *p = const_cast<foo*>（&f）;
+
+	p->func(8);		//未定义行为
+
+}
+
+```
+<br>
+
+**智能指针**
+标准库：
+1. 不要保存`std::string`的`c_str()`返回的指针。
+说明：在C++标准中并未实现规定`string::c_str()`指针持久有效，因此特定STL实现完全可以在调用`string::c_str()`时返回一个临时存储区并很快释放，所以为了保证程序的移植性，一定不要保存`string::c_str()`的结果，而是在每次需要时直接调用。
+2. 禁止使用`auto_ptr`。
+说明：在STL库中的`std::auto_ptr`具有一个隐式的所有权转移行为。
+
+auto_ptr采用copy语义来转移指针资源，转移指针资源的所有权的同时将原指针置为NULL，这跟通常理解的copy行为是不一致的(不会修改原数据)，而这样的行为在有些场合下不是我们希望看到的，即**多个`auto_ptr`不能管理同一片内存， 执行`=`的时候，就把原来的`auto_ptr`给干掉。**
+
+例如参考《Effective STL》第8条，sort的快排实现中有将元素复制到某个局部临时对象中，但对于`auto_ptr`，局部临时对象指向资源同时，却将原元素置为`NULL，这就导致最后的排序结果中可能有大量的null。
+
+转移所有权的行为通常不是期望的结果。对于必须转移所有权的场景，也不应该使用隐式转移的方式。这往往需要程序员对使用auto_ptr的代码保持额外的谨慎，否则出现对空指针的访问。
+
+对于必须转移所有权的场景，也不应该使用隐式转移的方式。这往往需要程序员对使用`auto_ptr`的代码保持额外的谨慎，否则出现对空指针的访问。使用`auto_ptr`常见的有两种场景，一是作为智能指针传递到产生`auto_ptr`的函数外部，二是使用`auto_ptr`作为RAII管理类，在超出`auto_ptr`的生命周期时自动释放资源。对于第1种场景，可以使用`std::shared_ptr`来代替。对于第2种场景，可以使用C++11标准中的`std::unique_ptr`来代替。其中`std::unique_ptr`是`std::auto_ptr`的代替品，支持显式的所有权转移。
+
+例外：在C++11标准得到普遍使用之前，在一定需要对所有权进行转移的场景下，可以使用`std::auto_ptr`，但是建议对`std::auto_ptr`进行封装，并禁用封装类的拷贝构造函数和赋值运算符，以使该封装类无法用于标准容器。
+
+也正是基于C++11的对`move`语义的支持，使得这样的资源转移**通常**只会在必要的场合发生，例如转移一个临时变量（右值）给某个`named variable`（左值），或者一个函数的返回（右值）这也就是用`unique_ptr`代替`auto_ptr`的原因，本质上来说，就是`unique_ptr`禁用了`copy`，而用`move`替代。 [——参考资料](https://stackoverflow.com/questions/5026197/what-c-smart-pointer-implementations-are-available)
+
+之所以说通常，是因为，也可以用`std:move`来实现左值`move`给左值，例如：
+
+```cpp
+std::unique_ptr<bar> b0(new bar());
+std::unique_ptr<bar> b1(std::move(b0));
+```
+
+- 优先考虑`unique_ptr`而不是`share_ptr`
+1. `share_ptr`引入计数的原子操作存在可测量的开销，大量使用影响性能。
+2. 共享所有权在某些情况下（如循环依赖）可能导致对象永远得不到释放。
+3. 相比于谨慎设计所有权，共享所有权是一种诱人的替代方案，但它可能使系统变得混乱。
+
+- 使用`std::make_unique`而不是`new`创建`unique_ptr`，使用`std::make_shared`而不是`new`创建`shared_ptr`
+- 
+
+<br>
+
+**异常**
+- 不建议使用异常来处理错误。
+
+异常的优点：
+1. 异常允许应用高层决定如何处理在底层嵌套函数中「不可能发生」的失败（failures），不用管那些含糊且容易出错的错误代码（acgtyrant 注：error code, 我猜是Ｃ语言函数返回的非零 int 值）。
+2. 很多现代语言都用异常。引入异常使得 C++ 与 Python, Java 以及其它类 C++ 的语言更一脉相承。
+3. 有些第三方 C++ 库依赖异常，禁用异常就不好用了。
+4. 异常是处理构造函数失败的唯一途径。虽然可以用工厂函数（acgtyrant 注：factory function, 出自 C++ 的一种设计模式，即「简单工厂模式」）或 Init() 方法代替异常, 但是前者要求在堆栈分配内存，后者会导致刚创建的实例处于”无效“状态。
+5. 在测试框架里很好用。
+
+缺点:
+1. 在现有函数中添加 throw 语句时，您必须检查所有调用点。要么让所有调用点统统具备最低限度的异常安全保证，要么眼睁睁地看异常一路欢快地往上跑，最终中断掉整个程序。举例，f() 调用 g(), g() 又调用 h(), 且h() 抛出的异常被 f() 捕获。当心 g(), 否则会没妥善清理好。
+2. 还有更常见的，异常会彻底扰乱程序的执行流程并难以判断，函数也许会在您意料不到的地方返回。您或许会加一大堆何时何处处理异常的规定来降低风险，然而开发者的记忆负担更重了。
+3. 异常安全需要 RAII 和不同的编码实践. 要轻松编写出正确的异常安全代码需要大量的支持机制. 更进一步地说, 为了避免读者理解整个调用表, 异常安全必须隔绝从持续状态写到 “提交” 状态的逻辑. 这一点有利有弊 (因为你也许不得不为了隔离提交而混淆代码). 如果允许使用异常, 我们就不得不时刻关注这样的弊端, 即使有时它们并不值得.
+4. 启用异常会增加二进制文件数据，延长编译时间（或许影响小），还可能加大地址空间的压力。
+5. 滥用异常会变相鼓励开发者去捕捉不合时宜，或本来就已经没法恢复的「伪异常」。比如，用户的输入不符合格式要求时，也用不着抛异常。如此之类的伪异常列都列不完。
+
+例如，如果使用C++的new，STL或者第三方代码中有异常机制的，在函数调用的时候可以使用`try_catch`进行异常处理，但是不要将异常继续抛出，而是内部处理掉异常。
+
+结论:
+从表面上看来，使用异常利大于弊, 尤其是在新项目中. 但是对于现有代码, 引入异常会牵连到所有相关代码. 如果新项目允许异常向外扩散, 在跟以前未使用异常的代码整合时也将是个麻烦.
+<br>
+
+**模板**
+模板编程有时候能够实现更简洁更易用的接口, 但是更多的时候却适得其反. 因此模板编程最好只用在少量的基础组件, 基础数据结构上, 因为模板带来的额外的维护成本会被大量的使用给分担掉。
+
+如果你使用模板编程, 你必须考虑尽可能的把复杂度最小化, 并且尽量不要让模板对外暴漏. 你最好只在实现里面使用模板, 然后给用户暴露的接口里面并不使用模板, 这样能提高你的接口的可读性. 并且你应该在这些使用模板的代码上写尽可能详细的注释. 你的注释里面应该详细的包含这些代码是怎么用的, 这些模板生成出来的代码大概是什么样子的. 还需要额外注意在用户错误使用你的模板代码的时候需要输出更人性化的出错信息. 因为这些出错信息也是你的接口的一部分, 所以你的代码必须调整到这些错误信息在用户看起来应该是非常容易理解, 并且用户很容易知道如何修改这些错误
 
 <br>
 
 ## 编程规范
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20210425215320841.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述
+](https://img-blog.csdnimg.cn/20210425215320841.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2021042521553823.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210425215544848.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+建议：
+- 使用`nullptr`而不是`null`或0
+- 使用`gsl::not_null`明确指针不会为`nullptr`
+- 如果函数不会抛出异常，声明为`noexcept`
+- 使用delete明确“禁止使用” 的特殊成员函数，而不是将其放在private不实现
+
+```cpp
+class Foo {
+private:
+	Foo(const Foo&);		//case : 只看头文件不知道拷贝构造函数是否被删除
+public:
+	Foo& operator=(const Foo&) = delete;	//明确删除拷贝赋值函数
+}
+
+template<class T>
+void process(T value);
+
+template<>
+void process<void> (void) = delete;		// delete关键字还支持删除非成员函数
+```
+
 <br>
 
 
