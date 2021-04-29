@@ -7,6 +7,11 @@
 
 因为基本都是之前不懂的问题，肯定文章有些错误，如有人发现也希望能够指正。<br><br>
 
+学习路径：
+1. 编程语言
+2. 体系结构与操作系统：calling convention、syscall、mmap、spinlock、TLB shoot down等
+3. 编译器语言：APL抽象编译语言、编程规范、设计模式、高德纳（Donald Ervin Knuth）计算机程序 设计的艺术
+
 # 版本控制
 持续集成服务（Continuous Integration，CI）：只要有代码变更，就自动运行构建和测试，反馈运行结果。确保符合预期后，再将新代码集成到主干上。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210411121750279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
@@ -39,6 +44,36 @@ RTOS(Real-Time Operating system)：
 Trampoline是小型的嵌入式系统的RTOS，其API与OSEK/VDK OS和AUTOSAR OS4.2标准保持一致。
 
 Erika Enterorise 是一个开源的OSEK/VDK内核。
+
+**内核：**
+- 宏内核：大内核是将操作系统功能作为一个紧密结合的整体放到内核。由于各模块共享信息，因此有很高的性能。
+- 微内核：由于操作系统不断复杂，因此将一部分操作系统功能移出内核，从而降低内核的复杂性。移出的部分更具分层的原则划分成若干服务，相互独立。<br>
+在微内核结构下，操作系统被分为小的，定义良好的模块，只有微内核这一模块运行在内核态，其余模块运行在用户态。因为需要频繁在用户态和内核态切换，所以需要一定性能的损失。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210429234357309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+进程调度算法：不同环境的调度算法目标不同，因此需要针对不同环境来讨论调度算法。[——参考资料](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86.md)<br>
+- 批处理系统：批处理系统没有太多的用户操作，在该系统中，调度算法目标是保证吞吐量和周转时间（从提交到终止的时间）。
+  1.先来先服务 first-come first-serverd（FCFS）：非抢占式的调度算法，按照请求的顺序进行调度。有利于长作业，但不利于短作业，因为短作业必须一直等待前面的长作业执行完毕才能执行，而长作业又需要执行很长时间，造成了短作业等待时间过长。<br>
+  2.短作业优先 shortest job first（SJF）：非抢占式的调度算法，按估计运行时间最短的顺序进行调度。长作业有可能会饿死，处于一直等待短作业执行完毕的状态。因为如果一直有短作业到来，那么长作业永远得不到调度。<br>
+ 3.最短剩余时间优先 shortest remaining time next（SRTN）：最短作业优先的抢占式版本，按剩余运行时间的顺序进行调度。 当一个新的作业到达时，其整个运行时间与当前进程的剩余时间作比较。如果新的进程需要的时间更少，则挂起当前进程，运行新的进程。否则新的进程等待。<br>
+- 交互式系统：交互式系统有大量的用户交互操作，在该系统中调度算法的目标是快速地进行响应。<br>
+ 1.时间片轮转：将所有就绪进程按 FCFS 的原则排成一个队列，每次调度时，把 CPU 时间分配给队首进程，该进程可以执行一个时间片。当时间片用完时，由计时器发出时钟中断，调度程序便停止该进程的执行，并将它送往就绪队列的末尾，同时继续把 CPU 时间分配给队首的进程。<br>
+时间片轮转算法的效率和时间片的大小有很大关系：因为进程切换都要保存进程的信息并且载入新进程的信息，如果时间片太小，会导致进程切换得太频繁，在进程切换上就会花过多时间，而如果时间片过长，那么实时性就不能得到保证。<br>
+ 2.优先级调度：为每个进程分配一个优先级，按优先级进行调度。为了防止低优先级的进程永远等不到调度，可以随着时间的推移增加等待进程的优先级。<br> 
+ 3 多级反馈队列：一个进程需要执行 100 个时间片，如果采用时间片轮转调度算法，那么需要交换 100 次。<br> 
+多级队列是为这种需要连续执行多个时间片的进程考虑，它设置了多个队列，每个队列时间片大小都不同，例如 1,2,4,8,..。进程在第一个队列没执行完，就会被移到下一个队列。这种方式下，之前的进程只需要交换 7 次。每个队列优先权也不同，最上面的优先权最高。因此只有上一个队列没有进程在排队，才能调度当前队列上的进程。**可以将这种调度算法看成是时间片轮转调度算法和优先级调度算法的结合。**<br> 
+- 实时系统：实时系统要求一个请求在一个确定时间内得到响应。分为硬实时和软实时，前者必须满足绝对的截止时间，后者可以容忍一定的超时。<br> 
+
+
+管程：使用信号量机制实现的生产者消费者问题需要客户端代码做很多控制，而管程把控制的代码独立出来，不仅不容易出错，也使得客户端代码调用更容易。在一个时刻只能由一个进程使用管程。进程在无法继续执行的时候不能一只占用管程，否则其他进程永远不能使用管程。
+
+
+虚拟：虚拟技术把一个物理实体转换为多个逻辑实体。
+
+**虚拟技术:**
+- 时（间）分复用技术：多个进程能在同一处理器上并发执行使用了时分复用技术，让每个进程轮流占用处理器，每次只执行一小个时间片并快速切换。
+- 空（间）复用技术：虚拟内存使用了空分复用技术，它将物理内存抽象为地址空间，每个进程都有各自的地址空间。地址空间的页被映射到物理内存，地址空间的页并不需要全部在物理内存中，当使用到一个没有在物理内存的页，执行页面置换算法将页置换到内存。
+
 
 ### 时间管理
 计算机频率的产生：[——参考文献](https://blog.csdn.net/shuibaiz/article/details/8924093)
@@ -670,13 +705,53 @@ Linux实现了Posix的无名信号量，主要用于线程间的互斥与同步�
 
 异步通信是非阻塞模式，代表有UART协议（需要开始位和结束位），传输效率低。
 
-linux下经典五位哲学家吃面模型分析：(参考文章)[https://www.daimajiaoliu.com/daima/485b5ebc0100414]
+linux下经典五位哲学家吃面模型分析：[——参考资料1](https://www.daimajiaoliu.com/daima/485b5ebc0100414)，[参考资料2](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86.md)
 <pr>
 
 ## 进程间通信
+进程同步与进程通信很容易混淆，它们的区别在于：[——参考资料](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86.md)
+
+- 进程同步：控制多个进程按一定顺序执行；
+- 进程通信：进程间传输信息。
+
+进程通信是一种手段，而进程同步是一种目的。也可以说，为了能够达到进程同步的目的，需要让进程进行通信，传输一些进程同步所需要的信息。
+
+1. **管道**：管道是通过调用 pipe 函数创建的，fd[0] 用于读，fd[1] 用于写。
+```cpp
+#include <unistd.h>
+int pipe(int fd[2]);
+```
+它具有以下限制：
+- 只支持半双工通信（单向交替传输）；
+- 只能在父子进程或者兄弟进程中使用。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210429235757710.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+2. **FIFO**：也称为命名管道，去除了管道只能在父子进程中使用的限制。
+
+```cpp
+#include <sys/stat.h>
+int mkfifo(const char *path, mode_t mode);
+int mkfifoat(int fd, const char *path, mode_t mode);
+```
+FIFO 常用于客户-服务器应用程序中，FIFO 用作汇聚点，在客户进程和服务器进程之间传递数据。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210429235846156.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+3. **消息队列**
+
+相比于 FIFO，消息队列具有以下优点：
+- 消息队列可以独立于读写进程存在，从而避免了 FIFO 中同步管道的打开和关闭时可能产生的困难；
+- 避免了 FIFO 的同步阻塞问题，不需要进程自己提供同步方法；
+- 读进程可以根据消息类型有选择地接收消息，而不像 FIFO 那样只能默认地接收。
+
+4. **共享存储**
+
+允许多个进程共享一个给定的存储区。因为数据不需要在进程之间复制，所以这是最快的一种 IPC。大多时候需要使用信号量用来同步对共享存储的访问。多个进程可以将同一个文件映射到它们的地址空间从而实现共享内存。另外 XSI 共享内存不是使用文件，而是使用内存的匿名段。
+
 进程间通信之共享内存shm 和 Socket 通信 payload (有效负载大小)。
 
-**Socket** ：我们知道两个进程如果需要进行通讯最基本的一个前提能能够唯一的标示一个进程，在本地进程通讯中我们可以使用PID来唯一标示一个进程，但PID只在本地唯一，网络中的两个进程PID冲突几率很大，这时候我们需要另辟它径了，我们知道IP层的ip地址可以唯一标示主机，而TCP层协议和端口号可以唯一标示主机的一个进程，这样我们可以利用ip地址＋协议＋端口号唯一标示网络中的一个进程。
+5. **Socket** ：套接字，与其它通信机制不同的是，它可用于不同机器间的进程通信。
+
+我们知道两个进程如果需要进行通讯最基本的一个前提能能够唯一的标示一个进程，在本地进程通讯中我们可以使用PID来唯一标示一个进程，但PID只在本地唯一，网络中的两个进程PID冲突几率很大，这时候我们需要另辟它径了，我们知道IP层的ip地址可以唯一标示主机，而TCP层协议和端口号可以唯一标示主机的一个进程，这样我们可以利用ip地址＋协议＋端口号唯一标示网络中的一个进程。
 
 socket（套接字）是应用层和传输层的一个抽象层，它把TCP/IP层的复杂关系的操作抽象为几个简单的接口供应用层调用已实现进程在网络中的通信。
 
@@ -805,9 +880,95 @@ int b() {
 
 事件和信号量都可以实现线程和进程间的互斥和同步。就使用效率来说，临界区的效率是最高的，因为它不是内核对象，而其它的三个都是内核对象，调用要进入内核态，效率相对来说就比较低。但如果要跨进程使用还是要用到互斥器、事件对象和信号量。
 
+
 <br>
 
-### 管道
+#### 死 锁
+必要条件：[——参考资料](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E6%AD%BB%E9%94%81.md)
+- 互斥：每个资源要么已经分配给了一个进程，要么就是可用的。
+- 占有和等待：已经得到了某个资源的进程可以再请求新的资源。
+- 不可抢占：已经分配给一个进程的资源不能强制性地被抢占，它只能被占有它的进程显式地释放。
+- 环路等待：有两个或者两个以上的进程组成一条环路，该环路中的每个进程都在等待下一个进程所占有的资源。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210430000606445.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+处理方法主要有以下四种方法：
+1. 鸵鸟策略
+2. 死锁检测与死锁恢复
+3. 死锁预防
+4. 死锁避免
+
+死锁检测与死锁恢复：不试图阻止死锁，而是当检测到死锁发生时，采取措施进行恢复。
+- 每种类型一个资源的死锁检测
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210430000736790.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+上图为资源分配图，其中方框表示资源，圆圈表示进程。资源指向进程表示该资源已经分配给该进程，进程指向资源表示进程请求获取该资源。
+
+图 a 可以抽取出环，如图 b，它满足了环路等待条件，因此会发生死锁。
+
+每种类型一个资源的死锁检测算法是通过检测有向图是否存在环来实现，从一个节点出发进行深度优先搜索，对访问过的节点进行标记，如果访问了已经标记的节点，就表示有向图存在环，也就是检测到死锁的发生。
+
+- 每种类型多个资源的死锁检测
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210430000819385.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+上图中，有三个进程四个资源，每个数据代表的含义如下：
+- E 向量：资源总量
+- A 向量：资源剩余量
+- C 矩阵：每个进程所拥有的资源数量，每一行都代表一个进程拥有资源的数量
+- R 矩阵：每个进程请求的资源数量
+
+进程 P1 和 P2 所请求的资源都得不到满足，只有进程 P3 可以，让 P3 执行，之后释放 P3 拥有的资源，此时 A = (2 2 2 0)。P2 可以执行，执行后释放 P2 拥有的资源，A = (4 2 2 1) 。P1 也可以执行。所有进程都可以顺利执行，没有死锁。
+
+**算法总结如下：**
+
+每个进程最开始时都不被标记，执行过程有可能被标记。当算法结束时，任何没有被标记的进程都是死锁进程。
+
+1. 寻找一个没有标记的进程 Pi，它所请求的资源小于等于 A。
+2. 如果找到了这样一个进程，那么将 C 矩阵的第 i 行向量加到 A 中，标记该进程，并转回 1。
+3. 如果没有这样一个进程，算法终止。
+
+-  **死锁恢复**
+1. 利用抢占恢复
+2. 利用回滚恢复
+3. 通过杀死进程恢复
+
+- **死锁预防**
+
+在程序运行之前预防发生死锁。
+1.  破坏互斥条件：例如假脱机打印机技术允许若干个进程同时输出，唯一真正请求物理打印机的进程是打印机守护进程。
+2.  破坏占有和等待条件：一种实现方式是规定所有进程在开始执行前请求所需要的全部资源。
+3. 破坏不可抢占条件
+4. 破坏环路等待：给资源统一编号，进程只能按编号顺序来请求资源。
+
+- **死锁避免** 
+
+在程序运行时避免发生死锁。
+1. 安全状态
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210430001229659.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+图 a 的第二列 Has 表示已拥有的资源数，第三列 Max 表示总共需要的资源数，Free 表示还有可以使用的资源数。从图 a 开始出发，先让 B 拥有所需的所有资源（图 b），运行结束后释放 B，此时 Free 变为 5（图 c）；接着以同样的方式运行 C 和 A，使得所有进程都能成功运行，因此可以称图 a 所示的状态时安全的。
+
+定义：如果没有死锁发生，并且即使所有进程突然请求对资源的最大需求，也仍然存在某种调度次序能够使得每一个进程运行完毕，则称该状态是安全的。
+
+安全状态的检测与死锁的检测类似，因为安全状态必须要求不能发生死锁。下面的银行家算法与死锁检测算法非常类似，可以结合着做参考对比。
+
+2.  单个资源的银行家算法
+一个小城镇的银行家，他向一群客户分别承诺了一定的贷款额度，算法要做的是判断对请求的满足是否会进入不安全状态，如果是，就拒绝请求；否则予以分配。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210430001307738.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+上图 c 为不安全状态，因此算法会拒绝之前的请求，从而避免进入图 c 中的状态。
+
+3. 多个资源的银行家算法
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2021043000132832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+上图中有五个进程，四个资源。左边的图表示已经分配的资源，右边的图表示还需要分配的资源。最右边的 E、P 以及 A 分别表示：总资源、已分配资源以及可用资源，注意这三个为向量，而不是具体数值，例如 A=(1020)，表示 4 个资源分别还剩下 1/0/2/0。
+
+检查一个状态是否安全的算法如下：
+
+- 查找右边的矩阵是否存在一行小于等于向量 A。如果不存在这样的行，那么系统将会发生死锁，状态是不安全的。
+- 假若找到这样一行，将该进程标记为终止，并将其已分配资源加到 A 中。
+- 重复以上两步，直到所有进程都标记为终止，则状态时安全的。
+
+如果一个状态不是安全的，需要拒绝进入这个状态。
+<br>
+
+# 管道
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421225227841.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421225555479.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421225637219.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
@@ -855,6 +1016,13 @@ int b() {
 2. 错误提示，种植本次执行，提示重新再来。
 
 ## 编程语言
+**原语（primitives）**: [——参考资料](https://my.oschina.net/sukai/blog/369079)
+
+“石头、剪刀、布”这三样东西，除了“石头”是原语，而“剪刀”和“布头”不算，为什么呢？因为剪刀和布头都是人工合成的，而石头是浑然天成的。因此“原语”这个单词的定义还是要从它的英文原词 primitive 出发，也就是“原始”的意思。
+
+计算机是一门人造科学，因此真正意义上的“原语”是不存在的。操作系统层面上的“原语”（比如 write 之类的系统调用）对程序员来讲的确是不可分割的最小单位，是在操作系统中调用核心层子程序的指令。与一般广义指令的区别在于它是不可中断的，而且总是作为一个基本单位出现。
+<br>
+
 **inline关键字**：解决一些频繁调用的小函数消耗栈空间的问题。
 - 内联函数有些类似于宏。内联函数的代码会被直接嵌入在它被调用的地方，调用几次就嵌入几次，没有使用call指令。这样省去了函数调用时的一些额外开销，比如保存和恢复函数返回地址等，可以加快速度。（作为接口，宏不够清晰）
 - 限制：inline只适合函数体内代码简单的函数使用，不能包含复杂的结构控制语句，如 while、switch，并且不能内联函数本身不能是直接递归函数。
@@ -1147,8 +1315,7 @@ std::unique_ptr<bar> b1(std::move(b0));
 <br>
 
 ## 编程规范
-![在这里插入图片描述
-](https://img-blog.csdnimg.cn/20210425215320841.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210425215320841.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2021042521553823.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210425215544848.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
@@ -1172,6 +1339,104 @@ void process(T value);
 template<>
 void process<void> (void) = delete;		// delete关键字还支持删除非成员函数
 ```
+
+**安全编程规范：**
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210427224256809.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210427224307290.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+函数常见问题：
+- 不正确的数组索引认证（CWE-129），不检查最小值（CWE-839）
+- 内存边界限制不当（CWE-119） / 函数参数为数组
+- 并发环境中使用不可重入函数（CWE-663）
+- 引入空指针（CWE-476）
+
+字符串操作不当带来的风险：
+- 拒绝服务攻击：由于字符串缓冲区被破坏，导致程序崩溃。如果攻击者通过恶意输入触发这种情况，可造成拒绝服务让合法用户无法正常使用。
+- 执行任意代码：在典型的`buffer overflow`攻击中，攻击者会将大于缓冲区的恶意数据传入某个程序，然后程序会将这些恶意数据存储到目标堆栈缓冲区中。结果目标堆栈上的数据就会被覆盖。如果函数返回地址被恶意代码所覆盖，那当函数返回时，函数的控制权便会转移给包含攻击者数据的恶意代码中。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210427225001833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+典型错误：
+- 源字符串长度大于目标缓冲区：1.处理任何长度不确定的输入字符串都要小心。2.拷贝字符串时，往往容易忽略字符串的长度。因此对字符串作拷贝或连接等操作前，要确保缓冲区有足够的空间容纳字符串数据和结束符'\0'。3.不安全字符串函数，如`strcpy()`、`strcat()`等，由于没有对字符串进行长度检查，是被禁止使用的，应使用`strcpy_s`等安全版本函数来进行替代。
+-  差一错误：未考虑`\0`结束符写入数组的位置，添加结束符时可能导致写溢出。
+- 格式化函数的缓冲区溢出。
+- 源指针和目标指针指向重叠内存区：`memcpy_s`不能操作重叠内存，`memmove_s`可以。
+- 格式说明符与参数的类型和数量不匹配。
+- 使用用户输入来构造格式化字符串：进程崩溃，查看栈内容，改写内存，执行任意代码。
+- 存在格式化缺陷的函数，应该慎用/禁用：格式化输入、输出函数，格式化错误消息函数，格式化日志函数。
+
+格式化缺陷的风险（参数类型不匹配、数目不匹配）
+- 导致程序异常终止（拒绝服务）：格式化说明符和参数个数或者类型不匹配会导致未定义的风险。大多数情况下，不正确的格式缺陷可能会使程序异常终止。
+- 执行任意代码：若格式化字符串中的全部或部分可由攻击者控制，攻击者输入的恶意数据会被当做指令执行。
+- 利用格式化字符串漏洞：执行任意代码（CVE-2004-2074）、引发DOS攻击、非法查看内存。
+
+举例：
+1. 在格式化字符串后面没有跟相应变量的时候，继续打印$esp之上内存的每个内容。多加几个%p可以继续打印高位栈的内容，实现窥探内存。
+2. `%n` 用于把前面打印的字符数记录到一个变量中，也用于统计格式化的字节数，这需要一个空间来存储这个数字。结合%p以用户的输入来构造格式化字符串来打印内存，构造恶意代码。
+3. 将`%s`、`%d`等符号作为控制台输入参数传入入参，达到改变入参个数目的。
+
+正确使用安全函数：
+- 使用：1. 正确设置安全函数中的destMax参数。 2. 恰当的处理安全函数返回值。
+- 常见问题：
+1.内存边界操作限制不当（CWE-119）：使用了过大的目的缓冲区长度参数，或者直接使用程序外部数据，未作检查即作为目的缓冲区参数，可造成写溢出。对源数据长度的不当使用可造成读越界。
+2.未检查返回值（CWE-252）：当安全函数返回错误码时，程序没有识别进行适当的处理，会导致不能及时发现异常数据以及恶意行为，会使系统继续处于危险与威胁中。
+
+典型错误：
+- 重定义安全函数：以宏的方式修改安全函数在代码中的名字，降低了代码可读性，引发误用风险。
+- 封装安全函数：以函数封装的方式调用安全函数，降低了代码可读性，引发了误用风险。
+
+整数操作不当的场景：
+1. 有（无）符号整数运算符操作出现溢出 / 整形表达式转换出现溢出。
+2. 整形转换时出现截断错误和符号错误。
+3. 有符号整数使用位操作符运算导致数据反转。
+4. 整数和指针直接进行类型转换：需使用`uintptr`表示指针的整数类型
+
+整数操作不当的风险：
+5. 内存分配出错。
+6. 执行任意代码：整数溢出错误，可导致内存破坏，并可能被用于执行任意代码。
+7. 有符号整数溢出->影响符号位，无符号整数反转->最高位进退位失效（回绕）。
+
+无符号操作数的计算不会溢出，因为结果不能被无符号类型表示的时候，就会对比结果类型能表示的最大值加一再执行求模操作。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2021042723191010.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+两数相乘溢出问题：将两个32位的int型相乘，将结果赋值给long型变量。
+```
+long a = 111111 * 111111;
+```
+分析：对于编译器来说，`int`和`int`相乘，结果也是先存在`int`中，跟被赋给`long`或`long long`数据类型字段没有关系。
+解决：想要不溢出，就要把两个32位数强转为`long`类型，再相乘。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210427232818129.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210427235209671.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+典型错误：
+- 引用空指针：未检验内存申请是否成功，可能会引起空指引。解引用空指针可能导致程序异常终止，甚至执行任意代码。为了防止空指针引用，最简单有效的方法就是非空检验。
+- 使用`alloca`函数申请内存：`alloca()`不具备平台适用性，且在栈上申请内存，可能大小越界。
+- 指针释放后未置NULL：悬挂指针可能导致双重释放以及访问已释放内存的危险。
+- 使用`realloc`函数调整内存大小。
+- 不安全的随机数使用
+
+不安全函数：
+- 命令注入：system函数不当使用。（不使用，如若使用，应win32 API中`creatProcess`函数或POSIX的`exec`系列替代或使用硬编码的函数或对外部输入中的命令分隔符进行过滤、转义）
+- 多线程下使用线程不安全函数：1. `strtok`、`printf `和 `cout` 混用。 2.信号处理程序中的使用异步不安全函数：IO函数，自定义的异步不安全函数。
+- 危害：1. 拒绝服务。使用线程不安全函数，当程序运行在多线程环境时，往往会导致变量被多处修改，从而导致程序不正常，甚至产生crash。 2. 执行任意代码。变量被其他线程修改，若攻击者写入恶意数据，则可能会导致任意代码执行。
+
+`printf `和 `cout` 混用错误：
+1. 两种缓冲区的机制不同（`printf `没有缓冲区， `cout` 有），而且对于标准输出的加锁时机也略有不同（`printf `对标准输出做任何处理前加锁， `cout` 在实际向标准输出打印时方才加锁）。
+2. 两者存在微弱的时序差别，而多线程环境下，很多问题就是由于微弱的时许差别造成的。
+
+`std::cout`的标准流输出时带有缓冲区的，如果没有及时清理缓冲区而在期间采用了其他系统的输出函数，可能会暴露两种输出函数的不兼容，从而出现非预期的错误。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210427235119607.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/202104272351335.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+**目录遍历**
+利用目录穿越进行“权限突破”。
+- 解决办法：1. 路径标准化校验。 2. 目录/文件权限控制。 3. 使用chroot改变1，使用jail限制目录范围。
+
+典型问题：
+- 使用文件名的方式对文件进行操作（对同一文件的操作使用文件名的方式进行引用）
+- 说明：文件名和真实文件本身实际上时一个松绑定的关系，文件名并不包括真实文件的具体信息。在多次使用相同文件名试图对统一文件进行操作时不可靠的，存在文件本身被外部手段替换掉而程序并不感知的可能。
+
+典型错误：输入文件路径没有进行标准化。
+说明：1. 打开外部文件时，需要对文件路径进行标准化（转换为绝对路径），确保打开的文件是符合预期的。如果必要使用相对路径（比如对应用安装目录不确定），需要对文件中特殊字符进行过滤，如果“.” 和 “/”。
+2. 内部文件名最好能硬编码参数到应用程序中。如果出于更高的安全要求，需对文件的完整性进行校验。
+
+敏感信息处理：session ID、明文口令、密钥。
 
 <br>
 
@@ -1233,6 +1498,14 @@ int *ptr = (int *)(&a+1);
 <br>
 
 ## 设计模式
+接口设计原则：
+- 单一职责原则
+- 针对接口编程，而非（接口的）实现
+- 开放-封闭法则（OCP）
+- Liskov替换法则（LSP）
+- 接口隔离原则
+- 控制反转和依赖注入
+
 观察者模式（订阅模式）：被观察对象状态改变，所有观察它的对象得到通知。被观察者不依赖观察者，通过依赖注入达到控制反转。
 事件
 通知：事件发生后，通知所有这个事件的对象。与观察者模式相比，可理解成所有对象都只以来事件系统。一半对象观察事件系统，等待特定通知；一般对象状态变化就通过事件系统发出事件。
