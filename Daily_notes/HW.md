@@ -5,12 +5,13 @@
 
 回头看看，有些问题现在看有点简单了，但是有些问题好久没有处理也快忘了。有些地方因为是流程图，就不再用绘图软件在画了，直接拍张图片凑合看看吧。
 
-因为基本都是之前不懂的问题，肯定文章有些错误，如有人发现也希望能够指正。<br><br>
+因为基本都是之前不懂的问题，肯定文章有些错误，如有人发现也希望能够指正。
 
 学习路径：
 1. 编程语言
 2. 体系结构与操作系统：calling convention、syscall、mmap、spinlock、TLB shoot down等
 3. 编译器语言：APL抽象编译语言、编程规范、设计模式、高德纳（Donald Ervin Knuth）计算机程序 设计的艺术
+<br>
 
 # 版本控制
 持续集成服务（Continuous Integration，CI）：只要有代码变更，就自动运行构建和测试，反馈运行结果。确保符合预期后，再将新代码集成到主干上。
@@ -32,9 +33,8 @@
 - 切换分支：git checkout 分支名 [-b] 新建 [-d] 删除
 
 RT-Druid工具：集成OS oil文件配置，oil代码生成和编译的一个工具，可用于windows下的autosar代码开发的IDE。
-
-<br><br>![在这里插入图片描述](https://img-blog.csdnimg.cn/20210411123212521.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
-
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210411123212521.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+<br>
 # 操作系统
 ## 系统
 RTOS(Real-Time Operating system)：
@@ -106,7 +106,7 @@ Erika Enterorise 是一个开源的OSEK/VDK内核。
 ### 内存管理
 内存是现代计算机最重要的组件之一，因此它的内容不能被任何错误的应用篡改，这个功能可以通过MMU（内存管理单元）或者MPU（内存保护单元）来实现。
 
-- MMMU负责虚拟地址到物理地址的映射，并提供硬件机制的访问权限检查。其被认为是比MPU更先进的设备，其具备MPU不具备的特性，包括缓存控制，总线仲裁，bank切换任务，由独立的MMU全权负责。但是MMU增加了额外硬件以支持虚拟内存，但将导致实时性下降。
+- MMU负责虚拟地址到物理地址的映射，并提供硬件机制的访问权限检查。其被认为是比MPU更先进的设备，其具备MPU不具备的特性，包括缓存控制，总线仲裁，bank切换任务，由独立的MMU全权负责。但是MMU增加了额外硬件以支持虚拟内存，但将导致实时性下降。
 - MPU开销更小，适合不需要做多任务或相关处理的简单系统。MPU在执行其功能时，是以所谓的`region`为单位的。一个`region`其实就是一段连续的地址，只是它们的位置和范围都要满足一些限制（对齐方式，最小容量等）。
 
 region可以相互交迭，MPU可以根据用户的需气球，设定每个region的访问权限，避免非法的访问。kinetis的MPU使用一个成为region的描述符的寄存器组来定义每个region的访问规则和权限；一个描述符对应一个region，每个region的大小也是可编程的，且多个region是可以叠加的。kinetis最多支持12个region，每个region对应的存储空间最小为32字节，最大为4GB，且必须是32的整数倍。
@@ -122,6 +122,127 @@ Cache Memory（CPU缓存）位于CPU与内存之间的临时存储器。
 但是CPU缓存速度还不够快，另外数据在缓存中的地址是不同的，CPU每次读写都要寻址也会拖慢速度，因此，除了缓存之外，CPU还自带了寄存器，用来存储最常用的数据。也就是说，那些最频繁的数据（比如循环变量）都会放在寄存器里面，CPU优先读写寄存器，再由寄存器更内存交换数据。
 
 但是这也引出一个问题，在多任务时，某个任务修改了某个值，寄存器中却没有更新，被其他任务取出将是个未更新的值。为了避免这个情况，关键字`Volatile`可以避免这个情况。
+
+#### 磁盘调度算法
+读写一个磁盘块的时间的影响因素有：[——参考文章](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.md)
+1. 旋转时间（主轴转动盘面，使得磁头移动到适当的扇区上）
+2. 寻道时间（制动手臂移动，使得磁头移动到适当的磁道上）
+3. 实际的数据传输时间
+
+其中，寻道时间最长，因此磁盘调度的主要目标是使磁盘的平均寻道时间最短。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505210927132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+1. 先来先服务（FCFS, First Come First Served）
+
+按照磁盘请求的顺序进行调度。优点是公平和简单。缺点也很明显，因为未对寻道做任何优化，使平均寻道时间可能较长。
+
+2. 最短寻道时间优先（SSTF, Shortest Seek Time First）
+
+优先调度与当前磁头所在磁道距离最近的磁道。
+
+虽然平均寻道时间比较低，但是不够公平。如果新到达的磁道请求总是比一个在等待的磁道请求近，那么在等待的磁道请求会一直等待下去，也就是出现饥饿现象。具体来说，两端的磁道请求更容易出现饥饿现象。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505211209214.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)3. 电梯算法（SCAN）
+
+电梯总是保持一个方向运行，直到该方向没有请求为止，然后改变运行方向。
+
+电梯算法（扫描算法）和电梯的运行过程类似，总是按一个方向来进行磁盘调度，直到该方向上没有未完成的磁盘请求，然后改变方向。
+
+因为考虑了移动方向，因此所有的磁盘请求都会被满足，解决了 SSTF 的饥饿问题。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505211300247.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+#### 虚拟内存
+虚拟内存的目的是为了让物理内存扩充成更大的逻辑内存，从而让程序获得更多的可用内存。 
+
+为了更好的管理内存，操作系统将内存抽象成地址空间。每个程序拥有自己的地址空间，这个地址空间被分割成多个块，每一块称为一页。这些页被映射到物理内存，但不需要映射到连续的物理内存，也不需要所有页都必须在物理内存中。当程序引用到不在物理内存中的页时，由硬件执行必要的映射，将缺失的部分装入物理内存并重新执行失败的指令。
+
+从上面的描述中可以看出，虚拟内存允许程序不用将地址空间中的每一页都映射到物理内存，也就是说一个程序不需要全部调入内存就可以运行，这使得有限的内存运行大程序成为可能。例如有一台计算机可以产生 16 位地址，那么一个程序的地址空间范围是 0~64K。该计算机只有 32KB 的物理内存，虚拟内存技术允许该计算机运行一个 64K 大小的程序。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505204215464.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+<br>
+#### 分页系统地址映射
+内存管理单元（MMU）管理着地址空间和物理内存的转换，其中的页表（Page table）存储着页（程序地址空间）和页框（物理内存空间）的映射表。
+
+一个虚拟地址分成两个部分，一部分存储页面号，一部分存储偏移量。
+
+下图的页表存放着 16 个页，这 16 个页需要用 4 个比特位来进行索引定位。例如对于虚拟地址（0010 000000000100），前 4 位是存储页面号 2，读取表项内容为（110 1），页表项最后一位表示是否存在于内存中，1 表示存在。后 12 位存储偏移量。这个页对应的页框的地址为 （110 000000000100）。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505204328927.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+<br>
+
+#### 页面置换算法
+在程序运行过程中，如果要访问的页面不在内存中，就发生缺页中断从而将该页调入内存中。此时如果内存已无空闲空间，系统必须从内存中调出一个页面到磁盘对换区中来腾出空间。
+
+页面置换算法和缓存淘汰策略类似，可以将内存看成磁盘的缓存。在缓存系统中，缓存的大小有限，当有新的缓存到达时，需要淘汰一部分已经存在的缓存，这样才有空间存放新的缓存数据。
+
+页面置换算法的主要目标是使页面置换频率最低（也可以说缺页率最低）。
+
+1. 最佳（OPT, Optimal replacement algorithm）
+
+所选择的被换出的页面将是最长时间内不再被访问，通常可以保证获得最低的缺页率。其是一种理论上的算法，因为无法知道一个页面多长时间不再被访问。
+
+举例：一个系统为某进程分配了三个物理块，并有如下页面引用序列：
+
+> 7，0，1，2，0，3，0，4，2，3，0，3，2，1，2，0，1，7，0，1
+
+开始运行时，先将 7, 0, 1 三个页面装入内存。当进程要访问页面 2 时，产生缺页中断，会将页面 7 换出，因为页面 7 再次被访问的时间最长。
+
+2. 最近最久未使用（LRU, Least Recently Used）
+
+虽然无法知道将来要使用的页面情况，但是可以知道过去使用页面的情况。LRU 将最近最久未使用的页面换出。为了实现 LRU，需要在内存中维护一个所有页面的链表。当一个页面被访问时，将这个页面移到链表表头。这样就能保证链表表尾的页面是最近最久未访问的。
+
+因为每次访问都需要更新链表，因此这种方式实现的 LRU 代价很高。
+
+>4，7，0，7，1，0，1，2，1，2，6
+
+3. 最近未使用（NRU, Not Recently Used）
+
+每个页面都有两个状态位：R 与 M，当页面被访问时设置页面的 R=1，当页面被修改时设置 M=1。其中 R 位会定时被清零。可以将页面分成以下四类：
+
+>R=0，M=0
+>R=0，M=1
+>R=1，M=0
+>R=1，M=1
+
+当发生缺页中断时，NRU 算法随机地从类编号最小的非空类中挑选一个页面将它换出。
+
+NRU 优先换出已经被修改的脏页面（R=0，M=1），而不是被频繁使用的干净页面（R=1，M=0）。
+
+4. 先进先出
+FIFO, First In First Out
+
+选择换出的页面是最先进入的页面。该算法会将那些经常被访问的页面换出，导致缺页率升高。
+
+5. 第二次机会算法
+
+FIFO 算法可能会把经常使用的页面置换出去，为了避免这一问题，对该算法做一个简单的修改：
+
+当页面被访问 (读或写) 时设置该页面的 R 位为 1。需要替换的时候，检查最老页面的 R 位。如果 R 位是 0，那么这个页面既老又没有被使用，可以立刻置换掉；如果是 1，就将 R 位清 0，并把该页面放到链表的尾端，修改它的装入时间使它就像刚装入的一样，然后继续从链表的头部开始搜索。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505205446389.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+时钟（Clock）
+
+第二次机会算法需要在链表中移动页面，降低了效率。时钟算法使用环形链表将页面连接起来，再使用一个指针指向最老的页面。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505205523513.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+#### 分段
+虚拟内存采用的是分页技术，也就是将地址空间划分成固定大小的页，每一页再与内存进行映射。
+
+下图为一个编译器在编译过程中建立的多个表，有 4 个表是动态增长的，如果使用分页系统的一维地址空间，动态增长的特点会导致覆盖问题的出现。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505205820120.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+分段的做法是把每个表分成段，一个段构成一个独立的地址空间。每个段的长度可以不同，并且可以动态增长。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505205855600.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+#### 段页式
+程序的地址空间划分成多个拥有独立地址空间的段，每个段上的地址空间划分成大小相同的页。这样既拥有分段系统的共享和保护，又拥有分页系统的虚拟内存功能。
+
+分页与分段的比较
+- 对程序员的透明性：分页透明，但是分段需要程序员显式划分每个段。
+- 地址空间的维度：分页是一维地址空间，分段是二维的。
+- 大小是否可以改变：页的大小不可变，段的大小可以动态改变。
+
+出现的原因：分页主要用于实现虚拟内存，从而获得更大的地址空间；分段主要是为了使程序和数据可以被划分为逻辑上独立的地址空间并且有助于共享和保护。
+
+页表就像一个函数，输入的页号，输出的是页帧，实现从页号到物理地址的映射。操作系统给每一个进程维护一个页表。所以不同进程的虚拟地址可能一样，页表给出了进程中每一页所对应的页帧的位置。
+
+<br>
 
 ### Volatile
 **`Volatile`**：用它声明的类型变量表示可以被某些编译器未知因素更改。用它声明的类型变量表示可以被某些编译器未知因素更改。它提醒编译器它后面定义的变量随时可以改变，因此编译后的程序每次需要存储或读取这个变量的时候，告诉编译器对该变量不做优化，都会直接从变量内存地址中读取数据，从而可以提供对特殊地址的稳定访问。
@@ -140,7 +261,7 @@ i++ 是否是线程安全的（原子操作）？否！因为 i++操作可以分
 3. store i (i=1) 写回内存
 
 用volatile保证原子操作，只是确保了第一步`load i`一定从存储器中读取数据。无法保障进行三步操作的过程中会不会被其他任务/中断 分离抢占（原子性）。所以使用lock或者Atomic才是唯一正确的选择。（C++11标准中明确指出解决多线程的数据竞争问题应该使用原子操作或者互斥锁。）
-
+<br>
 
 ### 原子操作
 原子（ATOM）本意是"不能被进一步分割的最小粒子"。
@@ -613,7 +734,6 @@ Linux实现了Posix的无名信号量，主要用于线程间的互斥与同步�
 1. 信号处理程序A内外都调用了同一个不可重入函数B，B在执行期间被信号打断，进入了A（A中调用了B），完事之后返回B被中断点继续执行。这时B函数的环境可能被改变，其结果就不可预料。
 2. 多线程共享进程内部的资源，如果两个线程A，B调用同一个不可重入函数Fun，A线程进入Fun后，线程调度，切换到B，B也执行了Fun，那么当再次切换到线程A时，其调用F的结果也是不可预料的。（入函数时，应当在其前保存errno，并在其后恢复errno）
 
-
 预防不可重入的几个原则：
 
 1. 不要使用static变量和全局变量，只坚持用局部变量。
@@ -692,6 +812,141 @@ Linux实现了Posix的无名信号量，主要用于线程间的互斥与同步�
 <br>
 
 # 通信
+## 计算机网络体系结构
+五层协议
+- 应用层 ：为特定应用程序提供数据传输服务，例如 HTTP、DNS 等协议。数据单位为报文。
+- 传输层 ：为进程提供通用数据传输服务。由于应用层协议很多，定义通用的传输层协议就可以支持不断增多的应用层协议。运输层包括两种协议：传输控制协议 TCP，提供面向连接、可靠的数据传输服务，数据单位为报文段；用户数据报协议 UDP，提供无连接、尽最大努力的数据传输服务，数据单位为用户数据报。TCP 主要提供完整性服务，UDP 主要提供及时性服务。
+- 网络层 ：为主机提供数据传输服务。而传输层协议是为主机中的进程提供数据传输服务。网络层把传输层传递下来的报文段或者用户数据报封装成分组。
+- 数据链路层 ：网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。
+- 物理层 ：考虑的是怎样在传输媒体上传输数据比特流，而不是指具体的传输媒体。物理层的作用是尽可能屏蔽传输媒体和通信手段的差异，使数据链路层感觉不到这些差异。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505214645983.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2021050521471299.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505214721771.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+TCP/IP协议：它只有四层，相当于五层协议中数据链路层和物理层合并为网络接口层。TCP/IP 体系结构不严格遵循 OSI 分层概念，应用层可能会直接使用 IP 层或者网络接口层。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505215216895.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2021050523344777.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+### 物理层
+根据信息在传输线上的传送方向，分为以下三种通信方式：
+1. 单工通信：单向传输
+2. 半双工通信：双向交替传输
+3. 全双工通信：双向同时传输
+
+### 链路层
+信道分类：
+1. 广播信道：一对多通信，一个节点发送的数据能够被广播信道上所有的节点接收到。所有的节点都在同一个广播信道上发送数据，因此需要有专门的控制方法进行协调，避免发生冲突（冲突也叫碰撞）。<br>
+主要有两种控制方法进行协调，一个是使用信道复用技术，一是使用 CSMA/CD 协议。
+
+2. 点对点信道：一对一通信。因为不会发生碰撞，因此也比较简单，使用 PPP 协议进行控制。
+
+信道复用技术：
+
+1. 频分复用：频分复用的所有主机在相同的时间占用不同的频率带宽资源。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505233816782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+2. 时分复用：时分复用的所有主机在不同的时间占用相同的频率带宽资源。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505233828689.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+使用频分复用和时分复用进行通信，在通信的过程中主机会一直占用一部分信道资源。但是由于计算机数据的突发性质，通信过程没必要一直占用信道资源而不让出给其它用户使用，因此这两种方式对信道的利用率都不高。
+
+3. 统计时分复用：是对时分复用的一种改进，不固定每个用户在时分复用帧中的位置，只要有数据就集中起来组成统计时分复用帧然后发送。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505233936652.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+4. 波分复用：光的频分复用。由于光的频率很高，因此习惯上用波长而不是频率来表示所使用的光载波。
+
+5. 码分复用：为每个用户分配 m bit 的码片，并且所有的码片正交。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505234125314.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+CSMA/CD 协议：CSMA/CD 表示载波监听多点接入 / 碰撞检测。
+- 多点接入 ：说明这是总线型网络，许多主机以多点的方式连接到总线上。
+- 载波监听 ：每个主机都必须不停地监听信道。在发送前，如果监听到信道正在使用，就必须等待。
+- 碰撞检测 ：在发送中，如果监听到信道已有其它主机正在发送数据，就表示发生了碰撞。虽然每个主机在发送数据之前都已经监听到信道为空闲，但是由于电磁波的传播时延的存在，还是有可能会发生碰撞。
+
+记端到端的传播时延为 τ，最先发送的站点最多经过 2τ 就可以知道是否发生了碰撞，称 2τ 为 争用期 。只有经过争用期之后还没有检测到碰撞，才能肯定这次发送不会发生碰撞。
+
+当发生碰撞时，站点要停止发送，等待一段时间再发送。这个时间采用 **截断二进制指数退避算法** 来确定。从离散的整数集合 {0, 1, .., (2k-1)} 中随机取出一个数，记作 r，然后取 r 倍的争用期作为重传等待时间。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505234556405.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+PP 协议：互联网用户通常需要连接到某个 ISP 之后才能接入到互联网，PPP 协议是用户计算机和 ISP 进行通信时所使用的数据链路层协议。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505234627991.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+<br>
+
+### 网络层
+因为网络层是整个互联网的核心，因此应当让网络层尽可能简单。网络层向上只提供简单灵活的、无连接的、尽最大努力交互的数据报服务。[——参考文章](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E7%BD%91%E7%BB%9C%E5%B1%82.md)
+
+使用 IP 协议，可以把异构的物理网络连接起来，使得在网络层看起来好像是一个统一的网络。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505234353590.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+与 IP 协议配套使用的还有三个协议：
+- 地址解析协议 ARP（Address Resolution Protocol）
+- 网际控制报文协议 ICMP（Internet Control Message Protocol）
+- 网际组管理协议 IGMP（Internet Group Management Protocol）
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505234856728.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+### 传输层
+网络层只把分组发送到目的主机，**但是真正通信的并不是主机而是主机中的进程**。传输层提供了进程间的逻辑通信，传输层向高层用户屏蔽了下面网络层的核心细节，使应用程序看起来像是在两个传输层实体之间有一条端到端的逻辑通信信道。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505235348259.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505235358846.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+### 应用层
+文件传送协议（FTP）：
+FTP 使用 TCP 进行连接，它需要两个连接来传送一个文件：
+- 控制连接：服务器打开端口号 21 等待客户端的连接，客户端主动建立连接后，使用这个连接将客户端的命令传送给服务器，并传回服务器的应答。
+- 数据连接：用来传送一个文件数据。
+根据数据连接是否是服务器端主动建立，FTP 有主动和被动两种模式：
+
+主动模式：服务器端主动建立数据连接，其中服务器端的端口号为 20，客户端的端口号随机，但是必须大于 1024，因为 0~1023 是熟知端口号。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505235551166.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+被动模式：客户端主动建立数据连接，其中客户端的端口号由客户端自己指定，服务器端的端口号随机。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505235557976.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+主动模式要求客户端开放端口号给服务器端，需要去配置客户端的防火墙。被动模式只需要服务器端开放端口号即可，无需客户端配置防火墙。但是被动模式会导致服务器端的安全性减弱，因为开放了过多的端口号。
+
+动态主机配置协议
+DHCP (Dynamic Host Configuration Protocol) 提供了即插即用的连网方式，用户不再需要手动配置 IP 地址等信息。
+
+DHCP 配置的内容不仅是 IP 地址，还包括子网掩码、网关 IP 地址。
+
+DHCP 工作过程如下：
+1. 客户端发送 Discover 报文，该报文的目的地址为 255.255.255.255:67，源地址为 0.0.0.0:68，被放入 UDP 中，该报文被广播到同一个子网的所有主机上。如果客户端和 DHCP 服务器不在同一个子网，就需要使用中继代理。
+2. DHCP 服务器收到 Discover 报文之后，发送 Offer 报文给客户端，该报文包含了客户端所需要的信息。因为客户端可能收到多个 DHCP 服务器提供的信息，因此客户端需要进行选择。
+3. 如果客户端选择了某个 DHCP 服务器提供的信息，那么就发送 Request 报文给该 DHCP 服务器。
+4. DHCP 服务器发送 Ack 报文，表示客户端此时可以使用提供给它的信息。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2021050523572948.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+Web 页面请求过程：
+1. DHCP 配置主机信息
+- 假设主机最开始没有 IP 地址以及其它信息，那么就需要先使用 DHCP 来获取。
+- 主机生成一个 DHCP 请求报文，并将这个报文放入具有目的端口 67 和源端口 68 的 UDP 报文段中。
+- 该报文段则被放入在一个具有广播 IP 目的地址(255.255.255.255) 和源 IP 地址（0.0.0.0）的 IP 数据报中。
+- 该数据报则被放置在 MAC 帧中，该帧具有目的地址 FF:<zero-width space>FF:<zero-width space>FF:<zero-width space>FF:<zero-width space>FF:FF，将广播到与交换机连接的所有设备。
+- 连接在交换机的 DHCP 服务器收到广播帧之后，不断地向上分解得到 IP 数据报、UDP 报文段、DHCP 请求报文，之后生成 DHCP ACK 报文，该报文包含以下信息：IP 地址、DNS 服务器的 IP 地址、默认网关路由器的 IP 地址和子网掩码。该报文被放入 UDP 报文段中，UDP 报文段有被放入 IP 数据报中，最后放入 MAC 帧中。
+- 该帧的目的地址是请求主机的 MAC 地址，因为交换机具有自学习能力，之前主机发送了广播帧之后就记录了 MAC 地址到其转发接口的交换表项，因此现在交换机就可以直接知道应该向哪个接口发送该帧。
+- 主机收到该帧后，不断分解得到 DHCP 报文。之后就配置它的 IP 地址、子网掩码和 DNS 服务器的 IP 地址，并在其 IP 转发表中安装默认网关。
+
+2. ARP 解析 MAC 地址
+- 主机通过浏览器生成一个 TCP 套接字，套接字向 HTTP 服务器发送 HTTP 请求。为了生成该套接字，主机需要知道网站的域名对应的 IP 地址。
+- 主机生成一个 DNS 查询报文，该报文具有 53 号端口，因为 DNS 服务器的端口号是 53。
+- 该 DNS 查询报文被放入目的地址为 DNS 服务器 IP 地址的 IP 数据报中。
+- 该 IP 数据报被放入一个以太网帧中，该帧将发送到网关路由器。
+- DHCP 过程只知道网关路由器的 IP 地址，为了获取网关路由器的 MAC 地址，需要使用 ARP 协议。
+- 主机生成一个包含目的地址为网关路由器 IP 地址的 ARP 查询报文，将该 ARP 查询报文放入一个具有广播目的地址（FF:<zero-width space>FF:<zero-width space>FF:<zero-width space>FF:<zero-width space>FF:FF）的以太网帧中，并向交换机发送该以太网帧，交换机将该帧转发给所有的连接设备，包括网关路由器。
+- 网关路由器接收到该帧后，不断向上分解得到 ARP 报文，发现其中的 IP 地址与其接口的 IP 地址匹配，因此就发送一个 ARP 回答报文，包含了它的 MAC 地址，发回给主机。
+
+3. DNS 解析域名
+- 知道了网关路由器的 MAC 地址之后，就可以继续 DNS 的解析过程了。
+- 网关路由器接收到包含 DNS 查询报文的以太网帧后，抽取出 IP 数据报，并根据转发表决定该 IP 数据报应该转发的路由器。
+- 因为路由器具有内部网关协议（RIP、OSPF）和外部网关协议（BGP）这两种路由选择协议，因此路由表中已经配置了网关路由器到达 DNS 服务器的路由表项。
+- 到达 DNS 服务器之后，DNS 服务器抽取出 DNS 查询报文，并在 DNS 数据库中查找待解析的域名。
+- 找到 DNS 记录之后，发送 DNS 回答报文，将该回答报文放入 UDP 报文段中，然后放入 IP 数据报中，通过路由器反向转发回网关路由器，并经过以太网交换机到达主机。
+
+4. HTTP 请求页面
+- 有了 HTTP 服务器的 IP 地址之后，主机就能够生成 TCP 套接字，该套接字将用于向 Web 服务器发送 HTTP GET 报文。
+- 在生成 TCP 套接字之前，必须先与 HTTP 服务器进行三次握手来建立连接。生成一个具有目的端口 80 的 TCP SYN 报文段，并向 HTTP 服务器发送该报文段。
+- HTTP 服务器收到该报文段之后，生成 TCP SYN ACK 报文段，发回给主机。
+- 连接建立之后，浏览器生成 HTTP GET 报文，并交付给 HTTP 服务器。
+- HTTP 服务器从 TCP 套接字读取 HTTP GET 报文，生成一个 HTTP 响应报文，将 Web 页面内容放入报文主体中，发回给主机。
+- 浏览器收到 HTTP 响应报文后，抽取出 Web 页面内容，之后进行渲染，显示 Web 页面。
+
+<br>
+
 ## 同步（串行） / 异步（并行）
 同步和异步关注的是消息通信机制，并发和并行其实是异步线程实现的两种方式。并行其实是真正的异步，并发是个伪异步。
 - 并发的关键是你有处理多个任务的能力，不一定要同时。
@@ -879,11 +1134,9 @@ int b() {
 - 通过线程间出发事件实现同步互斥。
 
 事件和信号量都可以实现线程和进程间的互斥和同步。就使用效率来说，临界区的效率是最高的，因为它不是内核对象，而其它的三个都是内核对象，调用要进入内核态，效率相对来说就比较低。但如果要跨进程使用还是要用到互斥器、事件对象和信号量。
-
-
 <br>
 
-#### 死 锁
+### 死 锁
 必要条件：[——参考资料](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E6%AD%BB%E9%94%81.md)
 - 互斥：每个资源要么已经分配给了一个进程，要么就是可用的。
 - 占有和等待：已经得到了某个资源的进程可以再请求新的资源。
@@ -968,7 +1221,7 @@ int b() {
 如果一个状态不是安全的，需要拒绝进入这个状态。
 <br>
 
-# 管道
+### 管道
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421225227841.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421225555479.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421225637219.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
