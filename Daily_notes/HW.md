@@ -16,6 +16,10 @@
 # 版本控制
 持续集成服务（Continuous Integration，CI）：只要有代码变更，就自动运行构建和测试，反馈运行结果。确保符合预期后，再将新代码集成到主干上。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210411121750279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2021050920003535.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509200218515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+
 ## 常用git 命令
 - 检查当前文件状态：git status
 - 跟踪新文件：git add 文件名
@@ -37,6 +41,7 @@ RT-Druid工具：集成OS oil文件配置，oil代码生成和编译的一个工
 <br>
 # 操作系统
 ## 系统
+
 RTOS(Real-Time Operating system)：
 - 硬实时操作系统必须使任务在确定的时间内完成。
 - 软实时操作系统能让绝大多数任务在确定的时间完成。
@@ -44,6 +49,7 @@ RTOS(Real-Time Operating system)：
 Trampoline是小型的嵌入式系统的RTOS，其API与OSEK/VDK OS和AUTOSAR OS4.2标准保持一致。
 
 Erika Enterorise 是一个开源的OSEK/VDK内核。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2021050919411216.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
 **内核：**
 - 宏内核：大内核是将操作系统功能作为一个紧密结合的整体放到内核。由于各模块共享信息，因此有很高的性能。
@@ -74,6 +80,31 @@ Erika Enterorise 是一个开源的OSEK/VDK内核。
 - 时（间）分复用技术：多个进程能在同一处理器上并发执行使用了时分复用技术，让每个进程轮流占用处理器，每次只执行一小个时间片并快速切换。
 - 空（间）复用技术：虚拟内存使用了空分复用技术，它将物理内存抽象为地址空间，每个进程都有各自的地址空间。地址空间的页被映射到物理内存，地址空间的页并不需要全部在物理内存中，当使用到一个没有在物理内存的页，执行页面置换算法将页置换到内存。
 
+### 机器数
+在电脑内存中，数值是以补码的形式存在的，正数的补码不变，负数的补码是反码再+1（使用补码可以将符号位和数值域同一处理，同时，假发和减法也可以统一处理）
+
+机器数：带符号，比如十进制数-3，计算机字长8位，二进制位10000011。
+
+真值：因为第一位是符号位，所以机器数形式值并不等于真正数值。例如10000011，其最高位1代表负，其真正值为-3，而不是形式值131（1000 0011转换为十进制为131）
+
+- 原码：原码就是符号位加上真值的绝对值。
+- 反码：正数的反码就是本身，负数的反码是再其原码的基础上，符号位不变，其余各位取反。
+- 补码：正数的补码就是本身，负数的补码是再其原码的基础上，符号位不变，其余各位取反后+1，也就是反码+1。
+
+注意：按位取反 ≠ 反码，二进制在内存中以补码形式存储，负数以其正值的补码存储。（即 `~9` 不等于 `9的反码`）
+
+```cpp
+下面以计算正数 9 的按位取反为例，计算步骤如下（注：前四位为符号位）：
+
+- 原码   : 0000 1001
+- 算反码 : 0000 1001 （正数反码同原码）
+- 算补码 : 0000 1001 （正数补码同反码）
+- 补取反 : 1111 0110 （全位0变1，1变0）
+- 算反码 : 1111 0101 （末位减1）
+- 算原码 : 1111 1010 （其他位取反）
+```
+总结规律： ~x = -(x+1)
+<br>
 
 ### 时间管理
 计算机频率的产生：[——参考文献](https://blog.csdn.net/shuibaiz/article/details/8924093)
@@ -123,6 +154,10 @@ Cache Memory（CPU缓存）位于CPU与内存之间的临时存储器。
 
 但是这也引出一个问题，在多任务时，某个任务修改了某个值，寄存器中却没有更新，被其他任务取出将是个未更新的值。为了避免这个情况，关键字`Volatile`可以避免这个情况。
 
+#### 内存分区
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509193945809.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+
 #### 磁盘调度算法
 读写一个磁盘块的时间的影响因素有：[——参考文章](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.md)
 1. 旋转时间（主轴转动盘面，使得磁头移动到适当的扇区上）
@@ -158,6 +193,11 @@ Cache Memory（CPU缓存）位于CPU与内存之间的临时存储器。
 从上面的描述中可以看出，虚拟内存允许程序不用将地址空间中的每一页都映射到物理内存，也就是说一个程序不需要全部调入内存就可以运行，这使得有限的内存运行大程序成为可能。例如有一台计算机可以产生 16 位地址，那么一个程序的地址空间范围是 0~64K。该计算机只有 32KB 的物理内存，虚拟内存技术允许该计算机运行一个 64K 大小的程序。
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505204215464.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509212957371.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509213025524.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+
+
 <br>
 #### 分页系统地址映射
 内存管理单元（MMU）管理着地址空间和物理内存的转换，其中的页表（Page table）存储着页（程序地址空间）和页框（物理内存空间）的映射表。
@@ -326,6 +366,19 @@ linux 暂停继续进程
 - nohup：不挂断地继续运行命令。
 
 通常，一个任务是一个程序的一次执行，一个任务包含一个或多个完成独立功能的子任务，这个独立的子任务就是进程或线程。
+<br>
+## 文件系统
+文件描述符（file descriptor）在形式上是一个非负数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。
+
+系统为维护文件描述符，建立了三个表：进程级的文件描述符，系统级的文件描述符，文件系统的i-node表（软硬连接）
+
+每个文件描述符会与一个打开文件相对应，同时，不同的文件描述符也会指向同一个文件，相同的文件可以被不同进程打开也可以在同一进程中被多次打开。系统为每一个进程维护了一个文件描述符表，该表的值都是从0开始的，所以在不同的进程中你会看到相同的文件描述符，这种情况下相同文件描述符有可能指向同一个文件，也有可能指向不同的文件。
+<br>
+
+## 系统调度
+内核抢占：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509213209917.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2021050921322259.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
 ## 进程 / 线程 
 进程是指一个具有独立功能的程序在某个数据集上的一次动态执行过程，它是系统进行资源分配和调度的基本单位，一次任务的允许可以并发激活多个进程，这些进程相互合作来完成该任务的一个最终目标。
@@ -513,6 +566,10 @@ exec函数族提供了一个进程中启动另一个程序执行的方法，它�
 
 在任何一个时间点上，线程是可结合（joinable）或者是可分离的（detached），一个可结合的线程能够被其他线程回收资源和杀死，在被其他线程回收之前，它的存储器资源如栈，是不释放的，相反，一个分离的线程是不能被其他线程回收或杀死的，它的存储器资源在它终止时由系统自动释放。
 
+超线程（Hyper-Threading，简称“HT”）技术，其利用特殊的硬件指令，把两个逻辑内核模拟成两个物理芯片，让单个处理器都能使用线程级并行计算。
+
+超线程技术就是在一颗CPU同时执行多个程序而共同分享一颗CPU内的资源，理论上要像两颗CPU一样在同一时间执行两个线程，虽然采用超线程技术同时执行两个线程，但它并不像两个真正的CPU那样，每个CPU都有独立资源。当两个线程都同时需要某一个资源时，其中一个要暂停使用，让出资源，直到资源闲置后继续。
+
 <br>
 
 ### Linux多线程编程
@@ -558,8 +615,10 @@ exec函数族提供了一个进程中启动另一个程序执行的方法，它�
 当我们把S的初始值设为1，当线程A第一个调用P(S)后，S值就变成了0，A成功进入临界区，在A退出临界区之前，线程B如果调用P(S)，S就会变为-1，满足S<0的判断条件，线程B就被阻塞了。等A调用V(S)后，S值又变成0，满足S<=0，就会把线程B唤醒，B就能进入临界区了。
 <br>
 
-
 #### 互斥锁
+互斥锁的底层原理是什么？[——参考文章](https://www.zhihu.com/question/332113890) [、参考文章2](https://zhuanlan.zhihu.com/p/33445834)
+基于计算机的原子操作。比如物理内存为1则表示该锁锁住，这时CPU想获得锁，先往寄存器填1，然后将寄存器的值与该内存通过xchg指令互换（原子操作），如果换完后，寄存器值为0，则表示CPU成功获得锁，并防止其他CPU获得该锁。
+
 相关函数：
  1. 互斥锁初始化：pthread_mutex_init() 
  2. 互斥锁上锁：pthread_mutex_lock()
@@ -582,7 +641,9 @@ exec函数族提供了一个进程中启动另一个程序执行的方法，它�
 
 引入条件变量的目的：在使用互斥锁的基础上引入条件变量可以使程序的效率更高，因为条件变量的引入明显减少了线程取竞争互斥锁的次数。执行`pthread_cond_wai`t或`pthread_cond_timedwait`函数的线程明显知道了条件不满足，因此在其释放锁之后就没有必要再跟其它线程去竞争锁了，只需要阻塞等待signal或broadcast函数将其唤醒。这样提高了效率。
 
-互斥锁用于上锁，条件变量用于等待.
+互斥锁用于上锁，条件变量用于等待。条件变量使我们可以睡眠等待某种条件出现。条件变量是利用线程间共享的全局变量进行同步的一种机制，主要包含两个动作：
+1. 线程等待条件变量的条件成立而挂起。
+2. 另一个线程使条件成立（并发送条件成立信号通知）
 
 举个例子：
 
@@ -654,21 +715,25 @@ thread 2 () {
 	}
 }
 ```
+为了防止竞争，条件变量的使用总是和一个互斥锁结合在一起，线程在改变条件状态前必须锁住互斥量，函数`pthread_cond_wait`把自己放到等待条件的线程列表上，然后对互斥锁解锁，在函数返回时，互斥锁再次被锁住。
+
 在thread 2 调用 pthread_cond_wait() 的时刻到 thread 2真正进入 wait 状态时，是存在着时间差的。如果在这段时间差内 thread1 调用了 pthread_cond_signal() 那这个 signal 信号就丢失了。给 wait 加锁可以防止同时有另一个线程在 signal。
 
 
 <br>
 
 #### 信号量
-
 信号量就是操作系统中多用到的PV原子操作，它广泛应用于进程或线程间的同步与互斥。信号量本质上是一个非负的整数计数器，包括一个称为信号量的变量和在该信号量下等待资源的进程等待队列，以及对信号量进行的两个原子操作（P/V操作）。其中，信号量对应于某一种资源，取一个非负的整形值。信号量值（常用sem_id表示）指的是当前可用的该资源的数量，若等于0则意味着目前没有可用的资源。
-
 
 - P操作：如果有可用的资源（信号量值>0），则此操作所在的进程占用一个资源（此时信号量值减1,进入临界区代码）;如果没有可用的资源（信号量值=0）,则此操作所在的进程被阻塞直到系统将资源分配给该进程（进入等待队列，一直等到资源轮到该进程）。
 - V操作：如果在该信号量的等待队列中有进程在等待资源，则唤醒一个阻塞进程;如果没有进程等待它，则释放一个资源（即信号量值加1）。
-- 
-   PV原子操作是对整数计数器信号量sem的操作。一次P操作使sem减1，而一次V操作使sem加1。进程（或线程）根据信号量的值来判断是否对公共资源具有访问权限。当信号量sem的值≥0时，该进程（或线程）具有公共资源的访问权限；相反，当信号量sem的值<0时，该进程（或线程）就将阻塞直到信号量sem的值≥0为止。
 
+相关函数：
+- 初始化：sem_init()
+- P操作：sem_wait() / sem_trywait() ：当信号量<0时，阻塞 / 当信号量<0时，立即返回，信号量-1
+- V操作：sem_post()：信号量
+
+   PV原子操作是对整数计数器信号量sem的操作。一次P操作使sem减1，而一次V操作使sem加1。进程（或线程）根据信号量的值来判断是否对公共资源具有访问权限。当信号量sem的值≥0时，该进程（或线程）具有公共资源的访问权限；相反，当信号量sem的值<0时，该进程（或线程）就将阻塞直到信号量sem的值≥0为止。
 
  PV原子操作主要用于进程或线程间的同步和互斥这两种典型情况。若用于互斥，几个进程（或线程）往往只设置一个信号量sem，其操作是无序的，流程如图1所示。
 
@@ -689,10 +754,6 @@ Linux实现了Posix的无名信号量，主要用于线程间的互斥与同步�
 
   ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210417193621993.png)
   这里要求使用有名管道来模拟有限缓冲区，并且使用信号量来解决“生产者---消费者”问题中的同步和互斥问题。
-
-
-
-
 
 
 <br>
@@ -826,6 +887,7 @@ Linux实现了Posix的无名信号量，主要用于线程间的互斥与同步�
 TCP/IP协议：它只有四层，相当于五层协议中数据链路层和物理层合并为网络接口层。TCP/IP 体系结构不严格遵循 OSI 分层概念，应用层可能会直接使用 IP 层或者网络接口层。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505215216895.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2021050523344777.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![ ](https://img-blog.csdnimg.cn/20210509154349478.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
 ### 物理层
 根据信息在传输线上的传送方向，分为以下三种通信方式：
@@ -898,8 +960,7 @@ FTP 使用 TCP 进行连接，它需要两个连接来传送一个文件：
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505235557976.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 主动模式要求客户端开放端口号给服务器端，需要去配置客户端的防火墙。被动模式只需要服务器端开放端口号即可，无需客户端配置防火墙。但是被动模式会导致服务器端的安全性减弱，因为开放了过多的端口号。
 
-动态主机配置协议
-DHCP (Dynamic Host Configuration Protocol) 提供了即插即用的连网方式，用户不再需要手动配置 IP 地址等信息。
+动态主机配置协议（DHCP）：DHCP (Dynamic Host Configuration Protocol) 提供了即插即用的连网方式，用户不再需要手动配置 IP 地址等信息。
 
 DHCP 配置的内容不仅是 IP 地址，还包括子网掩码、网关 IP 地址。
 
@@ -911,8 +972,8 @@ DHCP 工作过程如下：
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2021050523572948.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
-Web 页面请求过程：
-1. DHCP 配置主机信息
+**Web 页面请求过程：**
+1. DHCP 配置主机信息：
 - 假设主机最开始没有 IP 地址以及其它信息，那么就需要先使用 DHCP 来获取。
 - 主机生成一个 DHCP 请求报文，并将这个报文放入具有目的端口 67 和源端口 68 的 UDP 报文段中。
 - 该报文段则被放入在一个具有广播 IP 目的地址(255.255.255.255) 和源 IP 地址（0.0.0.0）的 IP 数据报中。
@@ -921,7 +982,7 @@ Web 页面请求过程：
 - 该帧的目的地址是请求主机的 MAC 地址，因为交换机具有自学习能力，之前主机发送了广播帧之后就记录了 MAC 地址到其转发接口的交换表项，因此现在交换机就可以直接知道应该向哪个接口发送该帧。
 - 主机收到该帧后，不断分解得到 DHCP 报文。之后就配置它的 IP 地址、子网掩码和 DNS 服务器的 IP 地址，并在其 IP 转发表中安装默认网关。
 
-2. ARP 解析 MAC 地址
+2. ARP 解析 MAC 地址：
 - 主机通过浏览器生成一个 TCP 套接字，套接字向 HTTP 服务器发送 HTTP 请求。为了生成该套接字，主机需要知道网站的域名对应的 IP 地址。
 - 主机生成一个 DNS 查询报文，该报文具有 53 号端口，因为 DNS 服务器的端口号是 53。
 - 该 DNS 查询报文被放入目的地址为 DNS 服务器 IP 地址的 IP 数据报中。
@@ -930,7 +991,7 @@ Web 页面请求过程：
 - 主机生成一个包含目的地址为网关路由器 IP 地址的 ARP 查询报文，将该 ARP 查询报文放入一个具有广播目的地址（FF:<zero-width space>FF:<zero-width space>FF:<zero-width space>FF:<zero-width space>FF:FF）的以太网帧中，并向交换机发送该以太网帧，交换机将该帧转发给所有的连接设备，包括网关路由器。
 - 网关路由器接收到该帧后，不断向上分解得到 ARP 报文，发现其中的 IP 地址与其接口的 IP 地址匹配，因此就发送一个 ARP 回答报文，包含了它的 MAC 地址，发回给主机。
 
-3. DNS 解析域名
+3. DNS 解析域名：
 - 知道了网关路由器的 MAC 地址之后，就可以继续 DNS 的解析过程了。
 - 网关路由器接收到包含 DNS 查询报文的以太网帧后，抽取出 IP 数据报，并根据转发表决定该 IP 数据报应该转发的路由器。
 - 因为路由器具有内部网关协议（RIP、OSPF）和外部网关协议（BGP）这两种路由选择协议，因此路由表中已经配置了网关路由器到达 DNS 服务器的路由表项。
@@ -944,6 +1005,59 @@ Web 页面请求过程：
 - 连接建立之后，浏览器生成 HTTP GET 报文，并交付给 HTTP 服务器。
 - HTTP 服务器从 TCP 套接字读取 HTTP GET 报文，生成一个 HTTP 响应报文，将 Web 页面内容放入报文主体中，发回给主机。
 - 浏览器收到 HTTP 响应报文后，抽取出 Web 页面内容，之后进行渲染，显示 Web 页面。
+
+<br>
+
+## HTTP / HTTPS
+**短连接（short-lived connection）与长连接（persistent connections）:**
+
+HTTP协议是建立在TCP协议基础上的，当浏览器需要从服务器获取网页数据的时候，会发出一次HTTP请求。HTTP会通过TCP建立其一个服务器的连接通信，当本次请求的数据完毕后，HTTP会通过TCP建立起一个服务器的连接通信，当本次请求的数据完毕后，HTTP会通过TCP建立起一个服务器的连接通信，当本次请求的数据完毕后，HTTP会立即将TCP连接断开，这个过程是短的，所以HTTP连接是一种短连接，是一种无状态的连接。
+
+随着时间推移，HTML页面变得复杂，里面可能包含多张图片，除了请求访问的HTML页面资源，还会请求图片资源。如果每进行一次HTTP通信就要新建一个TCP连接，那么开销就会很大，这时长连接就应运而生。
+
+长连接只需要建立一次 TCP 连接就能进行多次 HTTP 通信。
+- 从 HTTP/1.1 开始默认是长连接的，如果要断开连接，需要由客户端或者服务器端提出断开，使用 Connection : close；
+- 在 HTTP/1.1 之前默认是短连接的，如果需要使用长连接，则使用 Connection : Keep-Alive。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509101641739.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+**Pipelining 流水线**：默认情况下，HTTP 请求是按顺序发出的，下一个请求只有在当前请求收到响应之后才会被发出。由于受到网络延迟和带宽的限制，在下一个请求被发送到服务器之前，可能需要等待很长时间。
+
+流水线是在同一条长连接上连续发出请求，而不用等待响应返回，这样可以减少延迟。
+
+**Cookie**：HTTP 协议是无状态的，主要是为了让 HTTP 协议尽可能简单，使得它能够处理大量事务。HTTP/1.1 引入 Cookie 来保存状态信息。
+
+Cookie 是服务器发送到用户浏览器并保存在本地的一小块数据，它会在浏览器之后向同一服务器再次发起请求时被携带上，用于告知服务端两个请求是否来自同一浏览器。由于之后每次请求都会需要携带 Cookie 数据，因此会带来额外的性能开销（尤其是在移动环境下）。
+
+Cookie 曾一度用于客户端数据的存储，因为当时并没有其它合适的存储办法而作为唯一的存储手段，但现在随着现代浏览器开始支持各种各样的存储方式，Cookie 渐渐被淘汰。新的浏览器 API 已经允许开发者直接将数据存储到本地，如使用 Web storage API（本地存储和会话存储）或 IndexedDB。
+
+HTTP 有以下安全性问题：
+- 使用明文进行通信，内容可能会被窃听；
+- 不验证通信方的身份，通信方的身份有可能遭遇伪装；
+- 无法证明报文的完整性，报文有可能遭篡改。
+- 
+HTTPS 并不是新协议，而是让 HTTP 先和 SSL（Secure Sockets Layer）/ TLS 通信，再由 SSL 和 TCP 通信，也就是说 HTTPS 使用了socket进行通信。
+
+通过使用 SSL，HTTPS 具有了加密（防窃听）、认证（防伪装）和完整性保护（防篡改）。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509103043950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+加密
+1. 对称密钥加密：对称密钥加密（Symmetric-Key Encryption），加密和解密使用同一密钥。
+ - 优点：运算速度快；
+ - 缺点：无法安全地将密钥传输给通信方。
+ 
+ 2. 非对称密钥加密：非对称密钥加密，又称公开密钥加密（Public-Key Encryption），加密和解密使用不同的密钥。
+
+公开密钥所有人都可以获得，通信发送方获得接收方的公开密钥之后，就可以使用公开密钥进行加密，接收方收到通信内容后使用私有密钥解密。
+
+非对称密钥除了用来加密，还可以用来进行签名（防止中间人攻击）。因为私有密钥无法被其他人获取，因此通信发送方使用其私有密钥进行签名，通信接收方使用发送方的公开密钥对签名进行解密，就能判断这个签名是否正确。
+- 优点：可以更安全地将公开密钥传输给通信发送方；
+- 缺点：运算速度慢。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509103940293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+**握手**：HTTPS选择了握手时交换密钥的方案。在握手过程中，服务器会发出一张证书（带着公钥），客户端用公钥加密了一段较短的数据S，并返回给服务器。服务器用私钥解开，拿到S。此时，握手步骤完成，S成为了一个被安全传输到对方手中的对称加密密钥。此后，服务器与我的请求响应，只需要用S作为密钥进行一次对称的加密就好。
+
+认证： 通过使用证书对通信方进行认证。
+
+证书安全性怎么保证？为什么黑客不能做一个假证书？通常，证书签发机构审核非常严格，如果你请求的域名与返回的证书不一致，浏览器会拒绝访问请求（但证书签发机构是否良心是不可控的）
 
 <br>
 
@@ -1036,6 +1150,7 @@ TCP协议 保证了数据通信的完整性和可靠性，IP协议解决了多�
 **资源竞争**：多线程程序可以并行运行，可是IDE输出结果有时不如预期，原因在于控制台只有一个，只有一个线程拥有这一个唯一的控制台将数字输出。由于控制台是系统资源，这里控制台拥有的管理是操作系统完成的。但是，假如是多个线程共享空间的数据，这就需要自己写代码去控制，每个线程何时能够拥有共享数据进行操作。共享数据的管理以及线程间通信时多线程两核心。
 
 多线程程序是并发执行，对多线程的公用资源不能保证能被正确利用，即不保证能被独占。并发执行的时候，哪个线程得到运行的机会是随机的，也是不可预测的。为了解决多线程中某个程序对资源的独占，只允许一个线程拥有共享资源的独占。
+<br>
 
 ### 同步与互斥
 - 互斥：互斥就是指某一资源同时只能允许一个访问者对其进行访问，其他访问者必须等待。具有唯一性和排它性。但互斥无法限制访问者对资源的访问顺序，即访问是无序的。（间接约束关系，争夺资源）<br>
@@ -1064,8 +1179,7 @@ TCP协议 保证了数据通信的完整性和可靠性，IP协议解决了多�
 - 事件，信号量，PV原子操作
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210411165105402.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
- **自旋锁**：自旋锁加锁失败后，线程会忙等待，直到它拿到锁。线程一直是running(加锁->解锁)，死循环检测锁的标志位。缺点是一直占用CPU，并且有可能造成死锁。（若资源被占用，申请着就一直循环在那查看该自旋锁占用者是否已经释放了锁）
-
+ **自旋锁**：自旋锁加锁失败后，线程会忙等待，直到它拿到锁。线程一直是running(加锁->解锁)，死循环检测锁的标志位。缺点是一直占用CPU，并且有可能造成死锁。（若资源被占用，申请着就一直循环在那查看该自旋锁占用者是否已经释放了锁）[——参考文章](https://blog.csdn.net/longwang155069/article/details/52055876)
 - 用于临界区互斥
 - 在任何时刻最多只有一个执行单元获得锁
 - 要求持有锁的处理器锁占用的时间尽可能短（否则其他线程会一直阻塞）
@@ -1236,13 +1350,101 @@ int b() {
 因为共享内存自身并不提供同步机制，所以应额外实现不同进程间的同步。
 <br>
 
+### 消息队列
+消息队列就是一些消息的队列，具有一定的FIFO特性，但是它可以实现消息的随机查询，比FIFO具有更大的优势。同时，这些消息又是存在内核中的，由队列ID来标识。
+
+消息队列的实现操作：
+1. 创建或打开消息队列。使用的函数是msgget()，这里创建的消息队列的消息会受到系统消息队列数量的限制。
+2. 添加消息。使用的函数是msgsnd()，它把消息添加到已打开的消息队列末尾。
+3. 读取消息。使用的函数是msgrcv()，它把消息从消息队列中取走。与FIFO不同，这里可以取走指定的某一条消息。
+4. 控制消息队列。使用的函数是msgctl()，它可以完成多项功能。
+
+系统建立IPC（Interprocess Communication）通信时必须指定一个ID值。该ID值可以通过ftok函数获得，它可以更具不同的路径和关键字来产生标准的key。
+
+消息队列和命令管道类似，但少了打开和关闭管道方面的复杂性，但使用消息队列并未解决我们在使用命名管道时遇到的一些问题。
+
+管道没有“消息”的概念，它只是通往`write`字节和`read`字节之间的管道，接收方必须有一种方法知道程序中哪些数据构成"消息"，并且您必须自己实现。此外，还定义了字节的顺序：字节按照您放入它们的顺序出现。通常，它具有一个输入和一个输出。
+
+消息队列用于传输具有类型和大小的“消息”，因此，接收端可以只等待某种类型的“消息”，而不必担心它是否完整。多个进程可能会发送到同一队列或同一队列接受（管道一旦关闭，就需要双方进行一定程度的合作以重新建立它们。消息队列可以在任一一侧关闭和重新打开，而无需另一侧的配合）
+
+
+<br>
+
 ## I/O 模型
-五种 I / O 模型 ： 
+I/O 值得是读入/写出数据的过程和等待读入/写出的过程，一旦拿到数据后，就变成了数据操作了，就不是I/O了。拿网络I/O来说，等待的过程就是数据从网络到主机再到内核空间，读写的过程就是内核空间和用户空间的相互拷贝。
+
+一个输入操作通常包括两个阶段：
+- 等待数据准备好
+- 从内核向进程复制数据
+
+应用程序都是运行在用户空间的，所以它们能操作的数据也都在用户空间，按这样理解，只要数据没有到达用户空间，用户线程就操作不了。
+1. 如果此时用户线程已经参与，那它一定会阻塞在I/O上，这就是常说的阻塞I/O，用户线程被阻塞在等待数据或拷贝数据上。
+2. 非阻塞I/O就是用户线程不参与两个阶段，即数据已经拷贝到用户空间后，才去通知用户线程，一上来就可以直接操作数据。
+3. 用户线程没有因为I/O事情而阻塞，这就是非阻塞I/O
+
+**<font color=red>对于一个套接字上的输入操作，第一步通常涉及等待数据从网络中到达。当所等待数据到达时，它被复制到内核中的某个缓冲区。第二步就是把数据从内核缓冲区复制到应用进程缓冲区。</font>**
+
+Unix有五种 I / O 模型 ： 
 - 阻塞I/O型（Blocking I/O）
 - 非阻塞I/O型（nonblocking I/O）
 - I/O多路转接模型（I/O multiplexing ）：select and poll
 - 信号驱动I/O模型（signal driven I/O）： SIGIO
 - 异步I/O模型（asynchronous  I/O） ： the Posix aio_function
+
+我们知道两个进程如果需要通讯，最基本的一个前提就是能够唯一的标识一个进程，在本地进程通讯中，我们可以使用PID来唯一标识一个进程，但PID只在本地唯一，网络中的两个进程冲突几率很大，但是IP层的ip地址是可以唯一标识主机，而TCP层协议和端口号可以唯一标识主机的一个进程，这样我们就可以利用它唯一标识网络中的一个进程了。（201.37.146.1:23）
+
+能唯一标识网络中的进程后，它们就可以利用socket进行通信了。什么是Socket呢？Socket就是在应用层和传输层之间的一个抽象层，它把TCP/IP层复杂操作抽象为几个简单的接口供应用层调用已完成进程在网络中通信。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509110457240.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+### 阻塞式 I/O
+应用进程被**阻塞**，直到数据从内核缓冲区复制到应用进程缓冲区中才返回。
+
+应该注意到，在阻塞的过程中，其它应用进程还可以执行，因此阻塞不意味着整个操作系统都被阻塞。因为其它应用进程还可以执行，所以不消耗 CPU 时间，这种模型的 CPU 利用率会比较高。
+
+下图中，recvfrom() 用于接收 Socket 传来的数据，并复制到应用进程的缓冲区 buf 中。这里把 recvfrom() 当成系统调用。
+
+```cpp
+ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen);
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509112854798.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+### 非阻塞式 I/O
+应用进程执行系统调用之后，内核返回一个错误码。应用进程可以继续执行，但是需要不断的执行系统调用来获知 I/O 是否完成，这种方式称为**轮询**（polling）。
+
+由于 CPU 要处理更多的系统调用，因此这种模型的 CPU 利用率比较低。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509112945410.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+### I/O 复用
+使用 `select` 或者 `poll` 等待数据，并且可以等待多个套接字中的任何一个变为可读。这一过程会被**阻塞**，当某一个套接字可读时返回，之后再使用 recvfrom 把数据从内核复制到进程中。
+
+它可以让单个进程具有处理多个 I/O 事件的能力。又被称为 `Event Driven I/O`，即事件驱动 I/O。
+
+如果一个 Web 服务器没有 I/O 复用，那么每一个 Socket 连接都需要创建一个线程去处理。如果同时有几万个连接，那么就需要创建相同数量的线程。相比于多进程和多线程技术，I/O 复用不需要进程线程创建和切换的开销，系统开销更小。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509113146815.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![。/，吗](https://img-blog.csdnimg.cn/20210509153954812.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+
+### 信号驱动 I/O
+应用进程使用 sigaction 系统调用，内核立即返回，应用进程可以继续执行，也就是说**等待数据阶段应用进程是非阻塞的**。内核在数据到达时向应用进程发送 SIGIO 信号，应用进程收到之后在信号处理程序中调用 recvfrom 将数据从内核复制到应用进程中。
+
+相比于非阻塞式 I/O 的轮询方式，信号驱动 I/O 的 CPU 利用率更高。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509115531435.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+### 异步 I/O
+应用进程执行 aio_read 系统调用会立即返回，应用进程可以继续执行，不会被阻塞，内核会在所有操作完成之后向应用进程发送信号。
+
+**异步 I/O 与信号驱动 I/O 的区别在于，异步 I/O 的信号是通知应用进程 I/O 完成，而信号驱动 I/O 的信号是通知应用进程可以开始 I/O。**
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509115705815.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+### 五大 I/O 模型比较
+- 同步 I/O：将数据从内核缓冲区复制到应用进程缓冲区的阶段（第二阶段），应用进程会阻塞。
+- 异步 I/O：第二阶段应用进程不会阻塞。
+
+同步 I/O 包括阻塞式 I/O、非阻塞式 I/O、I/O 复用和信号驱动 I/O ，它们的主要区别在第一个阶段。非阻塞式 I/O 、信号驱动 I/O 和异步 I/O 在第一阶段不会阻塞。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509115731358.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
 <br>
 
 # 编程设计
@@ -1323,8 +1525,6 @@ HTML：被设计用来显示数据，焦点在于数据的外观
 
 size_t是标准C库中定义的无符号类型，在64位系统中为long long unsigned int，非64位系统中为long unsigned int。通常我们用`sizeof(XXX)`操作，这个操作所得到的结果就是size_t类型。size_t还经常出现在C++标准库中，此外，C++库中经常会使用一个相似的类型size_type，用的可能比size_t还要多。
 
-结构体可以用块直接赋值（[代码测试](https://github.com/yumdeer/daily_practice/blob/master/vs_project/HW_notebook/HW_notebook/HW_notebook.cpp)）
-
 元组tuple 是C++的一种容器，可以容纳不同类型，可以直接使用，在某些情况比结构体更加方便，简洁，直观。
 
 std::pair是一个类模板，它可以将两个数据合成一个数据，如STL中的Map就是将`Key`和`Value`放在一起保存。
@@ -1366,6 +1566,37 @@ A *p = &b;
 ```
 
 虽然P是基类指针，是只能指向基类的部分，但是虚表指针亦属于基类部分，所以p可以访问对象b的虚表指针。b的虚表指针指向类B的虚表，所以p可以访问B的vtbl。
+
+结构体可以用块直接赋值（[代码测试](https://github.com/yumdeer/daily_practice/blob/master/vs_project/HW_notebook/HW_notebook/HW_notebook.cpp)）
+
+Linux 结构体成员变量加点赋值好处：
+
+1. 可以按照任意顺序初始化成员值，而不用像按块赋值一样根据声明顺序。
+2. 可以不用每个成员都赋值。
+
+```cpp
+struct tst_key {
+	const char* name;
+	int good;
+	int bad;
+}
+
+static struct mem = {
+	"hello", 10 , 20
+};
+
+static struct tst_key member[] {
+	{ .name = "hello", 
+	  .good = 0 }, 
+	{ .name = "this  is world",
+	  .good = 1,
+	  .bad = 2 },
+	{ .bad = 10,
+	  .good = 20,
+	  .name = "mini" }
+};
+
+```
 
 **位域**：有些信息在存储时，并不需要一个完整的字节，而只需占几个或一个二进制位，例如在存放一个开关量时，只需要0和1两种状态，用一位二进制位即可。为了节省存储空间，并使处理简便，C语言又提供了一种数据结构，称为"位域"或"位段"。
 
@@ -1500,6 +1731,7 @@ int main(void)
 <br>
 
 **智能指针**
+
 标准库：
 1. 不要保存`std::string`的`c_str()`返回的指针。
 说明：在C++标准中并未实现规定`string::c_str()`指针持久有效，因此特定STL实现完全可以在调用`string::c_str()`时返回一个临时存储区并很快释放，所以为了保证程序的移植性，一定不要保存`string::c_str()`的结果，而是在每次需要时直接调用。
@@ -1562,7 +1794,20 @@ std::unique_ptr<bar> b1(std::move(b0));
 
 如果你使用模板编程, 你必须考虑尽可能的把复杂度最小化, 并且尽量不要让模板对外暴漏. 你最好只在实现里面使用模板, 然后给用户暴露的接口里面并不使用模板, 这样能提高你的接口的可读性. 并且你应该在这些使用模板的代码上写尽可能详细的注释. 你的注释里面应该详细的包含这些代码是怎么用的, 这些模板生成出来的代码大概是什么样子的. 还需要额外注意在用户错误使用你的模板代码的时候需要输出更人性化的出错信息. 因为这些出错信息也是你的接口的一部分, 所以你的代码必须调整到这些错误信息在用户看起来应该是非常容易理解, 并且用户很容易知道如何修改这些错误
 
+**std::optional**
+程序员经常碰到的一个问题是；一个函数有可能返回一个对象，也有可能返回失败，这种函数如何声明？以前通常有两种方法：
+1. 函数返回错误码，同时用一个引用参数来带出对象。这种方式给调用者带来的麻烦是，必须要多写一行代码声明一个对象接受返回值。
+2. 函数返回一个对象的指针，如果为空指针则表示失败。这个方法隐患在于对象的内存由谁释放。
+
+C++17标准库给出了一个更好的解决方法：std::optional模板。
+
+函数返回`std::optional`时，表示即可能含值，也可能不含值。调用者可以用bool表达式来判断其是否含值，也可以用value_or函数来提供一个当不含值时的默认值。内部对象的生命周期由`std::optional`管理，当`std::optional`对象被释放时，其内部管理的对象也自动释放。
+
 <br>
+### 栈展开
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509201522218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+
 
 ## 编程规范
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210425215320841.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
@@ -1744,13 +1989,17 @@ int *ptr = (int *)(&a+1);
 <br>
 
 ## 设计模式
-接口设计原则：
-- 单一职责原则
-- 针对接口编程，而非（接口的）实现
-- 开放-封闭法则（OCP）
-- Liskov替换法则（LSP）
-- 接口隔离原则
-- 控制反转和依赖注入
+设计原则：
+- 单一职责原则（The Single Responsibility Principle. SRP）
+- 开放-封闭法则（The Open Closed Principle. OCP）
+- 里氏替换法则（The Liskov Substitution Principle. LSP）
+- 接口分离原则（The Interface Segregation Principle. ISP）
+- 依赖倒置原则（The Dependency Inversion Principle. DIP）
+- 迪米特法则（The Law of Demeter. LOD）
+- 合成复用原则（The Composite Reuse Principle. CRP）
+- 共同封闭原则（The Common Closure Principle. CCP）
+- 稳定抽象原则（The Stable Abstraction Principle. SAP）
+- 稳定依赖原则（The Stable Dependencies Principle. SDP）
 
 观察者模式（订阅模式）：被观察对象状态改变，所有观察它的对象得到通知。被观察者不依赖观察者，通过依赖注入达到控制反转。
 事件
@@ -2011,12 +2260,72 @@ cmakelist.txt : add_subdirectory(...) 将子目录添加到构筑中。
 **魔术字**（magic number）：魔术字一般是指硬写到代码的整形常量数值，是编程者自己指定的，其他人不知道数值有什么具体意义。编程教程书用magic number指代初学者不定义常量直接写数的不良习惯。
 - 使用情况：1.ELF文件头会写入一个magic number，检查这个数和自己预想的是否一致，可以判断文件是否损坏。2. 在缓冲区数组旁放一个magic number（称之canary金丝雀），通过检查是否一致可检测缓冲区溢出攻击。
 
-断言（Assert）与 异常（exception）
+**断言（Assert）与 异常（exception）**
 - assert处理的是开发期的错误，在release代码上，由于你知道绝对不会发生的错误，但因为人总会犯错，保不准你写出来的与你想的不一致，assert用来捕获程序员自己认为不可能产生的错误。
 - exception捕捉的是用户或环境可能引发的错误。
 - 例如，一个函数入参有两个，而你只传递了一个，则是Assert，如果函数执行了以后，生成的执行结构异常，则用exception处理与理论不一致的情况。
 
+**浅析Linux中的.a、.so、和.o文件** [——参考文章](https://oldpan.me/archives/linux-a-so-o-tell)
+1. `.o`是目标文件,相当于windows中的.obj文件。当程序要执行时还需要链接(link).链接就是把多个.o文件链成一个可执行文件。
+2. `.so`为共享库,是shared object,用于动态连接的,相当于windows下的dll，是Linux中的可执行文件（MAC平台时dylib）。
+3. `.a`为静态库,说白了就是一堆.o合在一起,用于静态连接，效果和.o是一样的。
 
+文件的执行：
+1. 执行raw binary很简单，只需要将程序加载到其起始地址，就可以执行；
+
+```cpp
+FILE *fp = fopen("vmlinux.bin", "rb");
+fread(VMLINUX_START, 1, VMLINUX_SIZE, fp);
+((void (*)(void))VMLINUX_START)();
+```
+2. 执行ELF程序则需要一个ELF Loader。
+
+现在知道了吧，uboot和Linux kernel启动的时候是没有ELF Loader的，所以烧在flash上的文件只能是raw binary格式的，即镜像文件image。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210509212400928.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+文件的转换：[——参考文章](http://blog.chinaunix.net/uid-24148050-id-362928.html)
+1. 通过gcc编译出来的是elf文件
+2. 通过objcpy可以把elf文件转换为bin文件
+
+```shell
+CC=ppc-gcc
+LD=ppc-ld
+OBJCOPY=ppc-objcopy
+
+$(CC) -g $(CFLAG) -c boot.S
+#先将boot.S文件生成boot.o
+
+$(LD) -g -Bstatic -T$(LDFILE) \
+-Ttext 0x12345600 boot.o \
+--start-group -Map boot.map -o boot.elf 
+#再将boot.o生成boot.elf
+
+$(OBJCOPY) -O binary -R .note -R .comment -S boot.elf boot.bin
+#接着将 boot.elf 转换为 boot.bin
+#使用 -O binary (或--out-target=binary) 输出为原始的二进制文件
+#使用 -R .note  (或--remove-section)    输出文件中不要.note这个section，缩小了文件尺寸
+#使用 -S        (或 --strip-all)        输出文件中不要重定位信息和符号信息，缩小了文件尺寸
+```
+编译完uboot后生成：
+
+     u-boot         ELF文件可用来调试
+     u-boot.bin     BIN文件用来烧在Flash上
+
+编译linux生成：
+
+     vmlinux        ELF文件可用来调试
+     vmlinux.bin    BIN文件，没直接用过
+
+     zImage/vmlinuz/bzimage
+          将vmlinux.bin压缩，并加上一段解压代码得到的，不可和bootloader共存？
+
+     uImage         
+          uboot专用的内核镜像，在zImage前加了一个64字节的头，描述内核版本、加载地址
+          生成时间，文件大小等等。 其0x40后的内容和zImage一样
+          它是由uboot的工具mkImage生成的。
+
+uImage相对于zImage的优点在于：uImage可以和uboot共存。
 
 # 算法
 - 遗传算法： [跳转](https://www.jianshu.com/p/ae5157c26af9)
