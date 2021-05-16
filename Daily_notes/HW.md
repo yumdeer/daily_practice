@@ -340,8 +340,75 @@ code Segment // 代码段
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2021051323490392.png)
 bp默认的段寄存器就是SS，用bp 的时候直接操作的便是栈。bp就相当于栈指针啦，自己维护毕竟太麻烦，有直接省事的干吗不用呢。
 
-另一方面，栈就是一片内存区域，只不过“经常”操作这片内存的指令不是mov，而是push、pop,这两条指令无非是自动维护存取数据的位置(SP寄存器的值）而已，大家用mov来操作这片内存，不是也得要给出存取地址吗。这样看来，它和普通的数据段没什么不同，不要觉得它比金字塔还神秘。
+另一方面，栈就是一片内存区域，只不过“经常”操作这片内存的指令不是mov，而是push、pop,这两条指令无非是自动维护存取数据的位置(SP寄存器的值）而已，大家用mov来操作这片内存，不是也得要给出存取地址吗。这样看来，它和普通的数据段没什么不同，不要觉得它比金字塔还神秘。<br>
 
+#### malloc申请一块内存的背后原理
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516212820873.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+[——参考文档：《深入理解计算机系统》](https://github.com/yumdeer/daily_practice/tree/master/books)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516202121976.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+实现方式：一般既可以基于伙伴系统实现，也可以使用链表实现。
+
+那么内存从哪里来呢？两种方式： [——参考文章：malloc和free的实现原理解析](https://jacktang816.github.io/post/mallocandfree/)
+- brk() 和 sbrk()，这两个都是扩展heap的上界brk。
+- mmap() Malloc使用的是mmap的第二种用法（匿名映射）。
+
+在Linux中进程由进程控制块(PCB)描述，用一个task_struct 数据结构表示，这个数据结构记录了所有进程信息，包括进程状态、进程调度信息、标示符、进程通信相关信息、进程连接信息、时间和定时器、文件系统信息、虚拟内存信息等. 和malloc密切相关的就是虚拟内存信息，定义为struct mm_struct *mm 具体描述进程的地址空间。mm_struct结构是对整个用户空间（进程空间）的描述
+
+
+```cpp
+///include/linux/sched.h 
+
+struct mm_struct {
+  struct vm_area_struct * mmap;  /* 指向虚拟区间（VMA）链表 */
+  rb_root_t mm_rb;         /*指向red_black树*/
+  struct vm_area_struct * mmap_cache;     /* 指向最近找到的虚拟区间*/
+  pgd_t * pgd;             /*指向进程的页目录*/
+  atomic_t mm_users;                   /* 用户空间中的有多少用户*/                                     
+  atomic_t mm_count;               /* 对"struct mm_struct"有多少引用*/                                     
+  int map_count;                        /* 虚拟区间的个数*/
+  struct rw_semaphore mmap_sem;
+  spinlock_t page_table_lock;        /* 保护任务页表和 mm->rss */       
+  struct list_head mmlist;            /*所有活动（active）mm的链表 */
+  unsigned long start_code, end_code, start_data, end_data; /* 代码段、数据段 起始地址和结束地址 */
+  unsigned long start_brk, brk, start_stack; /* 栈区 的起始地址，堆区 起始地址和结束地址 */
+  unsigned long arg_start, arg_end, env_start, env_end; /*命令行参数 和 环境变量的 起始地址和结束地址*/
+  unsigned long rss, total_vm, locked_vm;
+  unsigned long def_flags;
+  unsigned long cpu_vm_mask;
+  unsigned long swap_address;
+
+  unsigned dumpable:1;
+  /* Architecture-specific MM context */
+  mm_context_t context;
+};
+```
+
+其中`start_brk`和`brk`分别是堆的起始和终止地址，我们使用malloc动态分配的内存就在这之间。`start_stack`是进程栈的起始地址，栈的大小是在编译时期确定的，在运行时不能改变。而堆的大小由`start_brk `和`brk`决定，但是可以使用系统调用`sbrk() `或`brk()`增加brk的值，达到增大堆空间的效果，但是系统调用代价太大，涉及到用户态和内核态的相互转换。
+
+所以，实际中系统分配较大的堆空间，进程通过`malloc()`库函数在堆上进行空间动态分配，堆如果不够用`malloc`可以进行系统调用，增大`brk`的值。(malloc只知道start_brk 和brk之间连续可用的内存空间它可用任意分配，如果不够用了就向系统申请增大brk。)
+
+由于`brk/sbrk/mmap`属于系统调用，如果每次申请内存，都调用这三个函数中的一个，那么每次都要产生系统调用开销（即cpu从用户态切换到内核态的上下文切换，这里要保存用户态数据，等会还要切换回用户态），这是非常影响性能的；
+
+其次，这样申请的内存容易产生碎片，因为堆是从低地址到高地址，如果低地址的内存没有被释放，高地址的内存就不能被回收。鉴于此，malloc采用的是**内存池**的实现方式，malloc内存池实现方式更类似于STL分配器和memcached的内存池，先申请一大块内存，然后将内存分成不同大小的内存块，然后用户申请内存时，直接从内存池中选择一块相近的内存块即可。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516214528844.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+[自己动手实现一个malloc内存分配器](https://www.zhihu.com/question/33979489/answer/1849544189)
+<br>
+
+#### RTOS 系统栈和协议栈
+背景：ARM有两个栈指针PSP和MSP，通过Control寄存器来决定SP（R13）使用哪个栈。
+- 主堆栈指针（MSP）或写作 sp_main，这是缺省的堆栈指针，它由OS内核异常服务例程以及所有需特权访问的应用程序代码使用。
+- 进程堆栈指针（PSP）或写作sp_process，用于常规的应用程序代码（不处于异常服务例程中  ）
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516200147291.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+在RTOS下，任务栈式不使用这里的空间的，既然任务栈不使用这里的栈空间，那么这里的栈空间谁来使用呢？答案就是中断函数和中断嵌套。
+
+当CONTROL[1]=1时，线程模式不再使用MSP，而改用PSP（handler模式永远使用MSP），这样做的好处是，在OS使用环境下，只要OS内核仅在handler模式下运行，用户程序仅在用户模式下运行，这种双堆栈机制排上用场——防止用户程序的堆栈错误破坏OS使用的堆栈
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516202017661.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+<br>
 
 #### 寄存器
 ```cpp
@@ -629,6 +696,7 @@ ECU抽象层被分为四部分：I/O硬件抽象层，通行硬件抽象层，�
 **Linux文件系统**
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/202104202144557.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
+什么是微服务架构？ [——参考文章](https://www.zhihu.com/question/65502802)
 <br>
 
 ## Linux 
@@ -682,6 +750,7 @@ andl  %esp, %eax
 线程可以对进程的内存空间和资源分配进行访问，并与同一进程中其他线程共享。因此线程的上下文切换开销比创建进程小得多。
 
 由于线程共享了进程的资源和地址空间，因此任何线程对系统资源的操作都会给其他进程带来影响，因此多线程的同步是一个非常重要的问题。
+<br>
 
 ### 用户态
 Linux采取虚拟内存管理技术，使得每个进程都有各自不干涉的进程地址空间。该地址空间是大小为4GB的线性虚拟空间。
@@ -728,24 +797,20 @@ Linux采取虚拟内存管理技术，使得每个进程都有各自不干涉的
 - 能力（capability，Linux所特有）
 - 栈，本地变量和函数的调用链接（linkage）信息
 
-如图29-1 所示，所有的线程栈均驻留于同一虚拟地址空间。这也意味着，利用一个合适的指针，各线程可以在对方栈中相互共享数据。这种方法偶尔也能派上用场，但由于局部变量的状态有效与否依赖于其所驻留栈帧的生命周期，故而需要在编程中谨慎处理这一问题。（当函数返回时，该函数栈帧所占用的内存区域有可能为后续的函数调用所重新使用。如果线程终止，那么新线程有可能会对已终止线程的栈所占用的内存空间重新加以利用）。若无法正确处理这一依赖关系，由此而产生的程序bug将难以捕获。
-
-[参考文章](https://www.zhihu.com/question/25532384/answer/1600133694)
+如图29-1 所示，所有的线程栈均驻留于同一虚拟地址空间。这也意味着，利用一个合适的指针，各线程可以在对方栈中相互共享数据。这种方法偶尔也能派上用场，但由于局部变量的状态有效与否依赖于其所驻留栈帧的生命周期，故而需要在编程中谨慎处理这一问题。（当函数返回时，该函数栈帧所占用的内存区域有可能为后续的函数调用所重新使用。如果线程终止，那么新线程有可能会对已终止线程的栈所占用的内存空间重新加以利用）。若无法正确处理这一依赖关系，由此而产生的程序bug将难以捕获。[——参考文章](https://www.zhihu.com/question/25532384/answer/1600133694)
 
 由于在Linux系统每一个进程都会有/proc文件系统下与之对应的一个目录，因此通过/proc文件系统可以查看某个进程的地址空间的映射情况。例如运行一个应用程序，如果它的PID为13707，输入 cat /proc/13707/maps命令，可以查看该进程的内存映射情况。
-
-<br>
 
 对于连续（joinable）和 分离（detached）最重要的规则：
 1. 不要连接一个已经被连接的线程：已连接的线程栈空间已被收回，再次连接将得到不可连接线程的消息。
 2. 不要连接一个分离线程：连接操作只可用于可连接的线程。因为分离线程栈空间的收回是由系统内部来做的。
+<br>
 
 ### 内核态
 一直以来，**Linux内核并没有严格区分线程进程的概念**，每一个执行实体都是一个`task_struct`结构，一般称之为进程。通过系统调用clone创建子进程时，可以有选择的让子进程共享父进程所引用的资源。这样的子进程通常称为轻量级进程（lightweight process）。
 
-**Linux上的线程就是基于轻量级进程，由用户态的pthread库实现的。** 使用pthread以后，在用户看来，每一个task_struct就对应一个线程，而一组线程及它们共同引用的一组资源就是一个进程。
-
-[参考文章](https://bbs.huaweicloud.com/forum/thread-85092-1-1.html#)
+**Linux上的线程就是基于轻量级进程，由用户态的pthread库实现的。** 使用pthread以后，在用户看来，每一个task_struct就对应一个线程，而一组线程及它们共同引用的一组资源就是一个进程。 [——参考文章](https://bbs.huaweicloud.com/forum/thread-85092-1-1.html#)
+<br>
 
 ### 同一进程用户态和内核态切换
 每个进程会有两个栈，一个用户栈，存在于用户空间，一个内核栈，存在于内核空间(可通过task_struct 中的stack变量访问）。当进程在用户空间运行时，CPU堆栈指针寄存器里面的内容是用户堆栈地址；当进程在内核空间时，CPU堆栈指针寄存器里的内容是内核栈空间地址，使用内核栈。
@@ -805,13 +870,14 @@ exec函数族提供了一个进程中启动另一个程序执行的方法，它�
 进程的终止：linux首先把终止的进程设置为僵尸状态，这是进程无法投入运行，它的存在只为父进程提供信息，申请死亡。父进程得到消息后，开始调用`wait函数族`，最后终止了子进程，子进程占用的资源被全部释放。
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210421211343726.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
-
 <br>
 
 **优先级反转：**
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210412220616525.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210414221038576.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+<br>
+
 #### 守护进程
 守护进程（Daemon进程），是Linux中的后台服务进程。它是一个生存期较长的进程，通常独立于控制终端并且周期性地执行某种任务或等待处理某些发生的事件。守护进程常常在系统引导装入时启动，在系统关闭时终止。Linux系统有很多守护进程，大多数服务都是通过守护进程实现的，同时，守护进程还能完成许多系统任务，例如，作业规划进程crond、打印进程lqd等（这里的结尾字母d就是Daemon的意思）。
 
