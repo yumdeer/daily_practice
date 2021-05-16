@@ -115,18 +115,70 @@ Erika Enterorise 是一个开源的OSEK/VDK内核。
 
 可是一只石英振荡器只能提供一种频率，所以主板制造商通常将这些原本散布在主机板上各处的振荡电路整合成一颗"频率合成器(Frequency Synthesizer)"芯片，对晶体振荡器产生的脉冲信号进行分频(或倍频)，以便为不同运行速度的芯片(或设备)提供所需要的时钟频率。
 
-**时间片**（timesilce）：又称为量子（quantum）或 处理器片（processor slice），是分时操作系统分配给每个正在运行的进程微观上的一段CPU时间（在抢占内核中是从进程开始运行知道被抢占的时间）
+**时间片**（timesilce）：又称为量子（quantum）或 处理器片（processor slice），是分时操作系统分配给每个正在运行的进程微观上的一段CPU时间（在抢占内核中是从进程开始运行直到被抢占的时间）
 
 时间片由操作系统内核的调度程序分配给每个进程。首先，内核会给每个进程分配相等的初始时间片，然后每个进程轮番地执行相应的时间，当所有进程都处于时间片耗尽的状态时，内核会重新为每个进程计算并分配时间片，如此往复。
+
+为了满足应用和内核自己的需求，内核时间系统必须提供以下三个基本功能：
+1. 提供系统 tick 中断（驱动调度器，实现分时）
+2. 维护系统时间
+3. 维护软件定时器
+
+Linux 是一个通用操作系统，支持不同的硬件体系结构和时钟电路，支持平台的多样性导致时间系统必须包含各种各样的硬件处理和驱动代码。
+
+早期 Linux 的时钟实现采用**低精度时钟框架**（ms 级别），随着硬件的发展和软件需求的发展，越来越多的呼声是提高时钟精度（ns 级别）；经过若干年的努力，人们发现无法在早期低精度时钟体系结构上优雅地扩展**高精度时钟**。最终，内核采用了两套独立的代码实现，分别对应于高精度和低精度时钟。这使得代码复杂度增加。最后，来自电源管理的需求进一步增加了时间系统的复杂性。Linux 越来越多地被应用到嵌入式设备，对节电的要求增加了。当系统 idle 时，CPU 进入节电模式，此时一成不变的时钟中断将频繁地打断 CPU 的睡眠状态，新的时间系统必须改变以应对这种需求，在系统没有任务执行时，停止时钟中断，直到有任务需要执行时再恢复时钟，也就是**低功耗时钟框架**的由来。
+
+#### 早期的 Linux 时间系统
+早期 Linux 考虑两种定时器：内核自身需要的 timer，也叫做动态定时器；其次是来自用户态的需要, 即 setitimer 定时器，也叫做间隔定时器。2.5.63 开始支持 POSIX Timer。2.6.16 引入了高精度 hrtimer。
+
+在 Linux 2.6.16 之前，内核只支持低精度时钟。内核围绕着 tick 时钟来实现所有的时间相关功能。Tick 是一个定期触发的中断，一般由 PIT (Programmable Interrupt Timer) 提供，大概 10ms 触发一次 (100HZ)，精度很低。在这个简单体系结构下，内核如何实现三个基本功能? [——IBM <linux内核的工作> 刘明](https://blog.csdn.net/weixin_40539125/article/details/115588820?spm=1001.2014.3001.5501)
+
+1. 提供 tick 中断：以 x86 为例，系统初始化时选择一个能够提供定时中断的设备 (比如 Programmable Interrupt Timer, PIT)，配置相应的中断处理 IRQ 和相应的处理例程。当硬件设备初始化完成后，便开始定期地产生中断，这便是 tick 了。非常简单明了，需要强调的是 tick 中断是由硬件直接产生的真实中断，这一点在当前的内核实现中会改变，我们在第四部分介绍。
+
+2. 维护系统时间：RTC (Real Time Clock) 有独立的电池供电，始终保存着系统时间。Linux 系统初始化时，读取 RTC，得到当前时间值。<br>
+ 读取 RTC 是一个体系结构相关的操作，对于 x86 机器，定义在 `arch\x86\kernel\time.c` 中。可以看到最终的实现函数为 `mach_get_cmos_time`，它直接读取 `RTC` 的 `CMOS` 芯片获得当前时间。如前所述，RTC 芯片一般都可以直接通过 IO 操作来读取年月日等时间信息。得到存储在 RTC 中的时间值之后，内核调用 `mktime () `将 RTC 值转换为一个距离 Epoch（既 1970 年元旦）的时间值。此后直到下次重新启动，Linux 不会再读取硬件 RTC 了。<br>
+虽然内核也可以在每次需要的得到当前时间的时候读取 RTC，但这是一个 IO 调用，性能低下。实际上，在得到了当前时间后，Linux 系统会立即启动 tick 中断。此后，在每次的时钟中断处理函数内，Linux 更新当前的时间值，并保存在全局变量 xtime 内。比如时钟中断的周期为 10ms，那么每次中断产生，就将 xtime 加上 10ms。<br>
+当应用程序通过 time 系统调用需要获取当前时间时，内核只需要从内存中读取 xtime 并返回即可。就这样，Linux 内核提供了第二大功能，维护系统时间。
+
+3. 软件定时器：能够提供可编程定时中断的硬件电路都有一个缺点，即同时可以配置的定时器个数有限。但现代 Linux 系统中需要大量的定时器：内核自己需要使用 timer，比如内核驱动的某些操作需要等待一段给定的时间，或者 TCP 网络协议栈代码会需要大量 timer；内核还需要提供系统调用来支持 setitimer 和 POSIX timer。这意味着软件定时器的需求数量将大于硬件能够提供的 timer 个数，内核必须依靠软件 timer。
+
+简单的软件 timer 可以通过 timer 链表来实现。需要添加新 timer 时，只需在一个全局的链表中添加一个新的 Timer 元素。每次 tick 中断来临时，遍历该链表，并触发所有到期的 Timer 即可。但这种做法缺乏可扩展性：当 Timer 的数量增加时，遍历链表的花销将线形增加。如果将链表排序，则 tick 中断中无须遍历列表，只需要查看链表头即可，时间为 O(1)，但这又导致创建新的 Timer 的时间复杂度变为 O(n)，因为将一个元素插入排序列表的时间复杂度为 O（N）。这些都是可行但扩展性有限的算法。在 Linux 尚未大量被应用到服务器时，系统中的 timer 个数不多，因此这种基于链表的实现还是可行的。
+
+但随着 Linux 开始作为一种服务器操作系统，用来支持网络应用时，需要的 timer 个数剧增。一些 TCP 实现对于每个连接都需要 2 个 Timer，此外多媒体应用也需要 Timer，总之 timer 的个数达到了需要考虑扩展性的程度。
+
+timer 的三个操作：添加 (add_timer)、删除 (del_timer) 以及到期处理（tick 中断）都对 timer 的精度和延迟有巨大影响，timer 的精度和延迟又对应用有巨大影响。例如，add_timer 的延迟太大，那么高速 TCP 网络协议就无法实现。为此，从 Linux2.4 开始，内核通过一种被称为时间轮的算法来保证 add_timer()、del_timer() 以及 expire 处理操作的时间复杂度都为 O(1)。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516142302700.png)
+上图中的轮子有 8 个 bucket，每个 bucket 代表未来的一个时间点。我们可以定义每个 bucket 代表一秒，那么 bucket [1] 代表的时间点就是“1 秒钟以后”，bucket [8] 代表的时间点为“8 秒之后”。Bucket 存放着一个 timer 链表，链表中的所有 Timer 将在该 bucket 所代表的时间点触发。中间的指针被称为 cursor。
+
+我们的这个时间轮有一个限制：新 Timer 的到期时间必须在 8 秒之内。这显然不能满足实际需要，在 Linux 系统中，我们可以设置精度为 1 个 jiffy 的定时器，最大的到期时间范围可以达到 (2^32-1/2 ) 个 jiffies(一个很大的值)。如果采用上面这样的时间轮，我们需要很多个 bucket，需要巨大的内存消耗。这显然是不合理的。
+
+为了减少 bucket 的数量，时间轮算法提供了一个扩展算法，即 Hierarchy 时间轮。图 1 里面的轮实际上也可以画成一个数组，
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516142453947.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+这样的一个分层时间轮有三级，分别表示小时，分钟和秒。在 Hour 数组中，每个 bucket 代表一个小时。采用原始的时间轮，如果我们要表示一天，且 bucket 精度为 1 秒时，我们需要 24*60*60=86,400 个 bucket；而采用分层时间轮，我们只需要 24+60+60=144 个 bucket。
+
+根据其到期值，Timer 被放到不同的 bucket 数组中。比如当前时间为 (hour:11, minute:0, second:0)，我们打算添加一个 15 分钟后到期的 Timer，就应添加到 MINUTE ARRAY 的第 15 个 bucket 中。这样的一个操作是 O(m) 的，m 在这里等于 3，即 Hierarchy 的层数。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516142705167.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+为了处理 60 秒之外的那些保存在 `MINUTES ARRAY` 和 `HOUR ARRAY `中的 Timer，时钟中断处理还需要做一些额外的工作：每当 `SECOND ARRAY `处理完毕，即 cursor 又回到 0 时，我们应该将 `MINUTE ARRAY `的当前 cursor 加一，并查看该 cursor 指向的 bucket 是否为空，如果非空，则需要将这些 Timer 移动到前一个 bucket 中。此外 `MINUTE ARRAY `的 bucket[0] 的 Timer 这时候应该都移动到 SECOND ARRAY 中。同样，当 `MINUTE ARRAY` 的 cursor 重新回到 0 时，我们还需要对` HOUR ARRAY` 做类似的处理。这个操作是 O(m) 的，其中 m 是 `MINUTE ARRAY` 或者 `HOUR ARRAY` 的 bucket 中时钟的个数。多数情况下 m 远远小于系统中所有 active 的 Timer 个数，但的确，这还是一个费时的操作。
+
+Linux 内核采用的就是 Hierarchy 时间轮算法，Linux 内核中用 jiffies 表示时间而不是时分秒，因此 Linux 没有采用 Hour/Minutes/Second 来分层，而是将 32bit 的 jiffies 值分成了 5 个部分，用来索引五个不同的数组（Linux 术语叫做 Timer Vector，简称 TV），分别表示五个不同范围的未来 jiffies 值。
+
+这个时间轮的精度为 1 个 jiffy，或者说一个 tick。每个时钟中断中，Linux 处理 TV1 的当前 bucket 中的 Timer。当 TV1 处理完（类似 SECOND ARRAY 处理完时），Linux 需要处理 TV2，TV3 等。这个过程叫做 cascades。TV2 当前 bucket 中的时钟需要从链表中读出，重新插入 TV2；TV2->bucket[0] 里面的 timer 都被插入 TV1。这个过程和前面描述的时分秒的时间轮时一样的。cascades 操作会引起不确定的延迟，对于高精度时钟来讲，这还是一个致命的缺点。
+
+
+
+<br>
 
 **时序保护**：在RTOS实时操作系统中，时序错误时有发生，即任务或中断在规定时间内未完成。如果只是简单的监测任务或中断未能在截至时间到达前结束，就判定该任务或中断引发的时序错误是不正确的。因为这只是错误被发现的最早时间点，很可能是其他任务或中断在前期阻塞太久而导致的。
 
 为了避免上诉错误，AutoSar提供了时间保护服务，AutoSar OS是支持抢占的固定优先级操作系统任务或中断是否满足截止时间主要由下述3个因素决定：
-1. 任务或中断的执行时间
-2. 任务或中断由于等待访问被抢占的资源或关中断导致的阻塞时间
-3. 任务或中断的间隔达到时间
+5. 任务或中断的执行时间
+6. 任务或中断由于等待访问被抢占的资源或关中断导致的阻塞时间
+7. 任务或中断的间隔达到时间
 
 相应的，AutoSar操作系统引入了三个时间预算，规定了时间上限和最小时间间隔。
+<br>
 
 ### 中断
 传统单片机与部分物联网硬件开发，直接跑裸机代码，主要采用下面两种编程方式：
@@ -2632,9 +2684,46 @@ $(OBJCOPY) -O binary -R .note -R .comment -S boot.elf boot.bin
 
 uImage相对于zImage的优点在于：uImage可以和uboot共存。
 
-# 算法
-- 遗传算法： [跳转](https://www.jianshu.com/p/ae5157c26af9)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516144025965.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516144039516.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
+# 算法
+## 内存管理 - 伙伴算法（buddy memory allocation）
+前提：内存碎片 
+
+实质：“分离适配”，即将内存按2的幂次划分，相当于分离出若干块大小一致的空闲链表，搜索该链表并给出同需求最佳匹配的大小。
+
+其优点是快速搜索合并（O(logN)时间复杂度）以及低外部碎片（最佳适配best-fit）；其缺点是内部碎片，因为按2的幂划分块，如果碰上66单位大小，那么必须划分128单位大小的块。但若需求本身就按2的幂分配，比如可以先分配若干个内存池，在其基础上进一步细分就很有吸引力了。 [——参考文章](https://www.cnblogs.com/youxin/p/3694834.html)
+
+分配内存步骤：
+1. 寻找大小合适的内存块（大于等于所需大小并且最接近2的幂，比如需要27，实际分配32）
+  1.如果找到了，分配给应用程序。
+  2.如果没找到，分出合适的内存块。
+2. 对半分离出高于所需大小的空闲内存块
+3. 如果分到最低限度，分配这个大小。
+4. 回溯到步骤1（寻找合适大小的块）
+5. 重复该步骤直到一个合适的块
+
+释放内存：
+1. 释放该内存块
+ 1.寻找相邻的块，看其是否释放了。
+2. 如果相邻块也释放了，合并这两个块，重复上述步骤直到遇上未释放的相邻块，或者达到最高上限（即所有内存都释放了）
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516151817270.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+后面的，B，C，D都这样，而释放内存时，则会把相邻的块一步一步地合并起来（合并也必需按分裂的逆操作进行合并）。我们可以看见，这样的算法，用二叉树这个数据结构来实现再合适不过了。[酷壳_伙伴分配器的一个极简实现](https://coolshell.cn/articles/10427.html)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210516152106730.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
+
+在分配阶段，首先要搜索大小适配的块，假设第一次分配3，转换成2的幂是4，我们先要对整个内存进行对半切割，从16切割到4需要两步，那么从下标[0]节点开始深度搜索到下标[3]的节点并将其标记为已分配。第二次再分配3那么就标记下标[4]的节点。第三次分配6，即大小为8，那么搜索下标[2]的节点，因为下标[1]所对应的块被下标[3~4]占用了。
+
+在释放阶段，我们依次释放上述第一次和第二次分配的块，即先释放[3]再释放[4]，当释放下标[4]节点后，我们发现之前释放的[3]是相邻的，于是我们立马将这两个节点进行合并，这样一来下次分配大小8的时候，我们就可以搜索到下标[1]适配了。若进一步释放下标[2]，同[1]合并后整个内存就回归到初始状态。
+
+
+<br>
+
+## 遗传算法
+遗传算法是计算数学中用于解决最优化的搜索算法，是进化算法的一种。 [跳转](https://www.jianshu.com/p/ae5157c26af9)
+
+<br>
 
 # 专业名词
 ```
