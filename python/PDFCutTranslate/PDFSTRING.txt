@@ -1,0 +1,26 @@
+    To receive broadcast isochronous streams, the Link Layer must obtain the
+    BIGInfo describing the streams (see Section 4.4.6.11). This information may be
+    obtained from the ACAD of periodic advertising.
+    While in this state, the Link Layer shall listen on the isochronous channel
+    indices specified in Section 4.4.6.8 for BIS Data PDUs forming the BIG
+    specified in the BIGInfo. In the synchronizing sub-state, if the Link Layer does
+    not receive a BIS Data PDU within 6 BIG events, starting with the first BIG
+    event it listened for, it shall notify the Host and transition to the Standby state.
+    Once in the synchronized sub-state, the Link Layer shall listen for the
+    Isochronous Broadcaster at least once within any 6 consecutive BIS events.
+    A device shall not attempt to synchronize to a BIG with the same associated
+    periodic advertising train as a BIG that it is already synchronized to.
+    A device that has synchronized to a BIG is called a Synchronized Receiver. A
+    Synchronized Receiver may, but it is not required to, remain synchronized to
+    the periodic advertising train.
+    If requested by the Host, the Link Layer shall report the isochronous data
+    received in the BIS Data PDUs forming the BIG to the Host. The Host may
+    specify that only the data from specific BISes within the BIG are reported. The
+    Link Layer shall listen to and act on the contents of new BIG Control PDUs.
+    The Link Layer need not listen to Broadcast Isochronous PDUs that are
+    retransmissions of PDUs already successfully received, or to BIS Data PDUs
+    where it will not be reporting the data to the Host, other than as necessary to
+    maintain synchronization with the Isochronous Broadcaster’s clock.
+    The Link Layer should perform the window widening specified in Section 4.2.4.
+    The Link Layer shall stop listening to the BIG no later than when the
+    bisPayloadCounter equals 239 – 1.
