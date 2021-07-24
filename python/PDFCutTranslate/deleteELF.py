@@ -13,7 +13,7 @@ def main():
     #
     stringLast = string.replace('    ', '')
     stringLast = stringLast.replace('\n', '').replace('\r', '')
-    stringLast = stringLast.replace('. ', '\r\n.\r\n')
+    stringLast = stringLast.replace('. ', '\r\n\r\n')
     print (stringLast)
     pyperclip.copy(stringLast)
 
