@@ -2,7 +2,7 @@ import pyperclip
 
 ''' READ ME
     Automatically splice and wrap PDF text, and output the result to the pasteboard.
-    It is convenient for translation.
+    It is convenient for translation and use md format on articles.
 '''
 
 def main():
@@ -13,7 +13,8 @@ def main():
     #
     stringLast = string.replace('    ', '')
     stringLast = stringLast.replace('\n', '').replace('\r', '')
-    stringLast = stringLast.replace('. ', '\r\n\r\n')
+    stringLast = stringLast.replace('. ', '.\r\n\r\n')
+    stringLast = stringLast.replace('•', '\r\n- ')
     print (stringLast)
     pyperclip.copy(stringLast)
 
