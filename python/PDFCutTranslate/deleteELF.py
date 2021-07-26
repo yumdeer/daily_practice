@@ -23,7 +23,7 @@ def main():
     #    with open("PDFSTRING.txt", encoding='UTF-8') as text_file:
     #        string = text_file.read()
 
-    #Failed : How to replace variables
+    #Failed : How to replace variables which Last string on each line
     '''
     lastwords = re.findall(r'\s*([\S]+)$', TESTSTRING, re.MULTILINE) #For last word add "Space"
     print (lastwords)
@@ -34,7 +34,7 @@ def main():
     '''
 
     stringLast = string.replace('    ', '')
-    stringLast = stringLast.replace('\n', '').replace('\r', '')
+    stringLast = stringLast.replace('\n', '').replace('\r', ' ')
     stringLast = stringLast.replace('. ', '.\r\n\r\n')
     stringLast = stringLast.replace('•', '\r\n- ')
     print (stringLast)
